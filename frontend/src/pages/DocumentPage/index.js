@@ -115,16 +115,19 @@ export default function ListDocuments(props) {
                     </div>
                 </div>
             </section>
-            <AddEditDocument
-                open={openAddEdit}
-                handleClose={handleCloseAddEdit}
-                selected={selected}
-            />
-            <DeleteDocument
-                open={openDelete}
-                handleClose={handleCloseDelete}
-                selected={selected}
-            />
+            {openAddEdit && (
+                <AddEditDocument
+                    open={openAddEdit}
+                    handleClose={handleCloseAddEdit}
+                    selected={selected}
+                />
+            )}{openDelete && (
+                <DeleteDocument
+                    open={openDelete}
+                    handleClose={handleCloseDelete}
+                    selected={selected}
+                />
+            )}
         </>
     )
 }

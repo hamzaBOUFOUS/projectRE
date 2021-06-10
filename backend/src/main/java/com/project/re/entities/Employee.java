@@ -33,13 +33,13 @@ public class Employee {
     private String salaire;
     @Column(name="date_debut")
     private String dateDebut;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "id_department", referencedColumnName = "id")
     private Department department;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "id_poste", referencedColumnName = "id")
     private Poste poste;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "id_contrat", referencedColumnName = "id")
     private Contrat contrat;
 

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import DeleteContrat from "./DeleteContrat";
 const useStyles = makeStyles((theme) => ({
     chip: { marginRight: theme.spacing(1) },
-  }));
+}));
 export default function ListContrats(props) {
     const classes = useStyles();
     const { ContratsData, status } = useSelector((state) => state.contrats);
@@ -30,7 +30,7 @@ export default function ListContrats(props) {
     const handleCloseAddEdit = useCallback(() => {
         setSelected(null);
         setOpenAddEdit(false);
-    }, []);
+    }, [selected]);
     const handleOpenDelete = (contrat) => (event) => {
         setSelected(contrat);
         setOpenDelete(true);
@@ -38,7 +38,7 @@ export default function ListContrats(props) {
     const handleCloseDelete = useCallback(() => {
         setSelected(null);
         setOpenDelete(false);
-    }, []);
+    }, [selected]);
     useEffect(() => {
         handleGetContrats(0, filter);
     }, [handleGetContrats, filter]);
@@ -72,7 +72,7 @@ export default function ListContrats(props) {
                                 </div>
                                 <div className="card-body">
                                     <table className="table table-bordered table-striped">
-                                        <thead style={{textAlign: "center"}}>
+                                        <thead style={{ textAlign: "center" }}>
                                             <tr>
                                                 <th style={{ width: '10px' }}>#</th>
                                                 <th>Type Contrat</th>
@@ -80,14 +80,14 @@ export default function ListContrats(props) {
                                                 <th style={{ width: '100px' }}></th>
                                             </tr>
                                         </thead>
-                                        <tbody style={{textAlign: "center"}}>
+                                        <tbody style={{ textAlign: "center" }}>
                                             {contrats.map((contrat, idx) => (
                                                 <tr>
                                                     <td>{contrat.id}</td>
                                                     <td>{contrat.typeContrat}</td>
                                                     <td>{contrat.dateCreation}</td>
                                                     <td className="project-actions text-right" style={{ width: '100px' }}>
-                                                        <a className="btn btn-info btn-sm" style={{marginRight: "10px"}} onClick={handleOpenAddEdit(contrat)}>
+                                                        <a className="btn btn-info btn-sm" style={{ marginRight: "10px" }} onClick={handleOpenAddEdit(contrat)}>
                                                             <i className="fas fa-pencil-alt">
                                                             </i> </a>
                                                         <a className="btn btn-danger btn-sm" onClick={handleOpenDelete(contrat)}>
@@ -113,16 +113,19 @@ export default function ListContrats(props) {
                     </div>
                 </div>
             </section>
-            <AddEditContrat
-                open={openAddEdit}
-                handleClose={handleCloseAddEdit}
-                selected={selected}
-            />
-            <DeleteContrat
-                open={openDelete}
-                handleClose={handleCloseDelete}
-                selected={selected}
-            />
+            {openAddEdit && (
+                <AddEditContrat
+                    open={openAddEdit}
+                    handleClose={handleCloseAddEdit}
+                    selected={selected}
+                />
+            )}{openDelete && (
+                <DeleteContrat
+                    open={openDelete}
+                    handleClose={handleCloseDelete}
+                    selected={selected}
+                />
+            )}
         </>
     )
 }

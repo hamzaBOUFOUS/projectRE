@@ -6,32 +6,41 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
+  makeStyles,
 } from "@material-ui/core/";
 import { addEditPoste } from "../../../stores/reducers/poste/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { useForm, Controller } from "react-hook-form";
 
+const useStyles = makeStyles((theme) => ({
+  textField: {
+    marginBottom: '10px',
+  }
+}));
 export default ({ open, handleClose, selected }) => {
+  const classes = useStyles();
+  const { handleSubmit, control } = useForm();
   const dispatch = useDispatch();
   useEffect(() => {
-    setPoste(selected ?selected.poste:null);
+    setPoste(selected ? selected.poste : null);
     setDateCreation(selected ? selected.dateCreation : null)
   }, [selected]);
   const [poste, setPoste] = useState();
   const [dateCreation, setDateCreation] = useState();
-  const addEditPosteCallback = useCallback(() => {
+  const addEditPosteCallback = useCallback((data) => {
     dispatch(
-        addEditPoste(
+      addEditPoste(
         {
           id: selected ? selected.id : undefined,
-          poste: poste,
-          dateCreation: dateCreation,
+          poste: data.poste,
+          dateCreation: data.dateCreation,
         },
         handleClose
       )
     );
   }, [dispatch, poste, selected, dateCreation, handleClose]);
-  function submitForm() {
-    addEditPosteCallback();
+  function submitForm(data) {
+    addEditPosteCallback(data);
   }
   return (
     <Dialog
@@ -42,7 +51,7 @@ export default ({ open, handleClose, selected }) => {
       aria-labelledby="form-dialog-title"
       aria-describedby="form-dialog-description"
     >
-      <form className="modal-content">
+      <form className="modal-content" onSubmit={handleSubmit(submitForm)}>
         <DialogTitle id="form-dialog-title">
           {selected ? (
             "EDIT POSTE"
@@ -51,34 +60,54 @@ export default ({ open, handleClose, selected }) => {
           )}
         </DialogTitle>
         <DialogContent className="modal-body">
-          <TextField
-            error={poste === ""}
-            helperText={poste === "" ? "Empty!" : " "}
-            id="poste"
-            variant="outlined"
-            value={poste}
-            fullWidth
-            label="Nom Poste"
-            onChange={(e) => setPoste(e.target.value)}
+          <Controller
+            name="poste"
+            control={control}
+            defaultValue={poste}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <TextField
+                error={!!error}
+                helperText={error ? error.message : null}
+                name={"poste"}
+                id="poste"
+                variant="outlined"
+                className={classes.textField}
+                value={value}
+                fullWidth
+                label="Name Poste"
+                onChange={onChange}
+              />
+            )}
+            rules={{ required: 'Name\' s Poste is required' }}
           />
-          <TextField
-            error={dateCreation === ""}
-            helperText={dateCreation === "" ? "Empty!" : " "}
-            id="dateCreation"
-            variant="outlined"
-            value={dateCreation}
-            label="Date Creation"
-            type="date"
-            fullWidth
-            onChange={(e) => setDateCreation(e.target.value)}
-            InputLabelProps={{
-              shrink: true,
-            }}
+          <Controller
+            name="dateCreation"
+            control={control}
+            defaultValue={dateCreation}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <TextField
+                error={!!error}
+                helperText={error ? error.message : null}
+                name={"dateCreation"}
+                id="dateCreation"
+                variant="outlined"
+                className={classes.textField}
+                type="date"
+                value={value}
+                fullWidth
+                label="Date Creation"
+                onChange={onChange}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            )}
+            rules={{ required: 'Date\' s Creation is required' }}
           />
         </DialogContent>
         <br />
         <DialogActions className="modal-footer">
-          <Button onClick={submitForm} variant="outlined" color="primary">
+          <Button type="submit" variant="outlined" color="primary">
             Save
           </Button>
           <Button variant="outlined" color="secondary" onClick={handleClose}>

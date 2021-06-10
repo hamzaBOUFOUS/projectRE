@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import DeleteEvenement from "./DeleteEvenement";
 const useStyles = makeStyles((theme) => ({
     chip: { marginRight: theme.spacing(1) },
-  }));
+}));
 export default function ListEvenements(props) {
     const classes = useStyles();
     const { EvenementsData, status } = useSelector((state) => state.evenements);
@@ -72,7 +72,7 @@ export default function ListEvenements(props) {
                                 </div>
                                 <div className="card-body">
                                     <table className="table table-bordered table-striped">
-                                        <thead style={{textAlign: "center"}}>
+                                        <thead style={{ textAlign: "center" }}>
                                             <tr>
                                                 <th style={{ width: '10px' }}>#</th>
                                                 <th>Nom</th>
@@ -83,13 +83,13 @@ export default function ListEvenements(props) {
                                                 <th style={{ width: '100px' }}></th>
                                             </tr>
                                         </thead>
-                                        <tbody style={{textAlign: "center"}}>
+                                        <tbody style={{ textAlign: "center" }}>
                                             {evenements.map((evenement, idx) => (
                                                 <tr>
                                                     <td>{evenement.id}</td>
+                                                    <td>{evenement.nom}</td>
                                                     <td>{evenement.dateDebut}</td>
                                                     <td>{evenement.dateFin}</td>
-                                                    <td>{evenement.nom}</td>
                                                     <td>{evenement.description}</td>
                                                     <td>
                                                         {evenement.employees.length === 0 ? (
@@ -105,7 +105,7 @@ export default function ListEvenements(props) {
                                                         )}
                                                     </td>
                                                     <td className="project-actions text-right" style={{ width: '100px' }}>
-                                                        <a className="btn btn-info btn-sm" style={{marginRight: "10px"}} onClick={handleOpenAddEdit(evenement)}>
+                                                        <a className="btn btn-info btn-sm" style={{ marginRight: "10px" }} onClick={handleOpenAddEdit(evenement)}>
                                                             <i className="fas fa-pencil-alt">
                                                             </i> </a>
                                                         <a className="btn btn-danger btn-sm" onClick={handleOpenDelete(evenement)}>
@@ -131,16 +131,19 @@ export default function ListEvenements(props) {
                     </div>
                 </div>
             </section>
-            <AddEditEvenment
-                open={openAddEdit}
-                handleClose={handleCloseAddEdit}
-                selected={selected}
-            />
-            <DeleteEvenement
-                open={openDelete}
-                handleClose={handleCloseDelete}
-                selected={selected}
-            />
+            {openAddEdit && (
+                <AddEditEvenment
+                    open={openAddEdit}
+                    handleClose={handleCloseAddEdit}
+                    selected={selected}
+                />
+            )}{openDelete && (
+                <DeleteEvenement
+                    open={openDelete}
+                    handleClose={handleCloseDelete}
+                    selected={selected}
+                />
+            )}
         </>
     )
 }

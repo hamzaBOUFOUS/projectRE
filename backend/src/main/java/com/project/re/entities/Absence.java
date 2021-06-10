@@ -13,7 +13,7 @@ public class Absence {
     private Long id;
     @Column(name="date_absence")
     private String dateAbsence;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "id_employee", referencedColumnName = "id")
     private Employee employee;
 }

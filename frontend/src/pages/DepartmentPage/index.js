@@ -7,7 +7,7 @@ import DeleteDepartment from "./DeleteDepartment";
 import AddEditDepartment from "./AddEditDepartment";
 const useStyles = makeStyles((theme) => ({
     chip: { marginRight: theme.spacing(1) },
-  }));
+}));
 export default function ListDepartments(props) {
     const classes = useStyles();
     const { DepartmentsData, status } = useSelector((state) => state.departments);
@@ -72,7 +72,7 @@ export default function ListDepartments(props) {
                                 </div>
                                 <div className="card-body">
                                     <table className="table table-bordered table-striped">
-                                        <thead style={{textAlign: "center"}}>
+                                        <thead style={{ textAlign: "center" }}>
                                             <tr>
                                                 <th style={{ width: '10px' }}>#</th>
                                                 <th>Nom department</th>
@@ -80,14 +80,14 @@ export default function ListDepartments(props) {
                                                 <th style={{ width: '100px' }}></th>
                                             </tr>
                                         </thead>
-                                        <tbody style={{textAlign: "center"}}>
+                                        <tbody style={{ textAlign: "center" }}>
                                             {departments.map((department, idx) => (
                                                 <tr>
                                                     <td>{department.id}</td>
                                                     <td>{department.nomDepartment}</td>
                                                     <td>{department.dateCreation}</td>
                                                     <td className="project-actions text-right" style={{ width: '100px' }}>
-                                                        <a className="btn btn-info btn-sm" style={{marginRight: "10px"}} onClick={handleOpenAddEdit(department)}>
+                                                        <a className="btn btn-info btn-sm" style={{ marginRight: "10px" }} onClick={handleOpenAddEdit(department)}>
                                                             <i className="fas fa-pencil-alt">
                                                             </i> </a>
                                                         <a className="btn btn-danger btn-sm" onClick={handleOpenDelete(department)}>
@@ -113,16 +113,19 @@ export default function ListDepartments(props) {
                     </div>
                 </div>
             </section>
-            <AddEditDepartment
-                open={openAddEdit}
-                handleClose={handleCloseAddEdit}
-                selected={selected}
-            />
-            <DeleteDepartment
-                open={openDelete}
-                handleClose={handleCloseDelete}
-                selected={selected}
-            />
+            {openAddEdit && (
+                <AddEditDepartment
+                    open={openAddEdit}
+                    handleClose={handleCloseAddEdit}
+                    selected={selected}
+                />
+            )}{openDelete && (
+                <DeleteDepartment
+                    open={openDelete}
+                    handleClose={handleCloseDelete}
+                    selected={selected}
+                />
+            )}
         </>
     )
 }

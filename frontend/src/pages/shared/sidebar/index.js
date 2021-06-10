@@ -56,7 +56,7 @@ export default function SideBar(props) {
                                         <div className="nav-link">
                                             <i className="nav-icon fas fa-tree"></i>
                                             <p>
-                                                <Link to="/contrat" > Contrat </Link>
+                                                <Link to="/contrat" > Gestion Contrat </Link>
                                             </p>
                                         </div>
                                     </li>
@@ -64,7 +64,7 @@ export default function SideBar(props) {
                                         <div className="nav-link">
                                             <i className="nav-icon fas fa-tree"></i>
                                             <p>
-                                                <Link to="/poste" > Poste </Link>
+                                                <Link to="/poste" > Gestion Poste </Link>
                                             </p>
                                         </div>
                                     </li>
@@ -72,7 +72,7 @@ export default function SideBar(props) {
                                         <div className="nav-link">
                                             <i className="nav-icon fas fa-tree"></i>
                                             <p>
-                                                <Link to="/document" > Document </Link>
+                                                <Link to="/document" > Gestion Document </Link>
                                             </p>
                                         </div>
                                     </li>
@@ -132,7 +132,7 @@ export default function SideBar(props) {
                                 <div className="nav-link">
                                     <i className="nav-icon fas fa-tree"></i>
                                     <p>
-                                        <Link to="/evenement" > Gestion Absence </Link>
+                                        <Link to="/absence" > Gestion Absence </Link>
                                     </p>
                                 </div>
                             </li>
@@ -140,7 +140,7 @@ export default function SideBar(props) {
                                 <div className="nav-link">
                                     <i className="nav-icon fas fa-tree"></i>
                                     <p>
-                                        <Link to="/evenement" > Vacance </Link>
+                                        <Link to="/vacance" > Vacance </Link>
                                     </p>
                                 </div>
                             </li>

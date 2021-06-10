@@ -7,7 +7,7 @@ import DeletePoste from "./DeletePoste";
 import AddEditPoste from "./AddEditPoste";
 const useStyles = makeStyles((theme) => ({
     chip: { marginRight: theme.spacing(1) },
-  }));
+}));
 export default function ListPostes(props) {
     const classes = useStyles();
     const { PostesData, status } = useSelector((state) => state.postes);
@@ -72,7 +72,7 @@ export default function ListPostes(props) {
                                 </div>
                                 <div className="card-body">
                                     <table className="table table-bordered table-striped">
-                                        <thead style={{textAlign: "center"}}>
+                                        <thead style={{ textAlign: "center" }}>
                                             <tr>
                                                 <th style={{ width: '10px' }}>#</th>
                                                 <th>Nom Poste</th>
@@ -80,14 +80,14 @@ export default function ListPostes(props) {
                                                 <th style={{ width: '100px' }}></th>
                                             </tr>
                                         </thead>
-                                        <tbody style={{textAlign: "center"}}>
+                                        <tbody style={{ textAlign: "center" }}>
                                             {postes.map((poste, idx) => (
                                                 <tr>
                                                     <td>{poste.id}</td>
                                                     <td>{poste.poste}</td>
                                                     <td>{poste.dateCreation}</td>
                                                     <td className="project-actions text-right" style={{ width: '100px' }}>
-                                                        <a className="btn btn-info btn-sm" style={{marginRight: "10px"}} onClick={handleOpenAddEdit(poste)}>
+                                                        <a className="btn btn-info btn-sm" style={{ marginRight: "10px" }} onClick={handleOpenAddEdit(poste)}>
                                                             <i className="fas fa-pencil-alt">
                                                             </i> </a>
                                                         <a className="btn btn-danger btn-sm" onClick={handleOpenDelete(poste)}>
@@ -113,16 +113,19 @@ export default function ListPostes(props) {
                     </div>
                 </div>
             </section>
-            <AddEditPoste
-                open={openAddEdit}
-                handleClose={handleCloseAddEdit}
-                selected={selected}
-            />
-            <DeletePoste
-                open={openDelete}
-                handleClose={handleCloseDelete}
-                selected={selected}
-            />
+            {openAddEdit && (
+                <AddEditPoste
+                    open={openAddEdit}
+                    handleClose={handleCloseAddEdit}
+                    selected={selected}
+                />
+            )}{openDelete && (
+                <DeletePoste
+                    open={openDelete}
+                    handleClose={handleCloseDelete}
+                    selected={selected}
+                />
+            )}
         </>
     )
 }

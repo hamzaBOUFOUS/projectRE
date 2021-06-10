@@ -15,10 +15,10 @@ public class Entretien {
     private String dateEntretien;
     @Column
     private String heure;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "id_post", referencedColumnName = "id")
     private Poste poste;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "id_condidature", referencedColumnName = "id")
     private Condidature condidature;
 }

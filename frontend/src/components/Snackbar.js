@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Snackbar from '@material-ui/core/Snackbar';
-import {Alert} from "@material-ui/lab";
+import { Alert } from "@material-ui/lab";
 
 export default function Snackbarr({ openS, title, severity }) {
     const [open, setOpen] = useState(false);
@@ -25,8 +25,8 @@ export default function Snackbarr({ openS, title, severity }) {
             key={vertical + horizontal}
         >
             <Alert variant="filled" onClose={handleClose} severity={severity}>
-            {title}
-      </Alert>
+                {title}
+            </Alert>
         </Snackbar>
     );
 }

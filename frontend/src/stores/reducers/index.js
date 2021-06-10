@@ -5,6 +5,8 @@ import { EmployeesReducer } from "./employee/reducers";
 import { DepartmentsReducer } from "./department/reducers";
 import { PostesReducer } from "./poste/reducers";
 import { DocumentsReducer } from "./document/reducers";
+import { AbsencesReducer } from "./absence/reducers";
+import { VacancesReducer } from "./vacance/reducers";
 
 export default combineReducers({
     contrats: ContratsReducer,
@@ -12,5 +14,7 @@ export default combineReducers({
     employees:EmployeesReducer,
     departments:DepartmentsReducer,
     postes:PostesReducer,
-    documents:DocumentsReducer
+    documents:DocumentsReducer,
+    absences:AbsencesReducer,
+    vacances:VacancesReducer
 });
