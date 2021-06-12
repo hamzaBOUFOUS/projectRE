@@ -22,17 +22,6 @@ export default function SideBar(props) {
                         </div>
                     </div>
 
-                    <div className="form-inline">
-                        <div className="input-group" data-widget="sidebar-search">
-                            <input className="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search" />
-                            <div className="input-group-append">
-                                <button className="btn btn-sidebar">
-                                    <i className="fas fa-search fa-fw"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
                     <nav className="mt-2">
                         <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             <li className="nav-item">
@@ -80,9 +69,9 @@ export default function SideBar(props) {
                             </li>
                             <li className="nav-item">
                                 <div className="nav-link">
-                                    <i className="nav-icon fas fa-tree"></i>
+                                    <i className="nav-icon fa fa-address-book"></i>
                                     <p>
-                                        <Link to="/evenement" > Employee </Link>
+                                        <Link to="/employee" > Employee </Link>
                                     </p>
                                 </div>
                             </li>
@@ -98,7 +87,7 @@ export default function SideBar(props) {
                                         <div className="nav-link">
                                             <i className="nav-icon fas fa-tree"></i>
                                             <p>
-                                                <Link to="/evenement" > Condidature </Link>
+                                                <Link to="/condidature" > Condidature </Link>
                                             </p>
                                         </div>
                                     </li>
@@ -106,7 +95,7 @@ export default function SideBar(props) {
                                         <div className="nav-link">
                                             <i className="nav-icon fas fa-tree"></i>
                                             <p>
-                                                <Link to="/evenement" > Entretien </Link>
+                                                <Link to="/entretien" > Entretien </Link>
                                             </p>
                                         </div>
                                     </li>
@@ -116,7 +105,7 @@ export default function SideBar(props) {
                                 <div className="nav-link">
                                     <i className="nav-icon fas fa-tree"></i>
                                     <p>
-                                        <Link to="/evenement" > Gestion Conges </Link>
+                                        <Link to="/demandeConge" > Demandes Conges </Link>
                                     </p>
                                 </div>
                             </li>
@@ -124,7 +113,7 @@ export default function SideBar(props) {
                                 <div className="nav-link">
                                     <i className="nav-icon fas fa-tree"></i>
                                     <p>
-                                        <Link to="/evenement" > Documents </Link>
+                                        <Link to="/evenement" > Demandes Documents </Link>
                                     </p>
                                 </div>
                             </li>
@@ -149,6 +138,14 @@ export default function SideBar(props) {
                                     <i className="nav-icon fas fa-tree"></i>
                                     <p>
                                         <Link to="/evenement" > Evenement </Link>
+                                    </p>
+                                </div>
+                            </li>
+                            <li className="nav-item">
+                                <div className="nav-link">
+                                    <i className="nav-icon fas fa-tree"></i>
+                                    <p>
+                                        <Link to="/formation" > Formation </Link>
                                     </p>
                                 </div>
                             </li>

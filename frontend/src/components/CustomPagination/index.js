@@ -1,6 +1,5 @@
 import React from "react";
 import useStyles from "./styles";
-import { Select, FormControl, MenuItem } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
 
 const CustomPagination = ({

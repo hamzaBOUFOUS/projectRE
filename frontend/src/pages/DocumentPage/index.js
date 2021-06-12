@@ -1,16 +1,63 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Chip, IconButton, makeStyles } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
+import Loader from "../../components/Loader";
+import cx from "classnames";
+import { useDebouncedCallback } from 'use-debounce';
+import CustomPagination from "../../components/CustomPagination";
 import AddEditDocument from "./AddEditDocument";
 import DeleteDocument from "./DeleteDocument";
-import Footer from "../shared/footer";
-import Header from "../shared/header";
-import Preloader from "../shared/preloader";
-import SideBar from "../shared/sidebar";
 import { getListDocuments } from "../../stores/reducers/document/actions";
+import {
+    Delete,
+    Add,
+    Edit,
+    FilterList,
+} from "@material-ui/icons";
+import {
+    Button,
+    makeStyles,
+    Table,
+    TableHead,
+    TableRow,
+    TableBody,
+    TableCell,
+    TableContainer,
+    Paper,
+    TextField,
+    IconButton,
+    Divider,
+    LinearProgress,
+    InputAdornment,
+} from "@material-ui/core/";
 const useStyles = makeStyles((theme) => ({
+    header: {
+        padding: theme.spacing(2),
+        textAlign: "right",
+    },
+    pagination: {
+        padding: theme.spacing(2),
+        display: "flex",
+        justifyContent: "flex-end",
+    },
+    coloredRow: {
+        backgroundColor: "#F7F8FC",
+    },
+    actions: { width: 120, textAlign: "right" },
+    blur: { filter: "blur(4px)" },
     chip: { marginRight: theme.spacing(1) },
+    title: { padding: theme.spacing(3, 0) },
+    iconItemList: { minWidth: 30 },
+    delete: { color: "#ef5350" },
+    filterRow: {
+        background: "#e5e8f4",
+        "&>.MuiTableCell-root": {
+            padding: 0,
+        },
+    },
+    noBorder: {
+        border: "none",
+    },
 }));
 export default function ListDocuments(props) {
     const classes = useStyles();
@@ -21,9 +68,15 @@ export default function ListDocuments(props) {
     const [openAddEdit, setOpenAddEdit] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
     const [selected, setSelected] = useState();
+    const handleFilterChangeDebounced = useDebouncedCallback((name, value) => {
+        setFilter((prevFilter) => ({
+            ...prevFilter,
+            [name]: value,
+        }));
+    }, 500);
     const handleGetDocuments = useCallback(
         (nPage, nFilter) => {
-            dispatch(getListDocuments(nPage, nFilter));
+            dispatch(getListDocuments(nPage, nFilter, 10));
         },
         [dispatch]
     );
@@ -34,7 +87,7 @@ export default function ListDocuments(props) {
     const handleCloseAddEdit = useCallback(() => {
         setSelected(null);
         setOpenAddEdit(false);
-    }, []);
+    }, [selected]);
     const handleOpenDelete = (document) => (event) => {
         setSelected(document);
         setOpenDelete(true);
@@ -42,9 +95,9 @@ export default function ListDocuments(props) {
     const handleCloseDelete = useCallback(() => {
         setSelected(null);
         setOpenDelete(false);
-    }, []);
+    }, [selected]);
     useEffect(() => {
-        handleGetDocuments(0, filter);
+        handleGetDocuments(page, filter);
     }, [handleGetDocuments, filter]);
     return (
         <>
@@ -52,12 +105,12 @@ export default function ListDocuments(props) {
                 <div className="container-fluid">
                     <div className="row mb-2">
                         <div className="col-sm-6">
-                            <h1>Gestion Document</h1>
+                            <h1>Gestion Documents</h1>
                         </div>
                         <div className="col-sm-6">
                             <ol className="breadcrumb float-sm-right">
                                 <li className="breadcrumb-item"><Link to="/home">Home</Link></li>
-                                <li className="breadcrumb-item active">Document</li>
+                                <li className="breadcrumb-item active">Documents</li>
                             </ol>
                         </div>
                     </div>
@@ -71,44 +124,93 @@ export default function ListDocuments(props) {
                                 <div className="card-header">
                                     <h3 className="card-title">Bordered Table</h3>
                                 </div>
-                                <div className="card-body" style={{ textAlign: "right", paddingBottom: "0" }}>
-                                    <button type="button" onClick={handleOpenAddEdit(null)} className="btn btn-info">Add</button>
-                                </div>
                                 <div className="card-body">
-                                    <table className="table table-bordered table-striped">
-                                        <thead style={{ textAlign: "center" }}>
-                                            <tr>
-                                                <th style={{ width: '100px' }}>#</th>
-                                                <th>Type Document</th>
-                                                <th ></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody style={{ textAlign: "center" }}>
-                                            {documents.map((document, idx) => (
-                                                <tr>
-                                                    <td>{document.id}</td>
-                                                    <td>{document.typeDocument}</td>
-                                                    <td className="project-actions">
-                                                        <a className="btn btn-info btn-sm" style={{ marginRight: "10px" }} onClick={handleOpenAddEdit(document)}>
-                                                            <i className="fas fa-pencil-alt">
-                                                            </i> </a>
-                                                        <a className="btn btn-danger btn-sm" onClick={handleOpenDelete(document)}>
-                                                            <i className="fas fa-trash">
-                                                            </i> </a>
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div className="card-footer clearfix">
-                                    <ul className="pagination pagination-sm m-0 float-right">
-                                        <li className="page-item"><a className="page-link" href="#">&laquo;</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">1</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">2</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">3</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">&raquo;</a></li>
-                                    </ul>
+                                    <TableContainer component={Paper}>
+                                        {status === "loading" && <LinearProgress color="secondary" />}
+                                        <div className={classes.header}>
+                                            <Button
+                                                onClick={handleOpenAddEdit(null)}
+                                                variant="contained"
+                                                color="primary"
+                                                startIcon={<Add />}
+                                            >
+                                                Add
+                                            </Button>
+                                        </div>
+                                        <Divider />
+                                        <Loader status={status}>
+                                            <Table className={cx({ [classes.blur]: status === "loading" })}>
+                                                <TableHead>
+                                                    <TableRow>
+                                                        <TableCell>
+                                                            <strong>
+                                                                #
+                                                            </strong>
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            <strong>
+                                                                Type Document
+                                                            </strong>
+                                                        </TableCell>
+                                                        <TableCell className={classes.actions} />
+                                                    </TableRow>
+                                                </TableHead>
+                                                <TableBody>
+                                                    <TableRow className={classes.filterRow}>
+                                                        <TableCell />
+                                                        <TableCell>
+                                                            <TextField
+                                                                placeholder="Date Document"
+                                                                fullWidth
+                                                                variant="outlined"
+                                                                onChange={(e) =>
+                                                                    handleFilterChangeDebounced("first_name", e.target.value)
+                                                                }
+                                                                InputProps={{
+                                                                    startAdornment: (
+                                                                        <InputAdornment position="start">
+                                                                            <FilterList />
+                                                                        </InputAdornment>
+                                                                    ),
+                                                                    classes: { notchedOutline: classes.noBorder },
+                                                                }}
+                                                            />
+                                                        </TableCell>
+                                                        <TableCell />
+                                                    </TableRow>
+                                                    {documents.map((document, idx) => (
+                                                        <TableRow className={cx({ [classes.coloredRow]: idx % 2 === 0 })}>
+                                                            <TableCell>{document.id}</TableCell>
+                                                            <TableCell>{document.typeDocument}</TableCell>
+                                                            <TableCell className={classes.actions}>
+                                                                <IconButton
+                                                                    aria-haspopup="true"
+                                                                    onClick={handleOpenAddEdit(document)}
+                                                                    color="secondary"
+                                                                >
+                                                                    <Edit fontSize="small" />
+                                                                </IconButton>
+                                                                <IconButton
+                                                                    aria-haspopup="true"
+                                                                    onClick={handleOpenDelete(document)}
+                                                                    color="inherit"
+                                                                >
+                                                                    <Delete color="inherit" fontSize="small" />
+                                                                </IconButton>
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    ))}
+                                                </TableBody>
+                                            </Table>
+                                            <CustomPagination
+                                                totalPages={totalPages}
+                                                page={page + 1}
+                                                onPageChange={(_, newPage) => {
+                                                    handleGetDocuments(newPage - 1, filter);
+                                                }}
+                                            />
+                                        </Loader>
+                                    </TableContainer>
                                 </div>
                             </div>
                         </div>

@@ -1,12 +1,63 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getListPostes } from "../../stores/reducers/poste/actions";
-import { Chip, IconButton, makeStyles } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
+import Loader from "../../components/Loader";
+import cx from "classnames";
+import { useDebouncedCallback } from 'use-debounce';
+import CustomPagination from "../../components/CustomPagination";
+import { getListPostes } from "../../stores/reducers/poste/actions";
 import DeletePoste from "./DeletePoste";
 import AddEditPoste from "./AddEditPoste";
+import {
+    Delete,
+    Add,
+    Edit,
+    FilterList,
+} from "@material-ui/icons";
+import {
+    Button,
+    makeStyles,
+    Table,
+    TableHead,
+    TableRow,
+    TableBody,
+    TableCell,
+    TableContainer,
+    Paper,
+    TextField,
+    IconButton,
+    Divider,
+    LinearProgress,
+    InputAdornment,
+} from "@material-ui/core/";
 const useStyles = makeStyles((theme) => ({
+    header: {
+        padding: theme.spacing(2),
+        textAlign: "right",
+    },
+    pagination: {
+        padding: theme.spacing(2),
+        display: "flex",
+        justifyContent: "flex-end",
+    },
+    coloredRow: {
+        backgroundColor: "#F7F8FC",
+    },
+    actions: { width: 120, textAlign: "right" },
+    blur: { filter: "blur(4px)" },
     chip: { marginRight: theme.spacing(1) },
+    title: { padding: theme.spacing(3, 0) },
+    iconItemList: { minWidth: 30 },
+    delete: { color: "#ef5350" },
+    filterRow: {
+        background: "#e5e8f4",
+        "&>.MuiTableCell-root": {
+            padding: 0,
+        },
+    },
+    noBorder: {
+        border: "none",
+    },
 }));
 export default function ListPostes(props) {
     const classes = useStyles();
@@ -17,9 +68,16 @@ export default function ListPostes(props) {
     const [openAddEdit, setOpenAddEdit] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
     const [selected, setSelected] = useState();
+    const handleFilterChangeDebounced = useDebouncedCallback((name, value) => {
+        setFilter((prevFilter) => ({
+            ...prevFilter,
+            [name]: value,
+        }));
+    }, 500);
     const handleGetPostes = useCallback(
         (nPage, nFilter) => {
-            dispatch(getListPostes(nPage, nFilter));
+            console.log(nFilter);
+            dispatch(getListPostes(nPage, nFilter, 10));
         },
         [dispatch]
     );
@@ -30,7 +88,7 @@ export default function ListPostes(props) {
     const handleCloseAddEdit = useCallback(() => {
         setSelected(null);
         setOpenAddEdit(false);
-    }, []);
+    }, [selected]);
     const handleOpenDelete = (poste) => (event) => {
         setSelected(poste);
         setOpenDelete(true);
@@ -38,9 +96,9 @@ export default function ListPostes(props) {
     const handleCloseDelete = useCallback(() => {
         setSelected(null);
         setOpenDelete(false);
-    }, []);
+    }, [selected]);
     useEffect(() => {
-        handleGetPostes(0, filter);
+        handleGetPostes(page, filter);
     }, [handleGetPostes, filter]);
     return (
         <>
@@ -48,12 +106,12 @@ export default function ListPostes(props) {
                 <div className="container-fluid">
                     <div className="row mb-2">
                         <div className="col-sm-6">
-                            <h1>Gestion Poste</h1>
+                            <h1>Gestion Postes</h1>
                         </div>
                         <div className="col-sm-6">
                             <ol className="breadcrumb float-sm-right">
                                 <li className="breadcrumb-item"><Link to="/home">Home</Link></li>
-                                <li className="breadcrumb-item active">Poste</li>
+                                <li className="breadcrumb-item active">Postes</li>
                             </ol>
                         </div>
                     </div>
@@ -67,46 +125,118 @@ export default function ListPostes(props) {
                                 <div className="card-header">
                                     <h3 className="card-title">Bordered Table</h3>
                                 </div>
-                                <div className="card-body" style={{ textAlign: "right", paddingBottom: "0" }}>
-                                    <button type="button" onClick={handleOpenAddEdit(null)} className="btn btn-info">Add</button>
-                                </div>
                                 <div className="card-body">
-                                    <table className="table table-bordered table-striped">
-                                        <thead style={{ textAlign: "center" }}>
-                                            <tr>
-                                                <th style={{ width: '10px' }}>#</th>
-                                                <th>Nom Poste</th>
-                                                <th>Date Creation</th>
-                                                <th style={{ width: '100px' }}></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody style={{ textAlign: "center" }}>
-                                            {postes.map((poste, idx) => (
-                                                <tr>
-                                                    <td>{poste.id}</td>
-                                                    <td>{poste.poste}</td>
-                                                    <td>{poste.dateCreation}</td>
-                                                    <td className="project-actions text-right" style={{ width: '100px' }}>
-                                                        <a className="btn btn-info btn-sm" style={{ marginRight: "10px" }} onClick={handleOpenAddEdit(poste)}>
-                                                            <i className="fas fa-pencil-alt">
-                                                            </i> </a>
-                                                        <a className="btn btn-danger btn-sm" onClick={handleOpenDelete(poste)}>
-                                                            <i className="fas fa-trash">
-                                                            </i> </a>
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div className="card-footer clearfix">
-                                    <ul className="pagination pagination-sm m-0 float-right">
-                                        <li className="page-item"><a className="page-link" href="#">&laquo;</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">1</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">2</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">3</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">&raquo;</a></li>
-                                    </ul>
+                                    <TableContainer component={Paper}>
+                                        {status === "loading" && <LinearProgress color="secondary" />}
+                                        <div className={classes.header}>
+                                            <Button
+                                                onClick={handleOpenAddEdit(null)}
+                                                variant="contained"
+                                                color="primary"
+                                                startIcon={<Add />}
+                                            >
+                                                Add
+                                            </Button>
+                                        </div>
+                                        <Divider />
+                                        <Loader status={status}>
+                                            <Table className={cx({ [classes.blur]: status === "loading" })}>
+                                                <TableHead>
+                                                    <TableRow>
+                                                        <TableCell>
+                                                            <strong>
+                                                                #
+                                                            </strong>
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            <strong>
+                                                                Nom Poste
+                                                            </strong>
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            <strong>
+                                                                Date Creation
+                                                            </strong>
+                                                        </TableCell>
+                                                        <TableCell className={classes.actions} />
+                                                    </TableRow>
+                                                </TableHead>
+                                                <TableBody>
+                                                    <TableRow className={classes.filterRow}>
+                                                        <TableCell />
+                                                        <TableCell>
+                                                            <TextField
+                                                                placeholder="Nom Poste"
+                                                                fullWidth
+                                                                variant="outlined"
+                                                                onChange={(e) =>
+                                                                    handleFilterChangeDebounced("poste", e.target.value)
+                                                                }
+                                                                InputProps={{
+                                                                    startAdornment: (
+                                                                        <InputAdornment position="start">
+                                                                            <FilterList />
+                                                                        </InputAdornment>
+                                                                    ),
+                                                                    classes: { notchedOutline: classes.noBorder },
+                                                                }}
+                                                            />
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            <TextField
+                                                                placeholder="Date Creation"
+                                                                fullWidth
+                                                                type="date"
+                                                                variant="outlined"
+                                                                onChange={(e) =>
+                                                                    handleFilterChangeDebounced("dateCreation", e.target.value)
+                                                                }
+                                                                InputProps={{
+                                                                    startAdornment: (
+                                                                        <InputAdornment position="start">
+                                                                            <FilterList />
+                                                                        </InputAdornment>
+                                                                    ),
+                                                                    classes: { notchedOutline: classes.noBorder },
+                                                                }}
+                                                            />
+                                                        </TableCell>
+                                                        <TableCell />
+                                                    </TableRow>
+                                                    {postes.map((poste, idx) => (
+                                                        <TableRow className={cx({ [classes.coloredRow]: idx % 2 === 0 })}>
+                                                            <TableCell>{poste.id}</TableCell>
+                                                            <TableCell>{poste.poste}</TableCell>
+                                                            <TableCell>{poste.dateCreation}</TableCell>
+                                                            <TableCell className={classes.actions}>
+                                                                <IconButton
+                                                                    aria-haspopup="true"
+                                                                    onClick={handleOpenAddEdit(poste)}
+                                                                    color="secondary"
+                                                                >
+                                                                    <Edit fontSize="small" />
+                                                                </IconButton>
+                                                                <IconButton
+                                                                    aria-haspopup="true"
+                                                                    onClick={handleOpenDelete(poste)}
+                                                                    color="inherit"
+                                                                >
+                                                                    <Delete color="inherit" fontSize="small" />
+                                                                </IconButton>
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    ))}
+                                                </TableBody>
+                                            </Table>
+                                            <CustomPagination
+                                                totalPages={totalPages}
+                                                page={page + 1}
+                                                onPageChange={(_, newPage) => {
+                                                    handleGetPostes(newPage - 1, filter);
+                                                }}
+                                            />
+                                        </Loader>
+                                    </TableContainer>
                                 </div>
                             </div>
                         </div>

@@ -26,13 +26,11 @@ public class ContratRessource {
 
     @PostMapping("/add-edit")
     public ResponseEntity<Contrat> addEditContrat(@RequestBody Contrat contrat) throws Exception {
-        System.out.println(contrat);
         return ResponseEntity.ok().body(contratService.addEditContrat(contrat));
     }
 
     @DeleteMapping("/delete/{id}")
     public void deleteContrat(@PathVariable("id") long id) {
-        System.out.println(id);
         try {
             contratService.deleteContrat(id);
         } catch (Exception ex) {

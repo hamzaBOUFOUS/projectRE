@@ -74,9 +74,9 @@ export default ({ open, handleClose, selected }) => {
       <form className="modal-content" onSubmit={handleSubmit(submitForm)}>
         <DialogTitle id="form-dialog-title">
           {selected ? (
-            "EDIT Absence"
+            "EDIT ABSENCE"
           ) : (
-            "ADD Absence"
+            "ADD ABSENCE"
           )}
         </DialogTitle>
         <DialogContent className="modal-body">

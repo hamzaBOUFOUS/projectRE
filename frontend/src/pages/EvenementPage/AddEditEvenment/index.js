@@ -105,11 +105,11 @@ export default ({ open, handleClose, selected }) => {
                 className={classes.textField}
                 value={value}
                 fullWidth
-                label="Name Evenement"
+                label="Title Evenement"
                 onChange={onChange}
               />
             )}
-            rules={{ required: 'Evenement\' s Name is required' }}
+            rules={{ required: 'Evenement\' s Title is required' }}
           />
           <Controller
             name="dateDebut"
@@ -234,11 +234,11 @@ export default ({ open, handleClose, selected }) => {
         </DialogContent>
         <br />
         <DialogActions className="modal-footer">
-          <Button type="submit" variant="outlined" color="primary">
-            Save
-          </Button>
           <Button variant="outlined" color="secondary" onClick={handleClose}>
             Close
+          </Button>
+          <Button type="submit" variant="outlined" color="primary">
+            Save
           </Button>
         </DialogActions>
       </form>

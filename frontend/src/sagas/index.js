@@ -6,5 +6,10 @@ import posteSaga from "./poste";
 import documentSaga from "./document";
 import absenceSaga from "./absence";
 import vacanceSaga from "./vacance";
-export default [contratSaga, evenementSaga, absenceSaga, vacanceSaga,
-    employeeSaga, departmentSaga, posteSaga, documentSaga];
+import formationSaga from "./formation";
+import entretienSaga from "./entretien";
+import condidatureSaga from "./condidature";
+import demandeCongeSaga from "./demandeConge";
+export default [ contratSaga, evenementSaga, absenceSaga, vacanceSaga, entretienSaga, 
+    employeeSaga, departmentSaga, posteSaga, documentSaga, formationSaga, condidatureSaga,
+    demandeCongeSaga ];

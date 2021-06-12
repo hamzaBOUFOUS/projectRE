@@ -7,6 +7,7 @@ import {
   DialogContent,
   DialogTitle,
   makeStyles,
+  DialogContentText,
 } from "@material-ui/core/";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -34,20 +35,20 @@ export default ({ open, handleClose, selected }) => {
       aria-labelledby="form-dialog-title"
       aria-describedby="form-dialog-description"
     >
-      <form className="modal-content">
-        <DialogContent className="modal-body">
-            <p>Veulez sur supprime cette Vacance....!</p>
-        </DialogContent>
-        <br />
-        <DialogActions>
-          <Button onClick={handleClose} variant="outlined" color="primary">
-            Close
+      <DialogTitle id="alert-dialog-title">{"Etes-vous sur que vous voulez le supprimer definitivement?"}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          Si vous cliquez sur le button de confirmation vous supprimerez ce Vacance de matiere definitive
+          </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={submitForm} color="primary">
+          Confirmer
           </Button>
-          <Button onClick={submitForm} variant="outlined" color="secondary">
-            Delete
+        <Button onClick={handleClose} color="primary" autoFocus>
+          Annuler
           </Button>
-        </DialogActions>
-      </form>
+      </DialogActions>
     </Dialog>
   );
 };

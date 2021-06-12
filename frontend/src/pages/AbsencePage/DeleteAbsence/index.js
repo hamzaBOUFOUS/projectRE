@@ -6,16 +6,12 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  makeStyles,
+  DialogContentText,
 } from "@material-ui/core/";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export default ({ open, handleClose, selected }) => {
   const dispatch = useDispatch();
-  const [openS, setOpenS] = useState(false);
-  const openSnack= ()=>{
-    setOpenS(true);
-  }
   const deleteAbsenceCallback = useCallback(() => {
     dispatch(
       deleteAbsence(selected.id, handleClose)
@@ -34,20 +30,20 @@ export default ({ open, handleClose, selected }) => {
       aria-labelledby="form-dialog-title"
       aria-describedby="form-dialog-description"
     >
-      <form className="modal-content">
-        <DialogContent className="modal-body">
-            <p>Veulez sur supprime cette Absence....!</p>
-        </DialogContent>
-        <br />
-        <DialogActions>
-          <Button onClick={handleClose} variant="outlined" color="primary">
-            Close
+      <DialogTitle id="alert-dialog-title">{"Etes-vous sur que vous voulez le supprimer definitivement?"}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          Si vous cliquez sur le button de confirmation vous supprimerez ce Absence de matiere definitive
+          </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={submitForm} color="primary">
+          Confirmer
           </Button>
-          <Button onClick={submitForm} variant="outlined" color="secondary">
-            Delete
+        <Button onClick={handleClose} color="primary" autoFocus>
+          Annuler
           </Button>
-        </DialogActions>
-      </form>
+      </DialogActions>
     </Dialog>
   );
 };

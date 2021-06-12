@@ -7,6 +7,10 @@ import { PostesReducer } from "./poste/reducers";
 import { DocumentsReducer } from "./document/reducers";
 import { AbsencesReducer } from "./absence/reducers";
 import { VacancesReducer } from "./vacance/reducers";
+import { FormationsReducer } from "./formation/reducers";
+import { EntretiensReducer } from "./entretien/reducers";
+import { CondidaturesReducer } from "./condidature/reducers";
+import { DemandeCongesReducer } from "./demandeConge/reducers";
 
 export default combineReducers({
     contrats: ContratsReducer,
@@ -16,5 +20,9 @@ export default combineReducers({
     postes:PostesReducer,
     documents:DocumentsReducer,
     absences:AbsencesReducer,
-    vacances:VacancesReducer
+    vacances:VacancesReducer,
+    formations:FormationsReducer,
+    entretiens:EntretiensReducer,
+    condidatures:CondidaturesReducer,
+    demandeConges:DemandeCongesReducer
 });

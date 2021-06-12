@@ -73,9 +73,9 @@ export default ({ open, handleClose, selected }) => {
       <form className="modal-content" onSubmit={handleSubmit(submitForm)}>
         <DialogTitle id="form-dialog-title">
           {selected ? (
-            "EDIT Vacance"
+            "EDIT VACANCE"
           ) : (
-            "ADD Vacance"
+            "ADD VACANCE"
           )}
         </DialogTitle>
         <DialogContent className="modal-body">

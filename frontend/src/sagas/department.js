@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { takeLatest, call, put, select } from "redux-saga/effects";
 import {
   GET_LIST_DEPARTMENTS,

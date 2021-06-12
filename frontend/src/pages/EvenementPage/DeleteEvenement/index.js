@@ -7,6 +7,7 @@ import {
   DialogContent,
   DialogTitle,
   makeStyles,
+  DialogContentText,
 } from "@material-ui/core/";
 import { useDispatch, useSelector } from "react-redux";
 import Snackbar from "../../../components/Snackbar";
@@ -35,23 +36,20 @@ export default ({ open, handleClose, selected }) => {
       aria-labelledby="form-dialog-title"
       aria-describedby="form-dialog-description"
     >
-      <form className="modal-content">
-        <DialogTitle id="form-dialog-title" className="modal-header">
-            Delete EVENEMENT
-        </DialogTitle>
-        <DialogContent className="modal-body">
-            <p>Veulez sur supprime cette Evenement…!</p>
-        </DialogContent>
-        <br />
-        <DialogActions className="modal-footer">
-          <Button onClick={submitForm} variant="outlined" color="primary">
-            Delete
+      <DialogTitle id="alert-dialog-title">{"Etes-vous sur que vous voulez le supprimer definitivement?"}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          Si vous cliquez sur le button de confirmation vous supprimerez ce Evenement de matiere definitive
+          </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={submitForm} color="primary">
+          Confirmer
           </Button>
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
-            Close
+        <Button onClick={handleClose} color="primary" autoFocus>
+          Annuler
           </Button>
-        </DialogActions>
-      </form>
+      </DialogActions>
     </Dialog>
   );
 };

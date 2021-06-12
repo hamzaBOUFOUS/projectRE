@@ -107,11 +107,11 @@ export default ({ open, handleClose, selected }) => {
         </DialogContent>
         <br />
         <DialogActions className="modal-footer">
-          <Button type="submit" variant="outlined" color="primary">
-            Save
-          </Button>
           <Button variant="outlined" color="secondary" onClick={handleClose}>
             Close
+          </Button>
+          <Button type="submit" variant="outlined" color="primary">
+            Save
           </Button>
         </DialogActions>
       </form>

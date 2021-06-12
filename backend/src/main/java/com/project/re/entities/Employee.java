@@ -22,7 +22,7 @@ public class Employee {
     @Column
     private String email;
     @Column
-    private String Telephone;
+    private String telephone;
     @Column
     private String adresse;
     @Column
@@ -31,6 +31,8 @@ public class Employee {
     private String codePostale;
     @Column
     private String salaire;
+    @Column
+    private String horaire;
     @Column(name="date_debut")
     private String dateDebut;
     @OneToOne
