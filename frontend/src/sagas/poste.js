@@ -29,7 +29,6 @@ function* getListPostesSaga({ page, filter, size }) {
       throw new Error();
     }
     const data = yield call(() => directionMetierResp.json());
-    //console.log(data," - ",page," - ",filter," - ",size);
     yield put(getListPostesSuccess(data));
   } catch (e) {
     yield put(getListPostesError());
@@ -77,7 +76,6 @@ function* addEditPostesaga({ poste, handleClose }) {
     yield handleClose();
     yield put(getListPostes(page, filter, size));
   } catch (e) {
-    console.log(e)
     yield put(addEditPosteError());
   }
 }

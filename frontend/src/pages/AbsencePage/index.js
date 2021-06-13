@@ -152,12 +152,17 @@ export default function ListAbsences(props) {
                                                         </TableCell>
                                                         <TableCell>
                                                             <strong>
-                                                                Date Absence
+                                                                Employee
                                                             </strong>
                                                         </TableCell>
                                                         <TableCell>
                                                             <strong>
-                                                                Employee
+                                                                Etat
+                                                            </strong>
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            <strong>
+                                                                Date Absence
                                                             </strong>
                                                         </TableCell>
                                                         <TableCell className={classes.actions} />
@@ -168,30 +173,11 @@ export default function ListAbsences(props) {
                                                         <TableCell />
                                                         <TableCell>
                                                             <TextField
-                                                                placeholder="Date Absence"
-                                                                fullWidth
-                                                                type="date"
-                                                                variant="outlined"
-                                                                onChange={(e) =>
-                                                                    handleFilterChangeDebounced("first_name", e.target.value)
-                                                                }
-                                                                InputProps={{
-                                                                    startAdornment: (
-                                                                        <InputAdornment position="start">
-                                                                            <FilterList />
-                                                                        </InputAdornment>
-                                                                    ),
-                                                                    classes: { notchedOutline: classes.noBorder },
-                                                                }}
-                                                            />
-                                                        </TableCell>
-                                                        <TableCell>
-                                                            <TextField
-                                                                placeholder="Employee"
+                                                                placeholder="Nom Employee"
                                                                 fullWidth
                                                                 variant="outlined"
                                                                 onChange={(e) =>
-                                                                    handleFilterChangeDebounced("lastName", e.target.value)
+                                                                    handleFilterChangeDebounced("employee", e.target.value)
                                                                 }
                                                                 InputProps={{
                                                                     startAdornment: (
@@ -204,11 +190,12 @@ export default function ListAbsences(props) {
                                                             />
                                                         </TableCell>
                                                         <TableCell />
+                                                        <TableCell />
+                                                        <TableCell />
                                                     </TableRow>
                                                     {absences.map((absence, idx) => (
                                                         <TableRow className={cx({ [classes.coloredRow]: idx % 2 === 0 })}>
                                                             <TableCell>{absence.id}</TableCell>
-                                                            <TableCell>{absence.dateAbsence}</TableCell>
                                                             <TableCell>
                                                                 <Chip
                                                                     variant="outlined"
@@ -216,6 +203,8 @@ export default function ListAbsences(props) {
                                                                     className={classes.chip}
                                                                 />
                                                             </TableCell>
+                                                            <TableCell>{absence.etat}</TableCell>
+                                                            <TableCell>{absence.dateAbsence}</TableCell>
                                                             <TableCell className={classes.actions}>
                                                                 <IconButton
                                                                     aria-haspopup="true"

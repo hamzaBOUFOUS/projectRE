@@ -29,7 +29,6 @@ function* getListDocumentsSaga({ page, filter, size }) {
       throw new Error();
     }
     const data = yield call(() => directionMetierResp.json());
-    //console.log(data," - ",page," - ",filter," - ",size);
     yield put(getListDocumentsSuccess(data));
   } catch (e) {
     yield put(getListDocumentsError());
@@ -77,7 +76,6 @@ function* addEditDocumentsaga({ document, handleClose }) {
     yield handleClose();
     yield put(getListDocuments(page, filter, size));
   } catch (e) {
-    console.log(e)
     yield put(addEditDocumentError());
   }
 }

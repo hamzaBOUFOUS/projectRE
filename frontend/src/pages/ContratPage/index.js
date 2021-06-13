@@ -170,7 +170,7 @@ export default function ListContrats(props) {
                                                                 fullWidth
                                                                 variant="outlined"
                                                                 onChange={(e) =>
-                                                                    handleFilterChangeDebounced("first_name", e.target.value)
+                                                                    handleFilterChangeDebounced("typeContrat", e.target.value)
                                                                 }
                                                                 InputProps={{
                                                                     startAdornment: (
@@ -182,25 +182,7 @@ export default function ListContrats(props) {
                                                                 }}
                                                             />
                                                         </TableCell>
-                                                        <TableCell>
-                                                            <TextField
-                                                                placeholder="Date Creation"
-                                                                fullWidth
-                                                                type="date"
-                                                                variant="outlined"
-                                                                onChange={(e) =>
-                                                                    handleFilterChangeDebounced("lastName", e.target.value)
-                                                                }
-                                                                InputProps={{
-                                                                    startAdornment: (
-                                                                        <InputAdornment position="start">
-                                                                            <FilterList />
-                                                                        </InputAdornment>
-                                                                    ),
-                                                                    classes: { notchedOutline: classes.noBorder },
-                                                                }}
-                                                            />
-                                                        </TableCell>
+                                                        <TableCell />
                                                         <TableCell />
                                                     </TableRow>
                                                     {contrats.map((contrat, idx) => (

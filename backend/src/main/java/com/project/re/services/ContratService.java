@@ -17,7 +17,7 @@ public class ContratService {
     }
 
     public Page<Contrat> getAllContrat(Pageable pageable, Contrat contrat) {
-        return contratRepositorie.findAll(pageable);
+        return contratRepositorie.findByCriteria(pageable, contrat.getTypeContrat());
     }
 
     public Contrat addEditContrat(Contrat contrat) throws Exception {

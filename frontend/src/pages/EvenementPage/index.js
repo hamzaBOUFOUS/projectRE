@@ -187,11 +187,11 @@ export default function ListEvenements(props) {
                                                         <TableCell />
                                                         <TableCell>
                                                             <TextField
-                                                                placeholder="Name"
+                                                                placeholder="Title"
                                                                 fullWidth
                                                                 variant="outlined"
                                                                 onChange={(e) =>
-                                                                    handleFilterChangeDebounced("name", e.target.value)
+                                                                    handleFilterChangeDebounced("nom", e.target.value)
                                                                 }
                                                                 InputProps={{
                                                                     startAdornment: (
@@ -203,44 +203,8 @@ export default function ListEvenements(props) {
                                                                 }}
                                                             />
                                                         </TableCell>
-                                                        <TableCell>
-                                                            <TextField
-                                                                placeholder="Date Debut"
-                                                                fullWidth
-                                                                type="date"
-                                                                variant="outlined"
-                                                                onChange={(e) =>
-                                                                    handleFilterChangeDebounced("dateDebut", e.target.value)
-                                                                }
-                                                                InputProps={{
-                                                                    startAdornment: (
-                                                                        <InputAdornment position="start">
-                                                                            <FilterList />
-                                                                        </InputAdornment>
-                                                                    ),
-                                                                    classes: { notchedOutline: classes.noBorder },
-                                                                }}
-                                                            />
-                                                        </TableCell>
-                                                        <TableCell>
-                                                            <TextField
-                                                                placeholder="Date Fin"
-                                                                fullWidth
-                                                                type="date"
-                                                                variant="outlined"
-                                                                onChange={(e) =>
-                                                                    handleFilterChangeDebounced("dateFin", e.target.value)
-                                                                }
-                                                                InputProps={{
-                                                                    startAdornment: (
-                                                                        <InputAdornment position="start">
-                                                                            <FilterList />
-                                                                        </InputAdornment>
-                                                                    ),
-                                                                    classes: { notchedOutline: classes.noBorder },
-                                                                }}
-                                                            />
-                                                        </TableCell>
+                                                        <TableCell />
+                                                        <TableCell />
                                                         <TableCell />
                                                         <TableCell />
                                                         <TableCell />

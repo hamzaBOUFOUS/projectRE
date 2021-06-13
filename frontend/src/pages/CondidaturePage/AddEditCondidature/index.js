@@ -166,6 +166,7 @@ export default ({ open, handleClose, selected }) => {
                 name={"telephone"}
                 id="telephone"
                 variant="outlined"
+                type="number"
                 className={classes.textField}
                 value={value}
                 fullWidth

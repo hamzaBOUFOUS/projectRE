@@ -1,5 +1,6 @@
 package com.project.re.services;
 
+import com.project.re.Dto.FilterEntretienDTO;
 import com.project.re.entities.Entretien;
 import com.project.re.repositories.EntretienRepositorie;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,9 @@ public class EntretienService {
         this.entretienRepositorie = entretienRepositorie;
     }
 
-    public Page<Entretien> getAllEntretien(Pageable pageable, Entretien entretien) {
-        return entretienRepositorie.findAll(pageable);
+    public Page<Entretien> getAllEntretien(Pageable pageable, FilterEntretienDTO entretienDTO) {
+        return entretienRepositorie.findByCriteria(pageable, entretienDTO.getCondidature(),
+                entretienDTO.getPoste(), entretienDTO.getDepartment());
     }
 
     public Entretien addEditEntretien(Entretien entretien) throws Exception {

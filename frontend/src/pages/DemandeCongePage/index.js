@@ -4,7 +4,6 @@ import { getListDemandeConges } from "../../stores/reducers/demandeConge/actions
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/Loader";
 import cx from "classnames";
-import { useDebouncedCallback } from 'use-debounce';
 import CustomPagination from "../../components/CustomPagination";
 import EditDemandeConge from "./EditDemandeConge";
 import {
@@ -21,7 +20,6 @@ import {
     TableContainer,
     Paper,
     IconButton,
-    Divider,
     LinearProgress,
 } from "@material-ui/core/";
 const useStyles = makeStyles((theme) => ({

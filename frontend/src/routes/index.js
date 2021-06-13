@@ -12,6 +12,7 @@ import EntretienPage from "../pages/EntretienPage";
 import CondidaturePage from "../pages/CondidaturePage";
 import EmployeePage from "../pages/EmployeePage";
 import DemandeCongePage from "../pages/DemandeCongePage";
+import DocumentDemandePage from "../pages/DocumentDemandePage";
 
 const Routes = () => (
     <Switch>
@@ -27,6 +28,7 @@ const Routes = () => (
         <Route path='/condidature' component={CondidaturePage} />
         <Route path='/employee' component={EmployeePage} />
         <Route path='/demandeConge' component={DemandeCongePage} />
+        <Route path='/documentDemande' component={DocumentDemandePage} />
     </Switch>
 );
 export default Routes;

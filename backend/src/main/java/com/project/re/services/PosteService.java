@@ -17,7 +17,7 @@ public class PosteService {
     }
 
     public Page<Poste> getAllPoste(Pageable pageable, Poste poste) {
-        return posteRepositorie.findAll(pageable);
+        return posteRepositorie.findByCriteria(pageable, poste.getPoste());
     }
 
     public Poste addEditPoste(Poste poste) throws Exception {

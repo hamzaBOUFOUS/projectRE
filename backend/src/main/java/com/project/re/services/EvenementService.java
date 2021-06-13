@@ -17,7 +17,7 @@ public class EvenementService {
     }
 
     public Page<Evenement> getAllEvenement(Pageable pageable, Evenement evenement) {
-        return evenementRepositorie.findAll(pageable);
+        return evenementRepositorie.findByCriteria(pageable, evenement.getNom());
     }
 
     public Evenement addEditEvenement(Evenement evenement) throws Exception {

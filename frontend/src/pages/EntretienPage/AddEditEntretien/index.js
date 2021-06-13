@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 import { getListPostes } from "../../../stores/reducers/poste/actions";
 import { getListCondidatures } from "../../../stores/reducers/condidature/actions";
+import { getListDepartments } from "../../../stores/reducers/department/actions";
 
 const useStyles = makeStyles((theme) => ({
   chips: {
@@ -43,13 +44,17 @@ export default ({ open, handleClose, selected }) => {
   const { content: listposte } = PostesData;
   const { CondidaturesData } = useSelector((state) => state.condidatures);
   const { content: listcondidature } = CondidaturesData;
+  const { DepartmentsData } = useSelector((state) => state.departments);
+  const { content: listdepartment } = DepartmentsData;
   useEffect(() => {
     setPoste(selected ? selected.poste : null);
+    setDepartment(selected ? selected.department : null);
     setCondidature(selected ? selected.condidature : null);
     setDateEntretien(selected ? selected.dateEntretien : null);
     setHeure(selected ? selected.heure : null);
-    dispatch(getListPostes(0, {}), getListCondidatures(0, {}));
+    dispatch(getListPostes(0, {}), getListCondidatures(0, {}), getListDepartments(0, {}));
   }, [dispatch, selected]);
+  const [department, setDepartment] = useState(null);
   const [poste, setPoste] = useState(null);
   const [condidature, setCondidature] = useState(null);
   const [dateEntretien, setDateEntretien] = useState();
@@ -63,6 +68,7 @@ export default ({ open, handleClose, selected }) => {
           heure: data.heure,
           poste: data.poste,
           condidature: data.condidature,
+          department: data.department,
         },
         handleClose
       )
@@ -90,6 +96,44 @@ export default ({ open, handleClose, selected }) => {
         </DialogTitle>
         <DialogContent className="modal-body">
           <FormControl variant="outlined" fullWidth>
+            <InputLabel id="demo-simple-select-outlined-label">Department</InputLabel>
+            <Controller
+              name="department"
+              control={control}
+              defaultValue={department}
+              render={({ field: { onChange, value }, fieldState: { error } }) => (
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  error={!!error}
+                  helperText={error ? error.message : null}
+                  id="department"
+                  label="Department"
+                  value={value ? value : null}
+                  className={classes.textField}
+                  onChange={onChange}
+                  renderValue={(s) => (
+                    <div className={classes.chips}>
+                      <Chip
+                        key={s ? s.id : null}
+                        label={s ? (s.nomDepartment) : ""}
+                      />
+                    </div>
+                  )}
+                >
+                  {listdepartment.map(option => {
+                    return (
+                      <MenuItem key={option.id} value={option}>
+                        {option.nomDepartment}
+                      </MenuItem>
+                    )
+                  })}
+
+                </Select>
+              )}
+              rules={{ required: 'List Department required!' }}
+            />
+          </FormControl>
+          <FormControl variant="outlined" fullWidth>
             <InputLabel id="demo-simple-select-outlined-label">Poste</InputLabel>
             <Controller
               name="poste"
@@ -109,18 +153,18 @@ export default ({ open, handleClose, selected }) => {
                     <div className={classes.chips}>
                       <Chip
                         key={s ? s.id : null}
-                        label={s ?s.poste:""}
+                        label={s ? s.poste : ""}
                       />
                     </div>
                   )}
                 >
-                  { listposte.map(option => {
-                      return (
-                        <MenuItem key={option.id} value={option}>
-                          {option.poste}
-                        </MenuItem>
-                      )
-                    })}
+                  {listposte.map(option => {
+                    return (
+                      <MenuItem key={option.id} value={option}>
+                        {option.poste}
+                      </MenuItem>
+                    )
+                  })}
 
                 </Select>
               )}
@@ -146,19 +190,19 @@ export default ({ open, handleClose, selected }) => {
                   renderValue={(s) => (
                     <div className={classes.chips}>
                       <Chip
-                        key={s?s.id:null}
-                        label={s?(s.nom+" "+s.prenom):""}
+                        key={s ? s.id : null}
+                        label={s ? (s.nom + " " + s.prenom) : ""}
                       />
                     </div>
                   )}
                 >
-                  { listcondidature.map(option => {
-                      return (
-                        <MenuItem key={option.id} value={option}>
-                          {option.nom+" "+option.prenom}
-                        </MenuItem>
-                      )
-                    })}
+                  {listcondidature.map(option => {
+                    return (
+                      <MenuItem key={option.id} value={option}>
+                        {option.nom + " " + option.prenom}
+                      </MenuItem>
+                    )
+                  })}
 
                 </Select>
               )}

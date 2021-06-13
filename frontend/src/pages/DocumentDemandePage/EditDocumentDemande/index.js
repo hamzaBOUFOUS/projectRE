@@ -7,18 +7,15 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
-  Input,
   InputLabel,
   Select,
   Chip,
   MenuItem,
   makeStyles,
 } from "@material-ui/core/";
-import { addEditAbsence } from "../../../stores/reducers/absence/actions";
-import { useDispatch, useSelector } from "react-redux";
+import { editDocumentDemande } from "../../../stores/reducers/documentDemande/actions";
 import { useForm, Controller } from "react-hook-form";
-import { getListEmployees } from "../../../stores/reducers/employee/actions";
-
+import { useDispatch } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   chips: {
     display: "flex",
@@ -37,25 +34,18 @@ const useStyles = makeStyles((theme) => ({
 export default ({ open, handleClose, selected }) => {
   const classes = useStyles();
   const { handleSubmit, control } = useForm();
-  const dispatch = useDispatch();
-  const { EmployeesData } = useSelector((state) => state.employees);
-  const { content: listemployee } = EmployeesData;
   useEffect(() => {
-    setEmployee(selected ? selected.employee : null);
-    setDateAbsence(selected ? selected.dateAbsence : null);
     setEtat(selected ? selected.etat : null);
-    dispatch(getListEmployees(0, {}));
-  }, [dispatch, selected]);
-  const [employee, setEmployee] = useState(null);
+  }, [selected]);
   const [etat, setEtat] = useState();
-  const [dateAbsence, setDateAbsence] = useState();
-  const addEditAbsenceCallback = useCallback((data) => {
+  const dispatch = useDispatch();
+  const editDocumentDemandeCallback = useCallback((data) => {
     dispatch(
-      addEditAbsence(
+      editDocumentDemande(
         {
           id: selected ? selected.id : undefined,
-          employee: data.employee,
-          dateAbsence: data.dateAbsence,
+          employee: selected ? selected.employee : undefined,
+          document: selected ? selected.document : undefined,
           etat: data.etat,
         },
         handleClose
@@ -63,7 +53,7 @@ export default ({ open, handleClose, selected }) => {
     );
   }, [dispatch, selected, handleClose]);
   function submitForm(data) {
-    addEditAbsenceCallback(data);
+    editDocumentDemandeCallback(data);
   }
   return (
     <Dialog
@@ -76,36 +66,50 @@ export default ({ open, handleClose, selected }) => {
     >
       <form className="modal-content" onSubmit={handleSubmit(submitForm)}>
         <DialogTitle id="form-dialog-title">
-          {selected ? (
-            "EDIT ABSENCE"
-          ) : (
-            "ADD ABSENCE"
-          )}
+          EDIT ETAT
         </DialogTitle>
         <DialogContent className="modal-body">
           <Controller
-            name="dateAbsence"
+            name="employee"
             control={control}
-            defaultValue={dateAbsence}
+            defaultValue={selected?(selected.employee.nom+" "+selected.employee.prenom):""}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <TextField
-                error={!!error}
-                helperText={error ? error.message : null}
-                name={"dateAbsence"}
-                id="dateAbsence"
+                name={"employee"}
+                id="employee"
                 variant="outlined"
+                disabled
                 className={classes.textField}
-                type="date"
                 value={value}
                 fullWidth
-                label="Date Absence"
+                label="Employee"
                 onChange={onChange}
                 InputLabelProps={{
                   shrink: true,
                 }}
               />
             )}
-            rules={{ required: 'Date\' s Absence is required' }}
+          />
+          <Controller
+            name="document"
+            control={control}
+            defaultValue={selected?selected.document.typeDocument:""}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <TextField
+                name={"document"}
+                id="document"
+                variant="outlined"
+                disabled
+                className={classes.textField}
+                value={value}
+                fullWidth
+                label="Type Document"
+                onChange={onChange}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            )}
           />
           <FormControl variant="outlined" fullWidth>
             <InputLabel id="demo-simple-select-outlined-label">Etat</InputLabel>
@@ -132,53 +136,15 @@ export default ({ open, handleClose, selected }) => {
                     </div>
                   )}
                 >
-                  <MenuItem key="VERIFIE" value="VERIFIE">
-                    VERIFIE
+                  <MenuItem key="APPROUVE" value="APPROUVE">
+                    APPROUVE
                   </MenuItem>
-                  <MenuItem key="NONVERIFIE" value="NONVERIFIE">
-                    NON VERIFIE
+                  <MenuItem key="ENATTENTE" value="ENATTENTE">
+                    EN ATTENTE
                   </MenuItem>
                 </Select>
               )}
               rules={{ required: 'Etat required!' }}
-            />
-          </FormControl>
-          <FormControl variant="outlined" fullWidth>
-            <InputLabel id="demo-simple-select-outlined-label">Employee</InputLabel>
-            <Controller
-              name="employee"
-              control={control}
-              defaultValue={employee}
-              render={({ field: { onChange, value }, fieldState: { error } }) => (
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  error={!!error}
-                  helperText={error ? error.message : null}
-                  id="employee"
-                  label="Employee"
-                  value={value ? value : null}
-                  className={classes.textField}
-                  onChange={onChange}
-                  renderValue={(s) => (
-                    <div className={classes.chips}>
-                      <Chip
-                        key={s ? s.id : null}
-                        label={s ? (s.nom + " " + s.prenom) : ""}
-                      />
-                    </div>
-                  )}
-                >
-                  { listemployee.map(option => {
-                      return (
-                        <MenuItem key={option.id} value={option}>
-                          {option.nom+" "+option.prenom}
-                        </MenuItem>
-                      )
-                    })}
-
-                </Select>
-              )}
-              rules={{ required: 'List Employee required!' }}
             />
           </FormControl>
         </DialogContent>

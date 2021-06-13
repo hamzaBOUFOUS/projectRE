@@ -75,7 +75,6 @@ function* addEditVacancesaga({ vacance, handleClose }) {
     yield handleClose();
     yield put(getListVacances(page, filter, size));
   } catch (e) {
-    console.log(e)
     yield put(addEditVacanceError());
   }
 }

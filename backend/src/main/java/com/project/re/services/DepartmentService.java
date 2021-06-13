@@ -17,7 +17,7 @@ public class DepartmentService {
     }
 
     public Page<Department> getAllDepartment(Pageable pageable, Department department) {
-        return departmentRepositorie.findAll(pageable);
+        return departmentRepositorie.findByCriteria(pageable, department.getNomDepartment());
     }
 
     public Department addEditDepartment(Department department) throws Exception {

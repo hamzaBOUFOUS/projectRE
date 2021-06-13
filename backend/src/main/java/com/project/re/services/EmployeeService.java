@@ -17,7 +17,8 @@ public class EmployeeService {
     }
 
     public Page<Employee> getAllEmployee(Pageable pageable, Employee employee) {
-        return employeeRepositorie.findAll(pageable);
+        return employeeRepositorie.findByCriteria(pageable, employee.getCin(), employee.getNom(),
+                employee.getEmail(), employee.getTelephone(), employee.getNationalite());
     }
 
     public Employee addEditEmployee(Employee employee) throws Exception {

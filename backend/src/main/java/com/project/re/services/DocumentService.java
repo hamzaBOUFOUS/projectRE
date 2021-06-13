@@ -16,7 +16,7 @@ public class DocumentService {
         this.documentRepositorie = documentRepositorie;
     }
     public Page<Document> getAllDocument(Pageable pageable, Document document) {
-        return documentRepositorie.findAll(pageable);
+        return documentRepositorie.findByCriteria(pageable, document.getTypeDocument());
     }
 
     public Document addEditDocument(Document document) throws Exception {

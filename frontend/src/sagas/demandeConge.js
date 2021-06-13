@@ -26,7 +26,6 @@ function* getListDemandeCongesSaga({ page, filter, size }) {
       throw new Error();
     }
     const data = yield call(() => directionMetierResp.json());
-    console.log(data)
     yield put(getListDemandeCongesSuccess(data));
   } catch (e) {
     yield put(getListDemandeCongesError());

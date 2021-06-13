@@ -75,7 +75,6 @@ function* addEditDepartmentsaga({ department, handleClose }) {
     yield handleClose();
     yield put(getListDepartments(page, filter, size));
   } catch (e) {
-    console.log(e)
     yield put(addEditDepartmentError());
   }
 }

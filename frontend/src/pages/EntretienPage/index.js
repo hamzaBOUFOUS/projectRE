@@ -160,6 +160,11 @@ export default function ListEntretiens(props) {
                                                         </TableCell>
                                                         <TableCell>
                                                             <strong>
+                                                                Departement
+                                                            </strong>
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            <strong>
                                                                 Date Entretien
                                                             </strong>
                                                         </TableCell>
@@ -212,12 +217,11 @@ export default function ListEntretiens(props) {
                                                         </TableCell>
                                                         <TableCell>
                                                             <TextField
-                                                                placeholder="Date d’Entretien"
+                                                                placeholder="Departement"
                                                                 fullWidth
-                                                                type="date"
                                                                 variant="outlined"
                                                                 onChange={(e) =>
-                                                                    handleFilterChangeDebounced("dateEntretien", e.target.value)
+                                                                    handleFilterChangeDebounced("department", e.target.value)
                                                                 }
                                                                 InputProps={{
                                                                     startAdornment: (
@@ -229,25 +233,8 @@ export default function ListEntretiens(props) {
                                                                 }}
                                                             />
                                                         </TableCell>
-                                                        <TableCell>
-                                                            <TextField
-                                                                placeholder="Heure"
-                                                                fullWidth
-                                                                type="date"
-                                                                variant="outlined"
-                                                                onChange={(e) =>
-                                                                    handleFilterChangeDebounced("heure", e.target.value)
-                                                                }
-                                                                InputProps={{
-                                                                    startAdornment: (
-                                                                        <InputAdornment position="start">
-                                                                            <FilterList />
-                                                                        </InputAdornment>
-                                                                    ),
-                                                                    classes: { notchedOutline: classes.noBorder },
-                                                                }}
-                                                            />
-                                                        </TableCell>
+                                                        <TableCell />
+                                                        <TableCell />
                                                         <TableCell />
                                                     </TableRow>
                                                     {entretiens.map((entretien, idx) => (
@@ -261,6 +248,7 @@ export default function ListEntretiens(props) {
                                                                 />
                                                             </TableCell>
                                                             <TableCell>{entretien.poste.poste}</TableCell>
+                                                            <TableCell>{entretien.department.nomDepartment}</TableCell>
                                                             <TableCell>{entretien.dateEntretien}</TableCell>
                                                             <TableCell>{entretien.heure}</TableCell>
                                                             <TableCell className={classes.actions}>

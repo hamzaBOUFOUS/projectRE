@@ -1,5 +1,6 @@
 package com.project.re.ressources;
 
+import com.project.re.Dto.FilterAbsenceDTO;
 import com.project.re.entities.Absence;
 import com.project.re.services.AbsenceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class AbsenceRessource {
         this.absenceService = absenceService;
     }
     @PostMapping("/list-absence")
-    public Page<Absence> getAbsence(Pageable pageable, @RequestBody Absence absence) {
-        return absenceService.getAllAbsence(pageable, absence);
+    public Page<Absence> getAbsence(Pageable pageable, @RequestBody FilterAbsenceDTO filterAbsenceDTO) {
+        return absenceService.getAllAbsence(pageable, filterAbsenceDTO);
     }
 
     @PostMapping("/add-edit")

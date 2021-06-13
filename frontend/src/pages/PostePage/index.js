@@ -182,25 +182,7 @@ export default function ListPostes(props) {
                                                                 }}
                                                             />
                                                         </TableCell>
-                                                        <TableCell>
-                                                            <TextField
-                                                                placeholder="Date Creation"
-                                                                fullWidth
-                                                                type="date"
-                                                                variant="outlined"
-                                                                onChange={(e) =>
-                                                                    handleFilterChangeDebounced("dateCreation", e.target.value)
-                                                                }
-                                                                InputProps={{
-                                                                    startAdornment: (
-                                                                        <InputAdornment position="start">
-                                                                            <FilterList />
-                                                                        </InputAdornment>
-                                                                    ),
-                                                                    classes: { notchedOutline: classes.noBorder },
-                                                                }}
-                                                            />
-                                                        </TableCell>
+                                                        <TableCell />
                                                         <TableCell />
                                                     </TableRow>
                                                     {postes.map((poste, idx) => (

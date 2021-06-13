@@ -29,7 +29,6 @@ function* getListEmployeesSaga({ page, filter, size }) {
       throw new Error();
     }
     const data = yield call(() => directionMetierResp.json());
-    //console.log(data," - ",page," - ",filter," - ",size);
     yield put(getListEmployeesSuccess(data));
   } catch (e) {
     yield put(getListEmployeesError());
@@ -71,7 +70,6 @@ function* addEditEmployeesaga({ employee, handleClose }) {
     yield handleClose();
     yield put(getListEmployees(0, {}, 10));
   } catch (e) {
-    console.log(e)
     yield put(addEditEmployeeError());
   }
 }

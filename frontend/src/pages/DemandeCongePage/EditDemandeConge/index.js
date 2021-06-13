@@ -55,7 +55,6 @@ export default ({ open, handleClose, selected }) => {
     );
   }, [dispatch, selected, handleClose]);
   function submitForm(data) {
-    console.log(data)
     editDemandeCongeCallback(data);
   }
   return (

@@ -17,7 +17,7 @@ public class FormationService {
     }
 
     public Page<Formation> getAllFormation(Pageable pageable, Formation formation) {
-        return formationRepositorie.findAll(pageable);
+        return formationRepositorie.findByCriteria(pageable, formation.getNom());
     }
 
     public Formation addEditFormation(Formation formation) throws Exception {

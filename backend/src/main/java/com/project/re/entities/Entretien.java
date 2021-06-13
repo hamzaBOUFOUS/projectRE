@@ -21,4 +21,7 @@ public class Entretien {
     @OneToOne
     @JoinColumn(name = "id_condidature", referencedColumnName = "id")
     private Condidature condidature;
+    @OneToOne
+    @JoinColumn(name = "id_department", referencedColumnName = "id")
+    private Department department;
 }

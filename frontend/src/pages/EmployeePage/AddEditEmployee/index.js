@@ -63,7 +63,7 @@ export default ({ open, handleClose, selected }) => {
     setDateDebut(selected ? selected.dateDebut : null);
     setCodePostale(selected ? selected.codePostale : null);
     setDateNaissace(selected ? selected.dateNaissace : null);
-    dispatch(getListPostes(0, {}), getListContrats(0, {}));
+    dispatch(getListPostes(0, {}), getListContrats(0, {}), getListDepartments(0, {}));
   }, [dispatch, selected]);
   const [department, setDepartment] = useState(null);
   const [contrat, setContrat] = useState(null);
@@ -267,6 +267,7 @@ export default ({ open, handleClose, selected }) => {
                     variant="outlined"
                     className={classes.textField}
                     value={value}
+                    type="number"
                     fullWidth
                     label="Telephone"
                     onChange={onChange}
@@ -367,6 +368,7 @@ export default ({ open, handleClose, selected }) => {
                     helperText={error ? error.message : null}
                     name={"salaire"}
                     id="salaire"
+                    type="number"
                     variant="outlined"
                     className={classes.textField}
                     value={value}

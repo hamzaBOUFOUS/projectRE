@@ -24,7 +24,6 @@ export default ({ open, handleClose, selected }) => {
   }, [dispatch, selected, handleClose]);
   
   function submitForm() {
-    console.log(selected);
     deleteDepartmentCallback();
   }
   return (

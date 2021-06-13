@@ -10,6 +10,7 @@ import formationSaga from "./formation";
 import entretienSaga from "./entretien";
 import condidatureSaga from "./condidature";
 import demandeCongeSaga from "./demandeConge";
+import documentDemandeSaga from "./documentDemande";
 export default [ contratSaga, evenementSaga, absenceSaga, vacanceSaga, entretienSaga, 
     employeeSaga, departmentSaga, posteSaga, documentSaga, formationSaga, condidatureSaga,
-    demandeCongeSaga ];
+    demandeCongeSaga, documentDemandeSaga ];

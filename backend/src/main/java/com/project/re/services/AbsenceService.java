@@ -1,5 +1,6 @@
 package com.project.re.services;
 
+import com.project.re.Dto.FilterAbsenceDTO;
 import com.project.re.entities.Absence;
 import com.project.re.repositories.AbsenceRepositorie;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,8 @@ public class AbsenceService {
         this.absenceRepositorie = absenceRepositorie;
     }
 
-    public Page<Absence> getAllAbsence(Pageable pageable, Absence absence) {
-        return absenceRepositorie.findAll(pageable);
+    public Page<Absence> getAllAbsence(Pageable pageable, FilterAbsenceDTO filterAbsenceDTO) {
+        return absenceRepositorie.findByCriteria(pageable, filterAbsenceDTO.getEmployee());
     }
 
     public Absence addEditAbsence(Absence absence) throws Exception {

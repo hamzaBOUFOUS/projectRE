@@ -1,5 +1,6 @@
 package com.project.re.ressources;
 
+import com.project.re.Dto.FilterEntretienDTO;
 import com.project.re.entities.Employee;
 import com.project.re.entities.Entretien;
 import com.project.re.services.EmployeeService;
@@ -22,8 +23,8 @@ public class EntretienRessource {
     }
 
     @PostMapping("/list-entretien")
-    public Page<Entretien> getEntretien(Pageable pageable, @RequestBody Entretien entretien) {
-        return entretienService.getAllEntretien(pageable, entretien);
+    public Page<Entretien> getEntretien(Pageable pageable, @RequestBody FilterEntretienDTO entretienDTO) {
+        return entretienService.getAllEntretien(pageable, entretienDTO);
     }
 
     @PostMapping("/add-edit")

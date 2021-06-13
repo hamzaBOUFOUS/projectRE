@@ -17,7 +17,8 @@ public class CondidatureService {
     }
 
     public Page<Condidature> getAllCondidature(Pageable pageable, Condidature condidature) {
-        return condidatureRepositorie.findAll(pageable);
+        return condidatureRepositorie.findByCriteria(pageable, condidature.getCin(), condidature.getNom(),
+                condidature.getEmail(), condidature.getTelephone(), condidature.getPrenom());
     }
 
     public Condidature addEditCondidature(Condidature condidature) throws Exception {

@@ -75,7 +75,6 @@ function* addEditContratsaga({ contrat, handleClose }) {
     yield handleClose();
     yield put(getListContrats(page, filter, size));
   } catch (e) {
-    console.log(e)
     yield put(addEditContratError());
   }
 }

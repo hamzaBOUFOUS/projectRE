@@ -172,7 +172,7 @@ export default function ListDepartments(props) {
                                                                 fullWidth
                                                                 variant="outlined"
                                                                 onChange={(e) =>
-                                                                    handleFilterChangeDebounced("first_name", e.target.value)
+                                                                    handleFilterChangeDebounced("nomDepartment", e.target.value)
                                                                 }
                                                                 InputProps={{
                                                                     startAdornment: (
@@ -184,25 +184,7 @@ export default function ListDepartments(props) {
                                                                 }}
                                                             />
                                                         </TableCell>
-                                                        <TableCell>
-                                                            <TextField
-                                                                placeholder="Date Creation"
-                                                                fullWidth
-                                                                type="date"
-                                                                variant="outlined"
-                                                                onChange={(e) =>
-                                                                    handleFilterChangeDebounced("lastName", e.target.value)
-                                                                }
-                                                                InputProps={{
-                                                                    startAdornment: (
-                                                                        <InputAdornment position="start">
-                                                                            <FilterList />
-                                                                        </InputAdornment>
-                                                                    ),
-                                                                    classes: { notchedOutline: classes.noBorder },
-                                                                }}
-                                                            />
-                                                        </TableCell>
+                                                        <TableCell />
                                                         <TableCell />
                                                     </TableRow>
                                                     {departments.map((department, idx) => (

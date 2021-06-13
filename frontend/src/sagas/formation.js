@@ -29,7 +29,6 @@ function* getListFormationsSaga({ page, filter, size }) {
       throw new Error();
     }
     const data = yield call(() => directionMetierResp.json());
-    //console.log(data," - ",page," - ",filter," - ",size);
     yield put(getListFormationsSuccess(data));
   } catch (e) {
     yield put(getListFormationsError());
@@ -77,7 +76,6 @@ function* addEditFormationsaga({ formation, handleClose }) {
     yield handleClose();
     yield put(getListFormations(page, filter, size));
   } catch (e) {
-    console.log(e)
     yield put(addEditFormationError());
   }
 }

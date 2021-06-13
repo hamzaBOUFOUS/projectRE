@@ -22,20 +22,26 @@ export default function SideBar(props) {
                         </div>
                     </div>
 
-                    <nav className="mt-2">
+                    <nav className="mt-2"><i class=""></i>
                         <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <li className="nav-item">
+                                <div className="nav-link">
+                                    <i className="nav-icon fas fa-home"></i>
+                                    <p>
+                                        <Link to="/">Home</Link>
+                                    </p>
+                                </div>
+                            </li>
                             <li className="nav-item">
                                 <a href="#" className="nav-link">
                                     <i className="nav-icon fas fa-tachometer-alt"></i>
-                                    <p>
-                                        General
-                <i className="right fas fa-angle-left"></i>
+                                    <p>General<i className="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
                                 <ul className="nav nav-treeview">
                                     <li className="nav-item">
                                         <div className="nav-link">
-                                            <i className="nav-icon fas fa-tree"></i>
+                                            <i className="nav-icon fas fa-building"></i>
                                             <p>
                                                 <Link to="/department" > Gestion Department </Link>
                                             </p>
@@ -43,7 +49,7 @@ export default function SideBar(props) {
                                     </li>
                                     <li className="nav-item">
                                         <div className="nav-link">
-                                            <i className="nav-icon fas fa-tree"></i>
+                                            <i className="nav-icon fas fa-file-signature"></i>
                                             <p>
                                                 <Link to="/contrat" > Gestion Contrat </Link>
                                             </p>
@@ -51,7 +57,7 @@ export default function SideBar(props) {
                                     </li>
                                     <li className="nav-item">
                                         <div className="nav-link">
-                                            <i className="nav-icon fas fa-tree"></i>
+                                            <i className="nav-icon fas fa-network-wired"></i>
                                             <p>
                                                 <Link to="/poste" > Gestion Poste </Link>
                                             </p>
@@ -59,7 +65,7 @@ export default function SideBar(props) {
                                     </li>
                                     <li className="nav-item">
                                         <div className="nav-link">
-                                            <i className="nav-icon fas fa-tree"></i>
+                                            <i className="nav-icon fas fa-book"></i>
                                             <p>
                                                 <Link to="/document" > Gestion Document </Link>
                                             </p>
@@ -69,7 +75,7 @@ export default function SideBar(props) {
                             </li>
                             <li className="nav-item">
                                 <div className="nav-link">
-                                    <i className="nav-icon fa fa-address-book"></i>
+                                    <i className="nav-icon fas fa-user-friends"></i>
                                     <p>
                                         <Link to="/employee" > Employee </Link>
                                     </p>
@@ -85,7 +91,7 @@ export default function SideBar(props) {
                                 <ul className="nav nav-treeview">
                                     <li className="nav-item">
                                         <div className="nav-link">
-                                            <i className="nav-icon fas fa-tree"></i>
+                                            <i className="nav-icon fas fa-user-plus"></i>
                                             <p>
                                                 <Link to="/condidature" > Condidature </Link>
                                             </p>
@@ -93,7 +99,7 @@ export default function SideBar(props) {
                                     </li>
                                     <li className="nav-item">
                                         <div className="nav-link">
-                                            <i className="nav-icon fas fa-tree"></i>
+                                            <i className="nav-icon far fa-handshake"></i>
                                             <p>
                                                 <Link to="/entretien" > Entretien </Link>
                                             </p>
@@ -103,7 +109,7 @@ export default function SideBar(props) {
                             </li>
                             <li className="nav-item">
                                 <div className="nav-link">
-                                    <i className="nav-icon fas fa-tree"></i>
+                                    <i className="nav-icon fas fa-stopwatch"></i>
                                     <p>
                                         <Link to="/demandeConge" > Demandes Conges </Link>
                                     </p>
@@ -111,15 +117,15 @@ export default function SideBar(props) {
                             </li>
                             <li className="nav-item">
                                 <div className="nav-link">
-                                    <i className="nav-icon fas fa-tree"></i>
+                                    <i className="nav-icon fas fa-book"></i>
                                     <p>
-                                        <Link to="/evenement" > Demandes Documents </Link>
+                                        <Link to="/documentDemande" > Demandes Documents </Link>
                                     </p>
                                 </div>
                             </li>
                             <li className="nav-item">
                                 <div className="nav-link">
-                                    <i className="nav-icon fas fa-tree"></i>
+                                    <i className="nav-icon far fa-id-badge"></i>
                                     <p>
                                         <Link to="/absence" > Gestion Absence </Link>
                                     </p>
@@ -127,7 +133,7 @@ export default function SideBar(props) {
                             </li>
                             <li className="nav-item">
                                 <div className="nav-link">
-                                    <i className="nav-icon fas fa-tree"></i>
+                                    <i className="nav-icon fas fa-snowman"></i>
                                     <p>
                                         <Link to="/vacance" > Vacance </Link>
                                     </p>
@@ -135,7 +141,7 @@ export default function SideBar(props) {
                             </li>
                             <li className="nav-item">
                                 <div className="nav-link">
-                                    <i className="nav-icon fas fa-tree"></i>
+                                    <i className="nav-icon fas fa-calendar-week"></i>
                                     <p>
                                         <Link to="/evenement" > Evenement </Link>
                                     </p>

@@ -1,21 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getListDocumentDemandes } from "../../stores/reducers/documentDemande/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/Loader";
 import cx from "classnames";
-import { useDebouncedCallback } from 'use-debounce';
 import CustomPagination from "../../components/CustomPagination";
-import AddEditDocument from "./AddEditDocument";
-import DeleteDocument from "./DeleteDocument";
-import { getListDocuments } from "../../stores/reducers/document/actions";
+import EditDocumentDemande from "./EditDocumentDemande";
 import {
-    Delete,
-    Add,
     Edit,
-    FilterList,
 } from "@material-ui/icons";
 import {
-    Button,
+    Chip,
     makeStyles,
     Table,
     TableHead,
@@ -24,11 +19,8 @@ import {
     TableCell,
     TableContainer,
     Paper,
-    TextField,
     IconButton,
-    Divider,
     LinearProgress,
-    InputAdornment,
 } from "@material-ui/core/";
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -59,58 +51,42 @@ const useStyles = makeStyles((theme) => ({
         border: "none",
     },
 }));
-export default function ListDocuments(props) {
+export default function ListDocumentDemandes(props) {
     const classes = useStyles();
-    const { DocumentsData, status } = useSelector((state) => state.documents);
-    const { content: documents, totalPages, number: page } = DocumentsData;
+    const { DocumentDemandesData, status } = useSelector((state) => state.documentDemandes);
+    const { content: documentDemandes, totalPages, number: page } = DocumentDemandesData;
     const dispatch = useDispatch();
-    const [filter, setFilter] = useState({});
     const [openAddEdit, setOpenAddEdit] = useState(false);
-    const [openDelete, setOpenDelete] = useState(false);
     const [selected, setSelected] = useState();
-    const handleFilterChangeDebounced = useDebouncedCallback((name, value) => {
-        setFilter((prevFilter) => ({
-            ...prevFilter,
-            [name]: value,
-        }));
-    }, 500);
-    const handleGetDocuments = useCallback(
+    const handleGetDocumentDemandes = useCallback(
         (nPage, nFilter) => {
-            dispatch(getListDocuments(nPage, nFilter, 10));
+            dispatch(getListDocumentDemandes(nPage, nFilter, 10));
         },
         [dispatch]
     );
-    const handleOpenAddEdit = (document) => (event) => {
-        setSelected(document);
+    const handleOpenAddEdit = (documentDemande) => (event) => {
+        setSelected(documentDemande);
         setOpenAddEdit(true);
     };
     const handleCloseAddEdit = useCallback(() => {
         setSelected(null);
         setOpenAddEdit(false);
     }, [selected]);
-    const handleOpenDelete = (document) => (event) => {
-        setSelected(document);
-        setOpenDelete(true);
-    };
-    const handleCloseDelete = useCallback(() => {
-        setSelected(null);
-        setOpenDelete(false);
-    }, [selected]);
     useEffect(() => {
-        handleGetDocuments(page, filter);
-    }, [handleGetDocuments, filter]);
+        handleGetDocumentDemandes(page, {});
+    }, [handleGetDocumentDemandes]);
     return (
         <>
             <section className="content-header">
                 <div className="container-fluid">
                     <div className="row mb-2">
                         <div className="col-sm-6">
-                            <h1>Gestion Documents</h1>
+                            <h1>Gestion Demandes Document</h1>
                         </div>
                         <div className="col-sm-6">
                             <ol className="breadcrumb float-sm-right">
                                 <li className="breadcrumb-item"><Link to="/home">Home</Link></li>
-                                <li className="breadcrumb-item active">Documents</li>
+                                <li className="breadcrumb-item active">Demandes Document</li>
                             </ol>
                         </div>
                     </div>
@@ -127,17 +103,6 @@ export default function ListDocuments(props) {
                                 <div className="card-body">
                                     <TableContainer component={Paper}>
                                         {status === "loading" && <LinearProgress color="secondary" />}
-                                        <div className={classes.header}>
-                                            <Button
-                                                onClick={handleOpenAddEdit(null)}
-                                                variant="contained"
-                                                color="primary"
-                                                startIcon={<Add />}
-                                            >
-                                                Add
-                                            </Button>
-                                        </div>
-                                        <Divider />
                                         <Loader status={status}>
                                             <Table className={cx({ [classes.blur]: status === "loading" })}>
                                                 <TableHead>
@@ -149,7 +114,17 @@ export default function ListDocuments(props) {
                                                         </TableCell>
                                                         <TableCell>
                                                             <strong>
-                                                                Type Document
+                                                            Employe
+                                                            </strong>
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            <strong>
+                                                            Type Document
+                                                            </strong>
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            <strong>
+                                                            Etat
                                                             </strong>
                                                         </TableCell>
                                                         <TableCell className={classes.actions} />
@@ -158,44 +133,30 @@ export default function ListDocuments(props) {
                                                 <TableBody>
                                                     <TableRow className={classes.filterRow}>
                                                         <TableCell />
-                                                        <TableCell>
-                                                            <TextField
-                                                                placeholder="Nom Document"
-                                                                fullWidth
-                                                                variant="outlined"
-                                                                onChange={(e) =>
-                                                                    handleFilterChangeDebounced("typeDocument", e.target.value)
-                                                                }
-                                                                InputProps={{
-                                                                    startAdornment: (
-                                                                        <InputAdornment position="start">
-                                                                            <FilterList />
-                                                                        </InputAdornment>
-                                                                    ),
-                                                                    classes: { notchedOutline: classes.noBorder },
-                                                                }}
-                                                            />
-                                                        </TableCell>
+                                                        <TableCell />
+                                                        <TableCell />
+                                                        <TableCell />
                                                         <TableCell />
                                                     </TableRow>
-                                                    {documents.map((document, idx) => (
+                                                    {documentDemandes.map((documentDemande, idx) => (
                                                         <TableRow className={cx({ [classes.coloredRow]: idx % 2 === 0 })}>
-                                                            <TableCell>{document.id}</TableCell>
-                                                            <TableCell>{document.typeDocument}</TableCell>
+                                                            <TableCell>{documentDemande.id}</TableCell>
+                                                            <TableCell>
+                                                                <Chip
+                                                                    variant="outlined"
+                                                                    label={documentDemande.employee.nom+" "+documentDemande.employee.prenom}
+                                                                    className={classes.chip}
+                                                                />
+                                                            </TableCell>
+                                                            <TableCell>{documentDemande.document.typeDocument}</TableCell>
+                                                            <TableCell>{documentDemande.etat}</TableCell>
                                                             <TableCell className={classes.actions}>
                                                                 <IconButton
                                                                     aria-haspopup="true"
-                                                                    onClick={handleOpenAddEdit(document)}
+                                                                    onClick={handleOpenAddEdit(documentDemande)}
                                                                     color="secondary"
                                                                 >
                                                                     <Edit fontSize="small" />
-                                                                </IconButton>
-                                                                <IconButton
-                                                                    aria-haspopup="true"
-                                                                    onClick={handleOpenDelete(document)}
-                                                                    color="inherit"
-                                                                >
-                                                                    <Delete color="inherit" fontSize="small" />
                                                                 </IconButton>
                                                             </TableCell>
                                                         </TableRow>
@@ -206,7 +167,7 @@ export default function ListDocuments(props) {
                                                 totalPages={totalPages}
                                                 page={page + 1}
                                                 onPageChange={(_, newPage) => {
-                                                    handleGetDocuments(newPage - 1, filter);
+                                                    handleGetDocumentDemandes(newPage - 1, {});
                                                 }}
                                             />
                                         </Loader>
@@ -218,15 +179,9 @@ export default function ListDocuments(props) {
                 </div>
             </section>
             {openAddEdit && (
-                <AddEditDocument
+                <EditDocumentDemande
                     open={openAddEdit}
                     handleClose={handleCloseAddEdit}
-                    selected={selected}
-                />
-            )}{openDelete && (
-                <DeleteDocument
-                    open={openDelete}
-                    handleClose={handleCloseDelete}
                     selected={selected}
                 />
             )}

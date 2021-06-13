@@ -17,7 +17,7 @@ public class VacanceService {
     }
 
     public Page<Vacance> getAllVacance(Pageable pageable, Vacance vacance) {
-        return vacanceRepositorie.findAll(pageable);
+        return vacanceRepositorie.findByCriteria(pageable, vacance.getName());
     }
 
     public Vacance addEditVacance(Vacance vacance) throws Exception {

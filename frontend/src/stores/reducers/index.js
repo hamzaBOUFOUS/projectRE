@@ -11,6 +11,7 @@ import { FormationsReducer } from "./formation/reducers";
 import { EntretiensReducer } from "./entretien/reducers";
 import { CondidaturesReducer } from "./condidature/reducers";
 import { DemandeCongesReducer } from "./demandeConge/reducers";
+import { DocumentDemandesReducer } from "./documentDemande/reducers";
 
 export default combineReducers({
     contrats: ContratsReducer,
@@ -24,5 +25,6 @@ export default combineReducers({
     formations:FormationsReducer,
     entretiens:EntretiensReducer,
     condidatures:CondidaturesReducer,
-    demandeConges:DemandeCongesReducer
+    demandeConges:DemandeCongesReducer,
+    documentDemandes:DocumentDemandesReducer
 });

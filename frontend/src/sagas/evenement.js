@@ -29,7 +29,6 @@ function* getListEvenementsSaga({ page, filter, size }) {
       throw new Error();
     }
     const data = yield call(() => directionMetierResp.json());
-    //console.log(data," - ",page," - ",filter," - ",size);
     yield put(getListEvenementsSuccess(data));
   } catch (e) {
     yield put(getListEvenementsError());
@@ -77,7 +76,6 @@ function* addEditEvenementsaga({ evenement, handleClose }) {
     yield handleClose();
     yield put(getListEvenements(page, filter, size));
   } catch (e) {
-    console.log(e)
     yield put(addEditEvenementError());
   }
 }
