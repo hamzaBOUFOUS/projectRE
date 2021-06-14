@@ -45,8 +45,8 @@ export default ({ open, handleClose, selected }) => {
         {
           id: selected ? selected.id : undefined,
           employee: selected ? selected.employee : undefined,
-          dateDebut: data.dateAbsence,
-          dateFin: data.dateFin,
+          dateDebut: selected ? selected.dateDebut: undefined,
+          dateFin: selected ? selected.dateFin: undefined,
           etat: data.etat,
           motif: selected ? selected.motif : undefined,
         },
@@ -95,7 +95,7 @@ export default ({ open, handleClose, selected }) => {
           <Controller
             name="dateDebut"
             control={control}
-            defaultValue={selected?selected.dateDebut:""}
+            defaultValue={selected ? selected.dateDebut:""}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <TextField
                 name={"dateDebut"}

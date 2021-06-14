@@ -30,7 +30,7 @@ export default function DashboardHome(props) {
                 data: [200, 150, 20],
                 fill: false,
                 borderColor: 'white',
-                backgroundColor: ['red', 'blue', 'rgba(75,192,192,0.4)'],
+                backgroundColor: ['#f56954', '#3c8dbc', '#d2d6df'],
 
             }
         ]
@@ -43,7 +43,7 @@ export default function DashboardHome(props) {
                 data: [200, 150],
                 fill: false,
                 borderColor: 'white',
-                backgroundColor: ['red', 'blue', 'rgba(75,192,192,0.4)'],
+                backgroundColor: [ '#3c8dbc', '#d2d6df'],
 
             }
         ]
