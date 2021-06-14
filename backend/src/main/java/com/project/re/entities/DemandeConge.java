@@ -4,6 +4,7 @@ import com.project.re.enumerations.Etat;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Data
 @Entity
@@ -13,9 +14,9 @@ public class DemandeConge {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name="date_debut")
-    private String dateDebut;
+    private Date dateDebut;
     @Column(name="date_fin")
-    private String dateFin;
+    private Date dateFin;
     @Column
     private Etat etat;
     @OneToOne

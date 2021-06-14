@@ -3,6 +3,7 @@ package com.project.re.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Collection;
 
 @Data
@@ -15,9 +16,9 @@ public class Formation {
     @Column
     private String nom;
     @Column(name="date_debut")
-    private String dateDebut;
+    private Date dateDebut;
     @Column(name="date_fin")
-    private String dateFin;
+    private Date dateFin;
     @Column
     private String description;
     @ManyToMany

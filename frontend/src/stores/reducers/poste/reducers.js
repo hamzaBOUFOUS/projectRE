@@ -11,7 +11,6 @@ import {
 const INITIAL_STATE = {
   PostesData: { content: [], number: 0, size: 10 },
   PostesFilter: {},
-  timelineData: [],
   status: null,
   deleteStatus: null,
 };

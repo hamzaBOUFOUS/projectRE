@@ -14,4 +14,7 @@ public interface EmployeeRepositorie  extends JpaRepository<Employee, Long > {
             "(upper(e.telephone) like upper(CONCAT('%', :telephone, '%')) or :telephone is null) and "+
             "(upper(e.nationalite) like upper(CONCAT('%', :nationalite, '%')) or :nationalite is null)")
     Page<Employee> findByCriteria(Pageable pageable, String cin, String nom, String email, String telephone, String nationalite);
+
+    @Query(value = "select count(distinct e.id) from Employee e")
+    Long nbrEmpl();
 }

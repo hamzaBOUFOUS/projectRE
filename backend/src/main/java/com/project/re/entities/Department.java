@@ -3,7 +3,7 @@ package com.project.re.entities;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 @Entity
@@ -15,5 +15,5 @@ public class Department {
     @Column(name="nom_department")
     private String nomDepartment;
     @Column(name="date_creation")
-    private String dateCreation;
+    private Date dateCreation;
 }

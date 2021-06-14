@@ -11,6 +11,8 @@ import entretienSaga from "./entretien";
 import condidatureSaga from "./condidature";
 import demandeCongeSaga from "./demandeConge";
 import documentDemandeSaga from "./documentDemande";
+import dashboardSaga from "./dashboard";
+import userSaga from "./utilisateur";
 export default [ contratSaga, evenementSaga, absenceSaga, vacanceSaga, entretienSaga, 
     employeeSaga, departmentSaga, posteSaga, documentSaga, formationSaga, condidatureSaga,
-    demandeCongeSaga, documentDemandeSaga ];
+    demandeCongeSaga, documentDemandeSaga, dashboardSaga, userSaga ];

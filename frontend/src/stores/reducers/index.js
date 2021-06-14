@@ -12,6 +12,8 @@ import { EntretiensReducer } from "./entretien/reducers";
 import { CondidaturesReducer } from "./condidature/reducers";
 import { DemandeCongesReducer } from "./demandeConge/reducers";
 import { DocumentDemandesReducer } from "./documentDemande/reducers";
+import { dashboardReducer } from "./dashboard/reducers";
+import { usersReducer } from "./utilisateur/reducers";
 
 export default combineReducers({
     contrats: ContratsReducer,
@@ -26,5 +28,7 @@ export default combineReducers({
     entretiens:EntretiensReducer,
     condidatures:CondidaturesReducer,
     demandeConges:DemandeCongesReducer,
-    documentDemandes:DocumentDemandesReducer
+    documentDemandes:DocumentDemandesReducer,
+    dashboards:dashboardReducer,
+    users:usersReducer
 });

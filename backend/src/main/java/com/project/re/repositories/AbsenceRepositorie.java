@@ -10,4 +10,8 @@ public interface AbsenceRepositorie extends JpaRepository<Absence, Long > {
     @Query(value = "select a from Absence a where " +
             "(upper(a.employee.nom) like upper(CONCAT('%', :employee, '%')) or :employee is null)")
     Page<Absence> findByCriteria(Pageable pageable, String employee);
+
+    @Query(value = "select count(distinct a.employee.id) from Absence a where " +
+            "a.dateAbsence = CURDATE()")
+    Long nbrEmplAbsence();
 }

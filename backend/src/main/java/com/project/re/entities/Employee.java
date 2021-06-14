@@ -3,6 +3,7 @@ package com.project.re.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Data
 @Entity
@@ -18,7 +19,7 @@ public class Employee {
     @Column
     private String prenom;
     @Column(name="date_naissace")
-    private String dateNaissace;
+    private Date dateNaissace;
     @Column
     private String email;
     @Column
@@ -34,7 +35,7 @@ public class Employee {
     @Column
     private String horaire;
     @Column(name="date_debut")
-    private String dateDebut;
+    private Date dateDebut;
     @OneToOne
     @JoinColumn(name = "id_department", referencedColumnName = "id")
     private Department department;

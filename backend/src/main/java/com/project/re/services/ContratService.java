@@ -24,11 +24,14 @@ public class ContratService {
         return contratRepositorie.save(contrat);
     }
 
-    public void deleteContrat(long id) throws Exception {
+    public Contrat deleteContrat(long id) throws Exception {
+        Contrat contrat = null;
         if (!contratRepositorie.existsById(id)) {
-            throw new Exception("contrant not available");
+            return contrat;
         } else {
+            contrat = contratRepositorie.getById(id);
             contratRepositorie.deleteById(id);
+            return contrat;
         }
     }
 }

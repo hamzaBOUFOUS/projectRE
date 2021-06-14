@@ -3,6 +3,7 @@ package com.project.re.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Data
 @Entity
@@ -12,7 +13,7 @@ public class Entretien {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name="date_entretien")
-    private String dateEntretien;
+    private Date dateEntretien;
     @Column
     private String heure;
     @OneToOne

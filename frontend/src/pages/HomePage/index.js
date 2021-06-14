@@ -9,16 +9,14 @@ import SideBar from "../shared/sidebar";
 export default function HomePage(props) {
     return (
         <>
-            <div className="hold-transition sidebar-mini">
-                <Preloader />
-                <div className="wrapper">
-                    <Header />
-                    <SideBar />
-                    <div class="content-wrapper">
-                        <Routes />
-                    </div>
-                    <Footer />
+            <Preloader />
+            <div className="wrapper">
+                <Header />
+                <SideBar />
+                <div class="content-wrapper">
+                    <Routes />
                 </div>
+                <Footer />
             </div>
         </>
     )

@@ -27,7 +27,6 @@ function App() {
               (<Suspense fallback={<Preloader />}>
                 <Router history={history}>
                   <Route path="/"  component={HomePage} />
-                  <Redirect to="/"/>
                 </Router>
               </Suspense>)
           )

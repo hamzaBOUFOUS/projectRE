@@ -25,18 +25,14 @@ public class UtilisateurService {
         return utilisateurRepositorie.save(utilisateur);
     }
 
-    /*public Utilisateur login(FormLogin formLogin) throws Exception{
-        if (!utilisateurRepositorie.findUtilisateurByUsernameExists(formLogin.getUsername()) ) {
-            throw new Exception("Username not available");
+    public Utilisateur login(FormLogin formLogin) throws Exception{
+        Utilisateur utilisateur = utilisateurRepositorie.loginUser(formLogin.getUsername(), formLogin.getPassword());
+        if (utilisateur == null) {
+            return utilisateur;
         } else {
-            Utilisateur utilisateur = utilisateurRepositorie.findUtilisateurByUsernameAndPassword(formLogin.getUsername(), formLogin.getPassword());
-            if( utilisateur == null){
-                throw new Exception("Password not available");
-            }else{
-                return utilisateur;
-            }
+            return utilisateur;
         }
-    }*/
+    }
 
     public void deleteUtilisateur(long id) throws Exception {
         if (!utilisateurRepositorie.existsById(id)) {
