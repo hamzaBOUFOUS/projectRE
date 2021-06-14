@@ -5,7 +5,12 @@ import { Link } from "react-router-dom";
 import { Pie, Line, Bar } from "react-chartjs-2";
 import { constructDashboard } from "../../stores/reducers/dashboard/actions";
 const data = [
-    [200, 150, 20, 10]
+    { label: 'January', sales: 21, leads: 41 },
+    { label: 'February', sales: 35, leads: 79 },
+    { label: 'March', sales: 75, leads: 57 },
+    { label: 'April', sales: 51, leads: 47 },
+    { label: 'May', sales: 41, leads: 63 },
+    { label: 'June', sales: 47, leads: 71 }
 ];
 export default function DashboardHome(props) {
     const dispatch = useDispatch();
@@ -43,6 +48,41 @@ export default function DashboardHome(props) {
             }
         ]
     }
+    const dataLine = {
+        labels: ["January", "February", "March", "April", "May", "June"
+            , "July", "August", "September", "October", "November", "December"],
+        datasets: [
+            {
+                label: 'Nombre des Absences par Months',
+                data: [200, 150, 150, 130, 80, 180, 60, 40, 120, 100, 10, 50],
+                fill: true,
+                backgroundColor: 'rgba(75,192,192,0.4)',
+                borderColor: 'rgba(75,192,192,1)',
+            }
+        ]
+    }
+
+    const dataBar2 = {
+        labels: ["January", "February", "March", "April", "May", "June"
+            , "July", "August", "September", "October", "November", "December"],
+        datasets: [
+            {
+                label: 'Nombre des Condidatures par Months',
+                data: [200, 150, 150, 130, 80, 180, 60, 40, 120, 100, 10, 50],
+                fill: true,
+                backgroundColor: 'rgba(255,99,132,0.4)',
+                borderColor: 'rgba(255,99,132,1)',
+            },
+            {
+                label: 'Nombre des Entretiens par Months',
+                data: [200, 150, 150, 130, 80, 180, 60, 40, 120, 100, 10, 50],
+                fill: true,
+                backgroundColor: 'rgba(75,192,192,0.4)',
+                borderColor: 'rgba(75,192,192,1)',
+            }
+        ],
+    }
+
     useEffect(() => {
         handleConstructDashboard();
         console.log(constructDashboardData);
@@ -201,7 +241,7 @@ export default function DashboardHome(props) {
                         <section className="col-lg-5 connectedSortable">
                             <div className="card card-warning">
                                 <div className="card-header">
-                                    <h3 className="card-title">Bar Chart - Absence</h3>
+                                    <h3 className="card-title">Line Chart - Absence</h3>
 
                                     <div className="card-tools">
                                         <button type="button" className="btn btn-tool" data-card-widget="collapse">
@@ -213,7 +253,14 @@ export default function DashboardHome(props) {
                                     </div>
                                 </div>
                                 <div className="card-body">
-                                    <canvas id="pieChart" style={{ minHeight: '250px', height: '280px', maxHeight: '280px', maxWidth: '100%' }}></canvas>
+                                    <Line
+                                        data={dataLine}
+                                        maxWidth="100%"
+                                        height="280px"
+                                        minHeight='280px'
+                                        maxHeight='280px'
+                                        options={{ maintainAspectRatio: false }}
+                                    />
                                 </div>
                             </div>
                         </section>
@@ -233,7 +280,14 @@ export default function DashboardHome(props) {
                                     </div>
                                 </div>
                                 <div className="card-body">
-                                    <canvas id="pieChart" style={{ minHeight: '250px', height: '280px', maxHeight: '280px', maxWidth: '100%' }}></canvas>
+                                    <Bar
+                                        data={dataBar2}
+                                        maxWidth="100%"
+                                        height="280px"
+                                        minHeight='280px'
+                                        maxHeight='280px'
+                                        options={{ maintainAspectRatio: false }}
+                                    />
                                 </div>
                             </div>
                         </section>
