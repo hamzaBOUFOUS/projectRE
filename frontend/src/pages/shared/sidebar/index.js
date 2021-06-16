@@ -18,7 +18,7 @@ export default function SideBar(props) {
                             <img src={user2} className="img-circle elevation-2" alt="User Image" />
                         </div>
                         <div className="info">
-                            <Link to="/login" className="d-block">Med Amine</Link>
+                            <Link to="/" className="d-block">Med Amine</Link>
                         </div>
                     </div>
 

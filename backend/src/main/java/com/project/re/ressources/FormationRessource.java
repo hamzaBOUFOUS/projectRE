@@ -23,6 +23,11 @@ public class FormationRessource {
         return formationService.getAllFormation(pageable, formation);
     }
 
+    @PostMapping("/list-formation/{id}")
+    public Page<Formation> getFormationID(Pageable pageable, @PathVariable("id") long id) {
+        return formationService.getAllFormationID(pageable, id);
+    }
+
     @PostMapping("/add-edit")
     public ResponseEntity<Formation> addEditFormation(@RequestBody Formation formation) throws Exception {
         return ResponseEntity.ok().body(formationService.addEditFormation(formation));

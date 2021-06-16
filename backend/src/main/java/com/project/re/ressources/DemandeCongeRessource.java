@@ -18,9 +18,15 @@ public class DemandeCongeRessource {
     public DemandeCongeRessource(DemandeCongeService demandeCongeService) {
         this.demandeCongeService = demandeCongeService;
     }
+
     @PostMapping("/list-demandeConge")
     public Page<DemandeConge> getDemandeConge(Pageable pageable, @RequestBody DemandeConge conge) {
-        return demandeCongeService.getAllDemandeConge(pageable, conge);
+        return demandeCongeService.getAllDemandeConge(pageable);
+    }
+
+    @PostMapping("/list-demandeConge/{id}")
+    public Page<DemandeConge> getDemandeCongeId(Pageable pageable, @PathVariable("id") long id) {
+        return demandeCongeService.getAllDemandeCongeId(pageable, id);
     }
 
     @PostMapping("/add-edit")

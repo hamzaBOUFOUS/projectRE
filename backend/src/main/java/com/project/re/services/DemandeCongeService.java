@@ -16,8 +16,12 @@ public class DemandeCongeService {
         this.demandeCongeRepositorie = demandeCongeRepositorie;
     }
 
-    public Page<DemandeConge> getAllDemandeConge(Pageable pageable, DemandeConge conge) {
+    public Page<DemandeConge> getAllDemandeConge(Pageable pageable) {
         return demandeCongeRepositorie.findAll(pageable);
+    }
+
+    public Page<DemandeConge> getAllDemandeCongeId(Pageable pageable, long id) {
+        return demandeCongeRepositorie.findByCriteria(pageable, id);
     }
 
     public DemandeConge addEditDemandeConge(DemandeConge conge) throws Exception {

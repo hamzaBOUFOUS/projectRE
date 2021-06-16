@@ -20,6 +20,10 @@ public class EvenementService {
         return evenementRepositorie.findByCriteria(pageable, evenement.getNom());
     }
 
+    public Page<Evenement> getAllEvenementID(Pageable pageable, long id) {
+        return evenementRepositorie.findAllByEmployeesId(pageable, id);
+    }
+
     public Evenement addEditEvenement(Evenement evenement) throws Exception {
         return evenementRepositorie.save(evenement);
     }

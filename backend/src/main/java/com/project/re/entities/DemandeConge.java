@@ -1,6 +1,7 @@
 package com.project.re.entities;
 
 import com.project.re.enumerations.Etat;
+import com.project.re.enumerations.EtatConge;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,7 +19,7 @@ public class DemandeConge {
     @Column(name="date_fin")
     private Date dateFin;
     @Column
-    private Etat etat;
+    private EtatConge etat;
     @OneToOne
     @JoinColumn(name = "id_employee", referencedColumnName = "id")
     private Employee employee;

@@ -16,8 +16,12 @@ public class DocumentDemandeService {
         this.documentDemandeRepositorie = documentDemandeRepositorie;
     }
 
-    public Page<DocumentDemande> getAllDocumentDemande(Pageable pageable, DocumentDemande documentDemande) {
+    public Page<DocumentDemande> getAllDocumentDemande(Pageable pageable) {
         return documentDemandeRepositorie.findAll(pageable);
+    }
+
+    public Page<DocumentDemande> getAllDocumentDemandeId(Pageable pageable, long id) {
+        return documentDemandeRepositorie.findByCriteria(pageable, id);
     }
 
     public DocumentDemande addEditDocumentDemande(DocumentDemande documentDemande) throws Exception {

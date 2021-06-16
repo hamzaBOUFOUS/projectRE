@@ -12,8 +12,8 @@ public class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Enumerated(EnumType.STRING)
-    private Roles role = Roles.EMPLOYE;
+    @Column
+    private Roles role;
     @Column(unique = true)
     private String username;
     @Column(length = 255, nullable = false)

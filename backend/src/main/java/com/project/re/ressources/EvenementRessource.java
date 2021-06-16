@@ -4,9 +4,12 @@ import com.project.re.entities.Evenement;
 import com.project.re.services.EvenementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin(origins="http://localhost:3000")
 @RestController
@@ -21,6 +24,11 @@ public class EvenementRessource {
     @PostMapping("/list-evenement")
     public Page<Evenement> getEvenement(Pageable pageable, @RequestBody Evenement evenement) {
         return evenementService.getAllEvenement(pageable, evenement);
+    }
+
+    @PostMapping("/list-evenement/{id}")
+    public Page<Evenement> getEvenementID(Pageable pageable, @PathVariable("id") long id) {
+        return evenementService.getAllEvenementID(pageable, id);
     }
 
     @PostMapping("/add-edit")

@@ -18,9 +18,15 @@ public class DocumentDemandeRessource {
     public DocumentDemandeRessource(DocumentDemandeService documentDemandeService) {
         this.documentDemandeService = documentDemandeService;
     }
+
     @PostMapping("/list-documentDemande")
     public Page<DocumentDemande> getDemandeConge(Pageable pageable, @RequestBody DocumentDemande documentDemande) {
-        return documentDemandeService.getAllDocumentDemande(pageable, documentDemande);
+        return documentDemandeService.getAllDocumentDemande(pageable);
+    }
+
+    @PostMapping("/list-documentDemande/{id}")
+    public Page<DocumentDemande> getDemandeCongeId(Pageable pageable, @PathVariable("id") long id) {
+        return documentDemandeService.getAllDocumentDemandeId(pageable, id);
     }
 
     @PostMapping("/add-edit")

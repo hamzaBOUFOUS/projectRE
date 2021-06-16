@@ -28,6 +28,7 @@ export default ({ open, handleClose, selected }) => {
     setEmail(selected ? selected.email : null);
     setTelephone(selected ? selected.telephone : null);
     setAdresse(selected ? selected.adresse : null);
+    setDateDepot(selected ? selected.dateDepot : null);
     setCv(selected ? selected.cv : null);
   }, [selected]);
   const [cin, setCin] = useState();
@@ -36,6 +37,7 @@ export default ({ open, handleClose, selected }) => {
   const [email, setEmail] = useState();
   const [telephone, setTelephone] = useState();
   const [adresse, setAdresse] = useState();
+  const [dateDepot, setDateDepot] = useState();
   const [cv, setCv] = useState();
   const addEditCondidatureCallback = useCallback((data) => {
     dispatch(
@@ -48,6 +50,7 @@ export default ({ open, handleClose, selected }) => {
           email: data.email,
           telephone: data.telephone,
           adresse: data.adresse,
+          dateDepot: data.dateDepot,
           cv: data.cv,
         },
         handleClose
@@ -198,6 +201,30 @@ export default ({ open, handleClose, selected }) => {
               />
             )}
             rules={{ required: 'Adresse\' s is required' }}
+          />
+          <Controller
+            name="dateDepot"
+            control={control}
+            defaultValue={dateDepot}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <TextField
+                error={!!error}
+                helperText={error ? error.message : null}
+                name={"dateDepot"}
+                id="dateDepot"
+                variant="outlined"
+                className={classes.textField}
+                type="date"
+                value={value}
+                fullWidth
+                label="Date Depot"
+                onChange={onChange}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            )}
+            rules={{ required: 'Date\' s Depot is required' }}
           />
           <Controller
             name="cv"

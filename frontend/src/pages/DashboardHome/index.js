@@ -4,18 +4,11 @@ import { Link } from "react-router-dom";
 
 import { Pie, Line, Bar } from "react-chartjs-2";
 import { constructDashboard } from "../../stores/reducers/dashboard/actions";
-const data = [
-    { label: 'January', sales: 21, leads: 41 },
-    { label: 'February', sales: 35, leads: 79 },
-    { label: 'March', sales: 75, leads: 57 },
-    { label: 'April', sales: 51, leads: 47 },
-    { label: 'May', sales: 41, leads: 63 },
-    { label: 'June', sales: 47, leads: 71 }
-];
 export default function DashboardHome(props) {
     const dispatch = useDispatch();
     const { dashboardData } = useSelector((state) => state.dashboards);
     const constructDashboardData = dashboardData;
+    const dataD = constructDashboardData?constructDashboardData.nbrDemandeDocuement:[];
     const handleConstructDashboard = useCallback(
         () => {
             dispatch(constructDashboard());
@@ -23,11 +16,11 @@ export default function DashboardHome(props) {
         [dispatch]
     );
     const dataBar = {
-        labels: ["APPROUVE", "EN ATTENTE", "DESAPROUVE"],
+        labels: constructDashboardData?.nbrDemandeConge.map((d) => d.etat),
         datasets: [
-            {
+            {//
                 label: 'Nombre Demande de Conge par Etat',
-                data: [200, 150, 20],
+                data: constructDashboardData?.nbrDemandeConge.map((d) => d.nbr),
                 fill: false,
                 borderColor: 'white',
                 backgroundColor: ['#f56954', '#3c8dbc', '#d2d6df'],
@@ -36,11 +29,11 @@ export default function DashboardHome(props) {
         ]
     }
     const dataPie = {
-        labels: ["APPROUVE", "EN ATTENTE"],
+        labels: dataD.map(e=>e.etat),
         datasets: [
             {
                 label: 'Nombre Demande de Document par Etat',
-                data: [200, 150],
+                data: dataD?.map((e) => e.nbr),
                 fill: false,
                 borderColor: 'white',
                 backgroundColor: [ '#3c8dbc', '#d2d6df'],
@@ -54,7 +47,7 @@ export default function DashboardHome(props) {
         datasets: [
             {
                 label: 'Nombre des Absences par Months',
-                data: [200, 150, 150, 130, 80, 180, 60, 40, 120, 100, 10, 50],
+                data: constructDashboardData?.nbrAbsenceYear.map((d) => d.nbr),
                 fill: true,
                 backgroundColor: 'rgba(75,192,192,0.4)',
                 borderColor: 'rgba(75,192,192,1)',
@@ -68,14 +61,14 @@ export default function DashboardHome(props) {
         datasets: [
             {
                 label: 'Nombre des Condidatures par Months',
-                data: [200, 150, 150, 130, 80, 180, 60, 40, 120, 100, 10, 50],
+                data: constructDashboardData?.nbrCondidatureYear.map((d) => d.nbr),
                 fill: true,
                 backgroundColor: 'rgba(255,99,132,0.4)',
                 borderColor: 'rgba(255,99,132,1)',
             },
             {
                 label: 'Nombre des Entretiens par Months',
-                data: [200, 150, 150, 130, 80, 180, 60, 40, 120, 100, 10, 50],
+                data: constructDashboardData?.nbrEntretienYear.map((d) => d.nbr),
                 fill: true,
                 backgroundColor: 'rgba(75,192,192,0.4)',
                 borderColor: 'rgba(75,192,192,1)',

@@ -3,6 +3,7 @@ package com.project.re.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Data
 @Entity
@@ -23,6 +24,8 @@ public class Condidature {
     private String telephone;
     @Column
     private String adresse;
+    @Column(name="date_depot")
+    private Date dateDepot;
     @Column
     private String cv;
 }

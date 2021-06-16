@@ -8,11 +8,13 @@ import CustomPagination from "../../components/CustomPagination";
 import { getListEmployees } from "../../stores/reducers/employee/actions";
 import AddEditEmployee from "./AddEditEmployee";
 import DeleteEmployee from "./DeleteEmployee";
+import SeeMoreEmployee from "./SeeMoreEmployee";
 import {
     Delete,
     Add,
     Edit,
     FilterList,
+    Ballot
 } from "@material-ui/icons";
 import {
     Chip,
@@ -44,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     coloredRow: {
         backgroundColor: "#F7F8FC",
     },
-    actions: { width: 120, textAlign: "right" },
+    actions: { width: 170, textAlign: "right" },
     blur: { filter: "blur(4px)" },
     chip: { marginRight: theme.spacing(1) },
     title: { padding: theme.spacing(3, 0) },
@@ -68,6 +70,7 @@ export default function ListEmployees(props) {
     const [filter, setFilter] = useState({});
     const [openAddEdit, setOpenAddEdit] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
+    const [openSeeMore, setOpenSeeMore] = useState(false);
     const [selected, setSelected] = useState();
     const handleFilterChangeDebounced = useDebouncedCallback((name, value) => {
         setFilter((prevFilter) => ({
@@ -96,6 +99,14 @@ export default function ListEmployees(props) {
     const handleCloseDelete = useCallback(() => {
         setSelected(null);
         setOpenDelete(false);
+    }, [selected]);
+    const handleOpenSeeMore = (employee) => (event) => {
+        setSelected(employee);
+        setOpenSeeMore(true);
+    };
+    const handleCloseSeeMore = useCallback(() => {
+        setSelected(null);
+        setOpenSeeMore(false);
     }, [selected]);
     useEffect(() => {
         handleGetEmployees(page, filter);
@@ -314,6 +325,13 @@ export default function ListEmployees(props) {
                                                                 >
                                                                     <Delete color="inherit" fontSize="small" />
                                                                 </IconButton>
+                                                                <IconButton
+                                                                    aria-haspopup="true"
+                                                                    onClick={handleOpenSeeMore(employee)}
+                                                                    color="inherit"
+                                                                >
+                                                                    <Ballot color="inherit" fontSize="small" />
+                                                                </IconButton>
                                                             </TableCell>
                                                         </TableRow>
                                                     ))}
@@ -344,6 +362,12 @@ export default function ListEmployees(props) {
                 <DeleteEmployee
                     open={openDelete}
                     handleClose={handleCloseDelete}
+                    selected={selected}
+                />
+            )}{openSeeMore && (
+                <SeeMoreEmployee
+                    open={openSeeMore}
+                    handleClose={handleCloseSeeMore}
                     selected={selected}
                 />
             )}

@@ -14,4 +14,9 @@ public class Dashboard {
     private long nbrEmplConge;
     private List<Formation> lastThreeFormation;
     private List<Evenement> lastThreeEvenement;
+    private List<DemandeCongeDashboard> nbrDemandeConge;
+    private List<DemandDocumentDashboard> nbrDemandeDocuement;
+    private List<AbsenceRecrutementDashboard> nbrAbsenceYear;
+    private List<AbsenceRecrutementDashboard> nbrCondidatureYear;
+    private List<AbsenceRecrutementDashboard> nbrEntretienYear;
 }

@@ -1,6 +1,7 @@
 package com.project.re.entities;
 
 import com.project.re.enumerations.Etat;
+import com.project.re.enumerations.EtatAbsence;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,7 +15,7 @@ public class Absence {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    private Etat etat;
+    private EtatAbsence etat;
     @Column(name="date_absence")
     private Date dateAbsence;
     @OneToOne

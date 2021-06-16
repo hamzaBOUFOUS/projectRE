@@ -20,6 +20,10 @@ public class FormationService {
         return formationRepositorie.findByCriteria(pageable, formation.getNom());
     }
 
+    public Page<Formation> getAllFormationID(Pageable pageable, long id) {
+        return formationRepositorie.findAllByEmployeesId(pageable, id);
+    }
+
     public Formation addEditFormation(Formation formation) throws Exception {
         return formationRepositorie.save(formation);
     }

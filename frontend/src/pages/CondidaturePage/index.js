@@ -180,6 +180,11 @@ export default function ListCondidatures(props) {
                                                         </TableCell>
                                                         <TableCell>
                                                             <strong>
+                                                                Date Depot
+                                                            </strong>
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            <strong>
                                                                 CV
                                                             </strong>
                                                         </TableCell>
@@ -282,6 +287,7 @@ export default function ListCondidatures(props) {
                                                         <TableCell />
                                                         <TableCell />
                                                         <TableCell />
+                                                        <TableCell />
                                                     </TableRow>
                                                     {condidatures.map((condidature, idx) => (
                                                         <TableRow className={cx({ [classes.coloredRow]: idx % 2 === 0 })}>
@@ -292,6 +298,7 @@ export default function ListCondidatures(props) {
                                                             <TableCell>{condidature.email}</TableCell>
                                                             <TableCell>{condidature.telephone}</TableCell>
                                                             <TableCell>{condidature.adresse}</TableCell>
+                                                            <TableCell>{condidature.dateDepot}</TableCell>
                                                             <TableCell>{condidature.cv}</TableCell>
                                                             <TableCell className={classes.actions}>
                                                                 <IconButton
