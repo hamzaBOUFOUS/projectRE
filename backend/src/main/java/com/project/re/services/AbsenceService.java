@@ -21,6 +21,10 @@ public class AbsenceService {
         return absenceRepositorie.findByCriteria(pageable, filterAbsenceDTO.getEmployee());
     }
 
+    public Page<Absence> getAllAbsenceID(Pageable pageable, long id) {
+        return absenceRepositorie.findAllByEmployeeId(pageable, id);
+    }
+
     public Absence addEditAbsence(Absence absence) throws Exception {
         return absenceRepositorie.save(absence);
     }

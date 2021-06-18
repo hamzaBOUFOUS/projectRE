@@ -29,7 +29,7 @@ export default ({ open, handleClose, selected }) => {
     setTelephone(selected ? selected.telephone : null);
     setAdresse(selected ? selected.adresse : null);
     setDateDepot(selected ? selected.dateDepot : null);
-    setCv(selected ? selected.cv : null);
+    setfile(selected ? selected.cv : null);
   }, [selected]);
   const [cin, setCin] = useState();
   const [nom, setNom] = useState();
@@ -39,6 +39,10 @@ export default ({ open, handleClose, selected }) => {
   const [adresse, setAdresse] = useState();
   const [dateDepot, setDateDepot] = useState();
   const [cv, setCv] = useState();
+  const [file, setfile] = useState();
+  const changeHandler = (event) => {
+    setfile(event.target.files[0]);
+  };
   const addEditCondidatureCallback = useCallback((data) => {
     dispatch(
       addEditCondidature(
@@ -51,12 +55,14 @@ export default ({ open, handleClose, selected }) => {
           telephone: data.telephone,
           adresse: data.adresse,
           dateDepot: data.dateDepot,
-          cv: data.cv,
-        },
+          cv: "",
+        }, 
+        file
+        ,
         handleClose
       )
     );
-  }, [dispatch, selected, handleClose]);
+  }, [dispatch, selected, handleClose,file]);
   function submitForm(data) {
     addEditCondidatureCallback(data);
   }
@@ -156,7 +162,7 @@ export default ({ open, handleClose, selected }) => {
                 onChange={onChange}
               />
             )}
-            rules={{ required: 'Email\' s is required', pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/  }}
+            rules={{ required: 'Email\' s is required', pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/ }}
           />
           <Controller
             name="telephone"
@@ -246,6 +252,7 @@ export default ({ open, handleClose, selected }) => {
             )}
             rules={{ required: 'CV\' s is required' }}
           />
+          <input type="file" name="file" onChange={changeHandler} />
         </DialogContent>
         <br />
         <DialogActions className="modal-footer">

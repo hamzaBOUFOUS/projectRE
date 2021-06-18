@@ -55,17 +55,26 @@ function* deleteCondidaturesaga({ condidatureId, handleClose }) {
   }
 }
 
-function* addEditCondidaturesaga({ condidature, handleClose }) {
+function* addEditCondidaturesaga({ condidature, file, handleClose }) {
+  console.log(file);
+  console.log(condidature);
   try {
     const { number: page, size } = yield select(
       (state) => state.condidatures.CondidaturesData
     );
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('idC', condidature.id);
+    formData.append('cin', condidature.cin);
+    formData.append('nom', condidature.nom);
+    formData.append('prenom', condidature.prenom);
+    formData.append('email', condidature.email);
+    formData.append('telephone', condidature.telephone);
+    formData.append('adresse', condidature.adresse);
+    formData.append('dateDepot', condidature.dateDepot);
     const filter = yield select((state) => state.condidatures.CondidaturesFilter);
     const resp = yield call(fetch, "/condidature/add-edit", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(condidature),
+      body: formData,
       method: "POST",
     });
     if (resp.status !== 200) {
@@ -75,10 +84,10 @@ function* addEditCondidaturesaga({ condidature, handleClose }) {
     yield handleClose();
     yield put(getListCondidatures(page, filter, size));
   } catch (e) {
+    console.log(e)
     yield put(addEditCondidatureError());
   }
 }
-
 
 export default function* saga() {
   yield takeLatest(GET_LIST_CONDIDATURES, getListCondidaturesSaga);

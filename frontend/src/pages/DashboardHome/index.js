@@ -160,10 +160,10 @@ export default function DashboardHome(props) {
                                     <h3 className="card-title">Bar Chart - Demande de Congés</h3>
 
                                     <div className="card-tools">
-                                        <button type="button" className="btn btn-tool" data-card-widget="collapse">
+                                        <button type="button" className="btn btn-tool">
                                             <i className="fas fa-minus"></i>
                                         </button>
-                                        <button type="button" className="btn btn-tool" data-card-widget="remove">
+                                        <button type="button" className="btn btn-tool">
                                             <i className="fas fa-times"></i>
                                         </button>
                                     </div>
@@ -188,10 +188,10 @@ export default function DashboardHome(props) {
                                     <h3 className="card-title">Pie Chart - Demande de Documents</h3>
 
                                     <div className="card-tools">
-                                        <button type="button" className="btn btn-tool" data-card-widget="collapse">
+                                        <button type="button" className="btn btn-tool">
                                             <i className="fas fa-minus"></i>
                                         </button>
-                                        <button type="button" className="btn btn-tool" data-card-widget="remove">
+                                        <button type="button" className="btn btn-tool">
                                             <i className="fas fa-times"></i>
                                         </button>
                                     </div>
@@ -212,7 +212,7 @@ export default function DashboardHome(props) {
                             <div className="card card-default">
                                 <div className="card-header">
                                     <h3 className="card-title">
-                                        <i className="fas fa-bullhorn"></i>
+                                        <i className="fas fa-bullhorn mr-1"></i>
                                         Evénements
                                     </h3>
                                 </div>
@@ -237,10 +237,10 @@ export default function DashboardHome(props) {
                                     <h3 className="card-title">Line Chart - Absence</h3>
 
                                     <div className="card-tools">
-                                        <button type="button" className="btn btn-tool" data-card-widget="collapse">
+                                        <button type="button" className="btn btn-tool">
                                             <i className="fas fa-minus"></i>
                                         </button>
-                                        <button type="button" className="btn btn-tool" data-card-widget="remove">
+                                        <button type="button" className="btn btn-tool">
                                             <i className="fas fa-times"></i>
                                         </button>
                                     </div>
@@ -264,10 +264,10 @@ export default function DashboardHome(props) {
                                     <h3 className="card-title">Bar Chart - Recrutements</h3>
 
                                     <div className="card-tools">
-                                        <button type="button" className="btn btn-tool" data-card-widget="collapse">
+                                        <button type="button" className="btn btn-tool">
                                             <i className="fas fa-minus"></i>
                                         </button>
-                                        <button type="button" className="btn btn-tool" data-card-widget="remove">
+                                        <button type="button" className="btn btn-tool">
                                             <i className="fas fa-times"></i>
                                         </button>
                                     </div>
@@ -288,7 +288,7 @@ export default function DashboardHome(props) {
                             <div className="card card-default">
                                 <div className="card-header">
                                     <h3 className="card-title">
-                                        <i className="fas fa-bullhorn"></i>
+                                        <i className="fas fa-bullhorn mr-1"></i>
                                         Formations
                                     </h3>
                                 </div>

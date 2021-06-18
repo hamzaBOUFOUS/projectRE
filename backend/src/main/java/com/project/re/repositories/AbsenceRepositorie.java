@@ -14,6 +14,8 @@ public interface AbsenceRepositorie extends JpaRepository<Absence, Long > {
             "(upper(a.employee.nom) like upper(CONCAT('%', :employee, '%')) or :employee is null)")
     Page<Absence> findByCriteria(Pageable pageable, String employee);
 
+    Page<Absence> findAllByEmployeeId(Pageable pageable, long id);
+
     @Query(value = "select count(distinct a.employee.id) from Absence a where " +
             "a.dateAbsence = CURDATE()")
     Long nbrEmplAbsence();
@@ -22,5 +24,14 @@ public interface AbsenceRepositorie extends JpaRepository<Absence, Long > {
             "FROM Absence a where " +
             "YEAR(CURDATE()) = YEAR(a.dateAbsence) GROUP BY MONTH(a.dateAbsence)")
     List<AbsenceRecrutementDashboard> nbrAbsenceYear();
+
+    @Query(value = "select count(distinct a.id) from Absence a where " +
+            "a.employee.id = :id")
+    Long nbrEmplAbsenceId(long id);
+
+    @Query(value = "select NEW com.project.re.Dto.AbsenceRecrutementDashboard(MONTH(a.dateAbsence), count(a.id)) " +
+            "FROM Absence a where " +
+            "YEAR(CURDATE()) = YEAR(a.dateAbsence) and a.employee.id = :id GROUP BY MONTH(a.dateAbsence)")
+    List<AbsenceRecrutementDashboard> nbrAbsenceEmplYear(long id);
 
 }

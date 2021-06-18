@@ -7,7 +7,7 @@ export default function SideBar(props) {
     return (
         <>
             <aside className="main-sidebar sidebar-dark-primary elevation-4">
-                <Link className="brand-link" to="/login">
+                <Link className="brand-link" to="/">
                     <img src={AdminLTELogo} alt="AdminLTE Logo" className="brand-image img-circle elevation-3" />
                     <span className="brand-text font-weight-light">User</span>
                 </Link>
@@ -18,7 +18,7 @@ export default function SideBar(props) {
                             <img src={user2} className="img-circle elevation-2" alt="User Image" />
                         </div>
                         <div className="info">
-                            <Link to="/login" className="d-block">Med Amine</Link>
+                            <Link to="/profilPage" className="d-block">Med Amine</Link>
                         </div>
                     </div>
 
@@ -45,6 +45,14 @@ export default function SideBar(props) {
                                     <i className="nav-icon fas fa-book"></i>
                                     <p>
                                         <Link to="/documentDemande" > Demandes Document </Link>
+                                    </p>
+                                </div>
+                            </li>
+                            <li className="nav-item">
+                                <div className="nav-link">
+                                    <i className="nav-icon far fa-id-badge"></i>
+                                    <p>
+                                        <Link to="/absence" > Absences </Link>
                                     </p>
                                 </div>
                             </li>

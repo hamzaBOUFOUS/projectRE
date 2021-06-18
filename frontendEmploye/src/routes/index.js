@@ -6,6 +6,8 @@ import FormationPage from "../pages/FormationPage";
 import DemandeCongePage from "../pages/DemandeCongePage";
 import DocumentDemandePage from "../pages/DocumentDemandePage";
 import DashboardHome from "../pages/DashboardHome";
+import ProfilPage from "../pages/ProfilPage";
+import AbsencePage from "../pages/AbsencePage";
 
 const Routes = () => (
     <Switch>
@@ -15,6 +17,8 @@ const Routes = () => (
         <Route path='/formation' component={FormationPage} exact/>
         <Route path='/demandeConge' component={DemandeCongePage} exact/>
         <Route path='/documentDemande' component={DocumentDemandePage} exact/>
+        <Route path='/profilPage' component={ProfilPage} exact/>
+        <Route path='/absence' component={AbsencePage} exact/>
     </Switch>
 );
 export default Routes;

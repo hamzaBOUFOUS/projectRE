@@ -13,12 +13,9 @@ public interface EvenementRepositorie extends JpaRepository<Evenement, Long > {
             "(upper(e.nom) like upper(CONCAT('%', :nom, '%')) or :nom is null)")
     Page<Evenement> findByCriteria(Pageable pageable, String nom);
 
-    /*@Query(value = "select e from Evenement e, Employee ee where " +
-            "e.employees.id = ee.id and " +
-            "ee.id = :id")
-    Page<Evenement> findByCriteriaId(Pageable pageable, long id);*/
-
     Page<Evenement> findAllByEmployeesId(Pageable pageable, long id);
 
     List<Evenement> findTop3ByOrderByDateDebutDesc();
+
+    List<Evenement> findTop4ByEmployeesIdOrderByDateDebutDesc(long id);
 }

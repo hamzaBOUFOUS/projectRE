@@ -19,4 +19,14 @@ public interface DocumentDemandeRepositorie extends JpaRepository<DocumentDemand
     @Query(value = "select dd from DocumentDemande dd where " +
             "dd.employee.id = :id")
     Page<DocumentDemande> findByCriteria(Pageable pageable, long id);
+
+    @Query(value = "select count(distinct dd.id) from DocumentDemande dd where " +
+            "dd.etat = 1 and dd.employee.id = :id")
+    Long nbrEmplDocumentId(long id);
+
+    @Query(value = "select NEW com.project.re.Dto.DemandDocumentDashboard(dd.etat, count(dd.id)) " +
+            "FROM DocumentDemande dd " +
+            "where dd.employee.id = :id" +
+            " GROUP BY dd.etat ORDER BY dd.etat")
+    List<DemandDocumentDashboard> nbrDemandeEmplDocument(long id);
 }

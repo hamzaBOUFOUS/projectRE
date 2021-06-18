@@ -8,6 +8,7 @@ import java.sql.Date;
 @Data
 @Entity
 @Table(name="employee")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

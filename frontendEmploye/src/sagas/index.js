@@ -7,5 +7,7 @@ import dashboardSaga from "./dashboard";
 import userSaga from "./utilisateur";
 import documentSaga from "./document";
 import motifSaga from "./motif";
+import absenceSaga from "./absence";
 export default [ evenementSaga, vacanceSaga, formationSaga, demandeCongeSaga, 
-    documentDemandeSaga, dashboardSaga, userSaga, documentSaga, motifSaga ];
+    documentDemandeSaga, dashboardSaga, userSaga, documentSaga, motifSaga, 
+    absenceSaga ];

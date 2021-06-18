@@ -8,6 +8,7 @@ import { dashboardReducer } from "./dashboard/reducers";
 import { usersReducer } from "./utilisateur/reducers";
 import { DocumentsReducer } from "./document/reducers";
 import { MotifsReducer } from "./motif/reducers";
+import { AbsencesReducer } from "./absence/reducers";
 
 export default combineReducers({
     evenements:EvenementsReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
     dashboards:dashboardReducer,
     users:usersReducer,
     documents:DocumentsReducer,
-    motifs:MotifsReducer
+    motifs:MotifsReducer,
+    absences:AbsencesReducer
 });

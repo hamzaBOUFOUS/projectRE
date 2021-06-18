@@ -1,15 +1,17 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getListVacances } from "../../stores/reducers/vacance/actions";
+import { getListAbsenceIds } from "../../stores/reducers/absence/actions";
 import { useDispatch, useSelector } from "react-redux";
+import SeeMore from "./SeeMore";
 import Loader from "../../components/Loader";
 import cx from "classnames";
-import SeeMore from "./SeeMore";
+import { useDebouncedCallback } from 'use-debounce';
 import CustomPagination from "../../components/CustomPagination";
 import {
     Ballot
 } from "@material-ui/icons";
 import {
+    Chip,
     makeStyles,
     Table,
     TableHead,
@@ -50,16 +52,17 @@ const useStyles = makeStyles((theme) => ({
         border: "none",
     },
 }));
-export default function ListVacances(props) {
+export default function ListAbsences(props) {
     const classes = useStyles();
-    const { VacancesData, status } = useSelector((state) => state.vacances);
-    const { content: vacances, totalPages, number: page } = VacancesData;
+    const { AbsenceIdsData, status } = useSelector((state) => state.absences);
+    const { content: absences, totalPages, number: page } = AbsenceIdsData;
     const dispatch = useDispatch();
+    const [id, setId] = useState(1);
     const [openSeeMore, setOpenSeeMore] = useState(false);
     const [selected, setSelected] = useState();
-    const handleGetVacances = useCallback(
-        (nPage, nFilter) => {
-            dispatch(getListVacances(nPage, nFilter, 10));
+    const handleGetAbsences = useCallback(
+        (nPage, nId) => {
+            dispatch(getListAbsenceIds(nPage, nId, 10));
         },
         [dispatch]
     );
@@ -72,20 +75,20 @@ export default function ListVacances(props) {
         setOpenSeeMore(false);
     }, [selected]);
     useEffect(() => {
-        handleGetVacances(page, {});
-    }, [handleGetVacances]);
+        handleGetAbsences(page, id);
+    }, [handleGetAbsences]);
     return (
         <>
             <section className="content-header">
                 <div className="container-fluid">
                     <div className="row mb-2">
                         <div className="col-sm-6">
-                            <h1>Gestion Vacances</h1>
+                            <h1>Gestion Absences</h1>
                         </div>
                         <div className="col-sm-6">
                             <ol className="breadcrumb float-sm-right">
                                 <li className="breadcrumb-item"><Link to="/">Home</Link></li>
-                                <li className="breadcrumb-item active">Vacance</li>
+                                <li className="breadcrumb-item active">Absences</li>
                             </ol>
                         </div>
                     </div>
@@ -113,17 +116,17 @@ export default function ListVacances(props) {
                                                         </TableCell>
                                                         <TableCell>
                                                             <strong>
-                                                                Name
+                                                                Employee
                                                             </strong>
                                                         </TableCell>
                                                         <TableCell>
                                                             <strong>
-                                                                Date Debut
+                                                                Date Absence
                                                             </strong>
                                                         </TableCell>
                                                         <TableCell>
                                                             <strong>
-                                                                Date Fin
+                                                                Etat
                                                             </strong>
                                                         </TableCell>
                                                         <TableCell className={classes.actions} />
@@ -137,16 +140,22 @@ export default function ListVacances(props) {
                                                         <TableCell />
                                                         <TableCell />
                                                     </TableRow>
-                                                    {vacances.map((vacance, idx) => (
+                                                    {absences.map((absence, idx) => (
                                                         <TableRow className={cx({ [classes.coloredRow]: idx % 2 === 0 })}>
-                                                            <TableCell>{vacance.id}</TableCell>
-                                                            <TableCell>{vacance.name}</TableCell>
-                                                            <TableCell>{vacance.dateDebut}</TableCell>
-                                                            <TableCell>{vacance.dateFin}</TableCell>
+                                                            <TableCell>{absence.id}</TableCell>
+                                                            <TableCell>
+                                                                <Chip
+                                                                    variant="outlined"
+                                                                    label={absence.employee.nom+" "+absence.employee.prenom}
+                                                                    className={classes.chip}
+                                                                />
+                                                            </TableCell>
+                                                            <TableCell>{absence.dateAbsence}</TableCell>
+                                                            <TableCell>{absence.etat}</TableCell>
                                                             <TableCell className={classes.actions}>
                                                                 <IconButton
                                                                     aria-haspopup="true"
-                                                                    onClick={handleOpenSeeMore(vacance)}
+                                                                    onClick={handleOpenSeeMore(absence)}
                                                                     color="inherit"
                                                                 >
                                                                     <Ballot color="inherit" fontSize="small" />

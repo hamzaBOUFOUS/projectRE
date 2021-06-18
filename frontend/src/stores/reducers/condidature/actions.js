@@ -7,7 +7,7 @@ const { Types, Creators } = createActions({
   deleteCondidature: ["condidatureId", "handleClose"],
   deleteCondidatureSuccess: [],
   deleteCondidatureError: [],
-  addEditCondidature: ["condidature", "handleClose"],
+  addEditCondidature: ["condidature", "file", "handleClose"],
   addEditCondidatureSuccess: [],
   addEditCondidatureError: [],
 });

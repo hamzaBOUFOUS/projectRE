@@ -4,17 +4,13 @@ import { getListEvenementIds } from "../../stores/reducers/evenement/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/Loader";
 import cx from "classnames";
-import { useDebouncedCallback } from 'use-debounce';
+import SeeMore from "./SeeMore";
 import CustomPagination from "../../components/CustomPagination";
 import {
-    Delete,
-    Add,
-    Edit,
-    FilterList,
+    Ballot
 } from "@material-ui/icons";
 import {
     Chip,
-    Button,
     makeStyles,
     Table,
     TableHead,
@@ -23,11 +19,8 @@ import {
     TableCell,
     TableContainer,
     Paper,
-    TextField,
     IconButton,
-    Divider,
     LinearProgress,
-    InputAdornment,
 } from "@material-ui/core/";
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -62,9 +55,10 @@ export default function ListEvenements(props) {
     const classes = useStyles();
     const { EvenementIdsData, status } = useSelector((state) => state.evenements);
     const { content: evenementIds, totalPages, number: page } = EvenementIdsData;
-
     const dispatch = useDispatch();
-    const [id, setId] = useState(3);
+    const [id, setId] = useState(1);
+    const [openSeeMore, setOpenSeeMore] = useState(false);
+    const [selected, setSelected] = useState();
     const handleGetEvenements = useCallback(
         (nPage, nId) => {
             dispatch(getListEvenementIds(nPage, nId));
@@ -77,6 +71,14 @@ export default function ListEvenements(props) {
         },
         [dispatch]
     );
+    const handleOpenSeeMore = (evenement) => (event) => {
+        setSelected(evenement);
+        setOpenSeeMore(true);
+    };
+    const handleCloseSeeMore = useCallback(() => {
+        setSelected(null);
+        setOpenSeeMore(false);
+    }, [selected]);
     useEffect(() => {
         handleGetEvenements(0, id);
     }, [handleGetEvenements, id]);
@@ -90,7 +92,7 @@ export default function ListEvenements(props) {
                         </div>
                         <div className="col-sm-6">
                             <ol className="breadcrumb float-sm-right">
-                                <li className="breadcrumb-item"><Link to="/home">Home</Link></li>
+                                <li className="breadcrumb-item"><Link to="/">Home</Link></li>
                                 <li className="breadcrumb-item active">Evenement</li>
                             </ol>
                         </div>
@@ -142,10 +144,12 @@ export default function ListEvenements(props) {
                                                                 Participant
                                                             </strong>
                                                         </TableCell>
+                                                        <TableCell className={classes.actions} />
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
                                                     <TableRow className={classes.filterRow}>
+                                                        <TableCell />
                                                         <TableCell />
                                                         <TableCell />
                                                         <TableCell />
@@ -164,14 +168,23 @@ export default function ListEvenements(props) {
                                                                 {evenement.employees.length === 0 ? (
                                                                     "Pas de Participant"
                                                                 ) : (
-                                                                    evenement.employees.map((value) => (
+                                                                    evenement.employees.map((value) => value.id == id ? (
                                                                         <Chip
                                                                             variant="outlined"
                                                                             label={value.nom}
                                                                             className={classes.chip}
                                                                         />
-                                                                    ))
+                                                                    ) : "")
                                                                 )}
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                <IconButton
+                                                                    aria-haspopup="true"
+                                                                    onClick={handleOpenSeeMore(evenement)}
+                                                                    color="inherit"
+                                                                >
+                                                                    <Ballot color="inherit" fontSize="small" />
+                                                                </IconButton>
                                                             </TableCell>
                                                         </TableRow>
                                                     ))}
@@ -192,6 +205,13 @@ export default function ListEvenements(props) {
                     </div>
                 </div>
             </section>
+            {openSeeMore && (
+                <SeeMore
+                    open={openSeeMore}
+                    handleClose={handleCloseSeeMore}
+                    selected={selected}
+                />
+            )}
         </>
     )
 }

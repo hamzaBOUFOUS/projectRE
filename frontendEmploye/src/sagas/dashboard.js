@@ -5,13 +5,17 @@ import {
     CONSTRUCT_DASHBOARD,
 } from "../stores/reducers/dashboard/actions";
 
-function* constructDashboard() {
+function* constructDashboard({id}) {
     try {
-        const resp = yield call(fetch, "/dashboard/constructDashboard");
-        if (resp.status !== 200) {
-            throw new Error();
+        const directionMetierResp = yield call(
+          fetch, `/dashboardEmp/constructDashboard/${id}`,{
+            method: "POST",
+          }
+        );
+        if (directionMetierResp.status !== 200) {
+          throw new Error();
         }
-        const data = yield call(() => resp.json());
+        const data = yield call(() => directionMetierResp.json());
         yield put(constructDashboardSuccess(data));
     } catch (e) {
         yield put(constructDashboardError());

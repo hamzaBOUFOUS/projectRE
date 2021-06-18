@@ -1,20 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getListFormations, getListFormationIds } from "../../stores/reducers/formation/actions";
+import { getListFormationIds } from "../../stores/reducers/formation/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/Loader";
+import SeeMore from "./SeeMore";
 import cx from "classnames";
-import { useDebouncedCallback } from 'use-debounce';
 import CustomPagination from "../../components/CustomPagination";
 import {
-    Delete,
-    Add,
-    Edit,
-    FilterList,
+    Ballot
 } from "@material-ui/icons";
 import {
     Chip,
-    Button,
     makeStyles,
     Table,
     TableHead,
@@ -23,11 +19,8 @@ import {
     TableCell,
     TableContainer,
     Paper,
-    TextField,
     IconButton,
-    Divider,
     LinearProgress,
-    InputAdornment,
 } from "@material-ui/core/";
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -63,13 +56,23 @@ export default function ListFormations(props) {
     const { FormationIdsData, status } = useSelector((state) => state.formations);
     const { content: formations, totalPages, number: page } = FormationIdsData;
     const dispatch = useDispatch();
-    const [id, setId] = useState(2);
+    const [id, setId] = useState(1);
+    const [openSeeMore, setOpenSeeMore] = useState(false);
+    const [selected, setSelected] = useState();
     const handleGetFormations = useCallback(
         (nPage, nId) => {
             dispatch(getListFormationIds(nPage, nId, 10));
         },
         [dispatch]
     );
+    const handleOpenSeeMore = (evenement) => (event) => {
+        setSelected(evenement);
+        setOpenSeeMore(true);
+    };
+    const handleCloseSeeMore = useCallback(() => {
+        setSelected(null);
+        setOpenSeeMore(false);
+    }, [selected]);
     useEffect(() => {
         handleGetFormations(page, id);
     }, [handleGetFormations, id]);
@@ -83,7 +86,7 @@ export default function ListFormations(props) {
                         </div>
                         <div className="col-sm-6">
                             <ol className="breadcrumb float-sm-right">
-                                <li className="breadcrumb-item"><Link to="/home">Home</Link></li>
+                                <li className="breadcrumb-item"><Link to="/">Home</Link></li>
                                 <li className="breadcrumb-item active">Formation</li>
                             </ol>
                         </div>
@@ -132,9 +135,10 @@ export default function ListFormations(props) {
                                                         </TableCell>
                                                         <TableCell>
                                                             <strong>
-                                                                Participant
+                                                            Participant
                                                             </strong>
                                                         </TableCell>
+                                                        <TableCell className={classes.actions} />
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
@@ -158,14 +162,23 @@ export default function ListFormations(props) {
                                                                 {formation.employees.length === 0 ? (
                                                                     "Pas de Participant"
                                                                 ) : (
-                                                                    formation.employees.map((value) => (
+                                                                    formation.employees.map((value) => value.id == id ? (
                                                                         <Chip
                                                                             variant="outlined"
                                                                             label={value.nom}
                                                                             className={classes.chip}
                                                                         />
-                                                                    ))
+                                                                    ) : "")
                                                                 )}
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                <IconButton
+                                                                    aria-haspopup="true"
+                                                                    onClick={handleOpenSeeMore(formation)}
+                                                                    color="inherit"
+                                                                >
+                                                                    <Ballot color="inherit" fontSize="small" />
+                                                                </IconButton>
                                                             </TableCell>
                                                         </TableRow>
                                                     ))}
@@ -186,6 +199,13 @@ export default function ListFormations(props) {
                     </div>
                 </div>
             </section>
+            {openSeeMore && (
+                <SeeMore
+                    open={openSeeMore}
+                    handleClose={handleCloseSeeMore}
+                    selected={selected}
+                />
+            )}
         </>
     )
 }

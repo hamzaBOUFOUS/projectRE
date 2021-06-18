@@ -13,13 +13,12 @@ public interface FormationRepositorie extends JpaRepository<Formation, Long > {
             "(upper(f.nom) like upper(CONCAT('%', :nom, '%')) or :nom is null)")
     Page<Formation> findByCriteria(Pageable pageable, String nom);
 
-    //@Query(value = "select f from Formation f join Employee e where e.id = :id")
-    /*@Query(value = "select f from Formation f, Employee e where " +
-            "f.employees.id = e.id and " +
-            "e.id = :id")
-    Page<Formation> findByCriteriaId(Pageable pageable, long id);*/
-
     Page<Formation> findAllByEmployeesId(Pageable pageable, long id);
+
     List<Formation> findTop3ByOrderByDateDebutDesc();
+
+    long countFormationByEmployeesId(long id);
+
+    List<Formation> findTop4ByEmployeesIdOrderByDateDebutDesc(long id);
 
 }

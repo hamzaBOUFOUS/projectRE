@@ -19,9 +19,15 @@ public class AbsenceRessource {
     public AbsenceRessource(AbsenceService absenceService) {
         this.absenceService = absenceService;
     }
+
     @PostMapping("/list-absence")
     public Page<Absence> getAbsence(Pageable pageable, @RequestBody FilterAbsenceDTO filterAbsenceDTO) {
         return absenceService.getAllAbsence(pageable, filterAbsenceDTO);
+    }
+
+    @PostMapping("/list-absence/{id}")
+    public Page<Absence> getAbsenceID(Pageable pageable, @PathVariable("id") long id) {
+        return absenceService.getAllAbsenceID(pageable, id);
     }
 
     @PostMapping("/add-edit")
