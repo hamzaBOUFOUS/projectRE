@@ -13,7 +13,8 @@ const data = [
     { label: 'June', sales: 47, leads: 71 }
 ];
 export default function DashboardHome(props) {
-    const [id, setId] = useState(1);
+    const user = JSON.parse(window.localStorage.getItem('tokenUser'));
+    const [id, setId] = useState(user?.id);
     const dispatch = useDispatch();
     const { dashboardData } = useSelector((state) => state.dashboards);
     const constructDashboardData = dashboardData;
@@ -66,7 +67,6 @@ export default function DashboardHome(props) {
 
     useEffect(() => {
         handleConstructDashboard(id);
-        console.log(constructDashboardData);
     }, [handleConstructDashboard, id]);
     return (
         <>

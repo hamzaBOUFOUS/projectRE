@@ -56,7 +56,8 @@ export default function ListFormations(props) {
     const { FormationIdsData, status } = useSelector((state) => state.formations);
     const { content: formations, totalPages, number: page } = FormationIdsData;
     const dispatch = useDispatch();
-    const [id, setId] = useState(1);
+    const user = JSON.parse(window.localStorage.getItem('tokenUser'));
+    const [id, setId] = useState(user.id);
     const [openSeeMore, setOpenSeeMore] = useState(false);
     const [selected, setSelected] = useState();
     const handleGetFormations = useCallback(

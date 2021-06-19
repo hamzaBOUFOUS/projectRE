@@ -6,9 +6,9 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Data
+@Inheritance(strategy = InheritanceType.JOINED)
 @Entity
 @Table(name="employee")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

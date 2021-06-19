@@ -1,7 +1,9 @@
 package com.project.re.ressources;
 
 import com.project.re.entities.Employee;
+import com.project.re.entities.Utilisateur;
 import com.project.re.services.EmployeeService;
+import com.project.re.services.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,20 +15,23 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value="/employee")
 public class EmployeeRessource {
     private final EmployeeService employeeService;
+    private final UtilisateurService utilisateurService;
 
     @Autowired
-    public EmployeeRessource(EmployeeService employeeService) {
+    public EmployeeRessource(EmployeeService employeeService,
+                             UtilisateurService utilisateurService) {
         this.employeeService = employeeService;
+        this.utilisateurService = utilisateurService;
     }
 
     @PostMapping("/list-employee")
-    public Page<Employee> getEmployee(Pageable pageable, @RequestBody Employee employee) {
-        return employeeService.getAllEmployee(pageable, employee);
+    public Page<Utilisateur> getEmployee(Pageable pageable, @RequestBody Employee employee) {
+        return utilisateurService.getAllUtilisateur(pageable, employee);
     }
 
     @PostMapping("/add-edit")
-    public ResponseEntity<Employee> addEditEmployee(@RequestBody Employee employee) throws Exception {
-        return ResponseEntity.ok().body(employeeService.addEditEmployee(employee));
+    public ResponseEntity<Utilisateur> addEditEmployee(@RequestBody Utilisateur utilisateur) throws Exception {
+        return ResponseEntity.ok().body(utilisateurService.addEditUtilisateur(utilisateur));
     }
 
     @DeleteMapping("/delete/{id}")

@@ -35,12 +35,12 @@ function* getListEmployeesSaga({ page, filter, size }) {
   }
 }
 
-function* deleteEmployeesaga({ employeeId }) {
+function* deleteEmployeesaga({ employeeId, handleClose }) {
   try {
     const { number: page, size } = yield select(
-      (state) => state.employees.employeesData
+      (state) => state.employees.EmployeesData
     );
-    const filter = yield select((state) => state.employees.employeesFilter);
+    const filter = yield select((state) => state.employees.EmployeesFilter);
     const resp = yield call(fetch, `/employee/delete/${employeeId}`, {
       method: "DELETE",
     });
@@ -48,14 +48,20 @@ function* deleteEmployeesaga({ employeeId }) {
       throw new Error();
     }
     yield put(deleteEmployeeSuccess());
+    yield handleClose();
     yield put(getListEmployees(page, filter, size));
   } catch (e) {
+    console.log(e)
     yield put(deleteEmployeeError());
   }
 }
 
 function* addEditEmployeesaga({ employee, handleClose }) {
   try {
+    const { number: page, size } = yield select(
+      (state) => state.employees.EmployeesData
+    );
+    const filter = yield select((state) => state.employees.EmployeesFilter);
     const resp = yield call(fetch, "/employee/add-edit", {
       headers: {
         "Content-Type": "application/json",
@@ -68,7 +74,7 @@ function* addEditEmployeesaga({ employee, handleClose }) {
     }
     yield put(addEditEmployeeSuccess());
     yield handleClose();
-    yield put(getListEmployees(0, {}, 10));
+    yield put(getListEmployees(page, filter, size));
   } catch (e) {
     yield put(addEditEmployeeError());
   }

@@ -13,7 +13,7 @@ import {
 
 const INITIAL_STATE = {
   loginData: null,
-  isLoggedIn: null,
+  isLoggedIn: false,
   UsersData: { content: [], number: 0, size: 10 },
   UsersFilter: {},
   status: null,
@@ -28,6 +28,7 @@ const login = (state, action) => ({
 const loginSuccess = (state, action) => ({
   ...state,
   loginData: action.data,
+  isLoggedIn: true,
   status: "success",
 });
 

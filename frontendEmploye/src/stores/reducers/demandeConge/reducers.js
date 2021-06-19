@@ -13,7 +13,6 @@ const INITIAL_STATE = {
   DemandeCongesFilter: {},
   status: null,
   deleteStatus: null,
-  user: {},
 };
 
 const getListDemandeCongeIds = (state, action) => ({
@@ -25,7 +24,6 @@ const getListDemandeCongeIds = (state, action) => ({
 const getListDemandeCongeIdsSuccess = (state, action) => ({
   ...state,
   DemandeCongeIdsData: action.data,
-  user: action.user,
   status: "success",
 });
 

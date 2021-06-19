@@ -56,7 +56,8 @@ export default function ListEvenements(props) {
     const { EvenementIdsData, status } = useSelector((state) => state.evenements);
     const { content: evenementIds, totalPages, number: page } = EvenementIdsData;
     const dispatch = useDispatch();
-    const [id, setId] = useState(1);
+    const user = JSON.parse(window.localStorage.getItem('tokenUser'));
+    const [id, setId] = useState(user.id);
     const [openSeeMore, setOpenSeeMore] = useState(false);
     const [selected, setSelected] = useState();
     const handleGetEvenements = useCallback(

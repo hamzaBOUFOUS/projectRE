@@ -42,7 +42,7 @@ export default ({ open, handleClose, selected }) => {
     dispatch(getListDocuments(0, {}));
   }, [dispatch,selected]);
   const [document, setDocument] = useState(null);
-  const user = useSelector((state) => state.demandeConges.user);
+  const user = JSON.parse(window.localStorage.getItem('tokenUser'));
   const editDocumentDemandeCallback = useCallback((data) => {
     dispatch(
       editDocumentDemande(

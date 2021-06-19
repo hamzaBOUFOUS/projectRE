@@ -1,6 +1,8 @@
 package com.project.re.services;
 
 import com.project.re.Dto.FormLogin;
+import com.project.re.Dto.ProfilDTO;
+import com.project.re.entities.Employee;
 import com.project.re.entities.Utilisateur;
 import com.project.re.repositories.UtilisateurRepositorie;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,9 @@ public class UtilisateurService {
         this.utilisateurRepositorie = utilisateurRepositorie;
     }
 
-    public Page<Utilisateur> getAllUtilisateur(Pageable pageable, Utilisateur utilisateur) {
-        return utilisateurRepositorie.findAll(pageable);
+    public Page<Utilisateur> getAllUtilisateur(Pageable pageable, Employee employee) {
+        return utilisateurRepositorie.findByCriteria(pageable, employee.getCin(), employee.getNom(),
+                employee.getEmail(), employee.getTelephone(), employee.getNationalite());
     }
 
     public Utilisateur addEditUtilisateur(Utilisateur utilisateur) throws Exception {
@@ -32,6 +35,12 @@ public class UtilisateurService {
         } else {
             return utilisateur;
         }
+    }
+
+    public Utilisateur updateUtilisateur(ProfilDTO profilDTO) throws Exception{
+        utilisateurRepositorie.updateUtilisateur(profilDTO.getId(), profilDTO.getEmail(),
+                profilDTO.getUsername(), profilDTO.getPassword());
+        return utilisateurRepositorie.findById(profilDTO.getId()).get();
     }
 
     public void deleteUtilisateur(long id) throws Exception {

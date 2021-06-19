@@ -1,7 +1,7 @@
 import { createActions } from "reduxsauce";
 
 const { Types, Creators } = createActions({
-  login: ["formLogin"],
+  login: ["formLogin","handleOpen"],
   loginSuccess: ["data"],
   loginError: [],
   getListUsers: ["page", "filter", "size"],

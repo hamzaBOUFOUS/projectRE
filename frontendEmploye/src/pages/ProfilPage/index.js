@@ -1,13 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { updateUtilisateur } from "../../stores/reducers/utilisateur/actions";
 import userimage from '../../../node_modules/admin-lte/dist/img/user4-128x128.jpg';
 import { useForm, Controller } from "react-hook-form";
+import SuccesModel from "./SuccesModel";
 import {
     Button,
     TextField,
     makeStyles,
 } from "@material-ui/core/";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 const useStyles = makeStyles((theme) => ({
     chips: {
         display: "flex",
@@ -25,14 +27,31 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function Profil(props) {
     const classes = useStyles();
-    const user = useSelector((state) => state.demandeConges.user);
+    const dispatch = useDispatch();
+    const [user, setUser] = useState(JSON.parse(window.localStorage.getItem('tokenUser')));
     const { handleSubmit, control, register, watch } = useForm();
+    const [openSuc, setOpenSuc] = useState(false);
+    const [email, setEmail] = useState("");
+    const handleOpen = useCallback(() => {
+        setOpenSuc(true);
+    }, [setOpenSuc]);
+    const handleClose = useCallback(() => {
+        setOpenSuc(false);
+    }, [setOpenSuc]);
     function submitForm(data) {
-        console.log(data);
+        updateUtilisateurCallback(data);
+        setUser(JSON.parse(window.localStorage.getItem('tokenUser')));
     }
-    useEffect(() => {
-        console.log(user)
-    })
+    const updateUtilisateurCallback = useCallback((data) => {
+        dispatch(
+            updateUtilisateur({
+                id: user.id,
+                email: data.email,
+                username: data.username,
+                password: data.password
+            }, handleOpen)
+        );
+    }, [dispatch, handleOpen]);
     return (
         <>
             <section className="content-header">
@@ -115,6 +134,7 @@ export default function Profil(props) {
                                                         <Controller
                                                             name="email"
                                                             control={control}
+                                                            defaultValue={email}
                                                             render={({ field: { onChange, value }, fieldState: { error } }) => (
                                                                 <TextField
                                                                     error={!!error}
@@ -247,6 +267,12 @@ export default function Profil(props) {
                     </div>
                 </div>
             </section>
+            {openSuc && (
+                <SuccesModel
+                    open={openSuc}
+                    handleClose={handleClose}
+                />
+            )}
         </>
     )
 

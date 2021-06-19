@@ -8,10 +8,9 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name="utilisateur")
+@PrimaryKeyJoinColumn(name = "utilisateurId")
 public class Utilisateur extends Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
     @Column
     private Roles role;
     @Column(unique = true)

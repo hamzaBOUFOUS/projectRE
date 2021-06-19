@@ -35,7 +35,7 @@ function* editDocumentDemandesaga({ documentDemande, handleClose }) {
     const { number: page, size } = yield select(
       (state) => state.documentDemandes.DocumentDemandeIdsData
     );
-    const user = yield select((state) => state.demandeConges.user);
+    const user = JSON.parse(window.localStorage.getItem('tokenUser'));
     const resp = yield call(fetch, "/documentDemande/add-edit", {
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +60,7 @@ function* deleteDocumentDemandesaga({ deleteDocumentDemandeId, handleClose}) {
     const { number: page, size } = yield select(
       (state) => state.documentDemandes.DocumentDemandeIdsData
     );
-    const user = yield select((state) => state.demandeConges.user);
+    const user = JSON.parse(window.localStorage.getItem('tokenUser'));
     const resp = yield call(fetch, `/documentDemande/delete/${deleteDocumentDemandeId}`, {
       method: "DELETE",
     });

@@ -23,20 +23,18 @@ function* getListDemandeCongeIdsSaga({ page, id, size }) {
       throw new Error();
     }
     const data = yield call(() => directionMetierResp.json());
-    const user = data.content[0].employee;
-    yield put(getListDemandeCongeIdsSuccess(data, user));
+    yield put(getListDemandeCongeIdsSuccess(data));
   } catch (e) {
     yield put(getListDemandeCongeIdsError());
   }
 }
 
 function* editDemandeCongesaga({ demandeConge, handleClose }) {
-  console.log(demandeConge)
   try {
     const { number: page, size } = yield select(
       (state) => state.demandeConges.DemandeCongeIdsData
     );
-    const user = yield select((state) => state.demandeConges.user);
+    const user = JSON.parse(window.localStorage.getItem('tokenUser'));
     const resp = yield call(fetch, "/demandeConge/add-edit", {
       headers: {
         "Content-Type": "application/json",
@@ -61,7 +59,7 @@ function* deleteDemandeCongesaga({ demandeCongeId, handleClose}) {
     const { number: page, size } = yield select(
       (state) => state.demandeConges.DemandeCongeIdsData
     );
-    const user = yield select((state) => state.demandeConges.user);
+    const user = JSON.parse(window.localStorage.getItem('tokenUser'));
     const resp = yield call(fetch, `/demandeConge/delete/${demandeCongeId}`, {
       method: "DELETE",
     });

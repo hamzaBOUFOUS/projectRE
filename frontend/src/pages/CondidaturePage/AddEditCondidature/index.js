@@ -29,7 +29,7 @@ export default ({ open, handleClose, selected }) => {
     setTelephone(selected ? selected.telephone : null);
     setAdresse(selected ? selected.adresse : null);
     setDateDepot(selected ? selected.dateDepot : null);
-    setfile(selected ? selected.cv : null);
+    //setfile(selected ? selected.cv : null);
   }, [selected]);
   const [cin, setCin] = useState();
   const [nom, setNom] = useState();
@@ -38,7 +38,7 @@ export default ({ open, handleClose, selected }) => {
   const [telephone, setTelephone] = useState();
   const [adresse, setAdresse] = useState();
   const [dateDepot, setDateDepot] = useState();
-  const [cv, setCv] = useState();
+  //const [cv, setCv] = useState();
   const [file, setfile] = useState();
   const changeHandler = (event) => {
     setfile(event.target.files[0]);
@@ -232,7 +232,7 @@ export default ({ open, handleClose, selected }) => {
             )}
             rules={{ required: 'Date\' s Depot is required' }}
           />
-          <Controller
+          {/*<Controller
             name="cv"
             control={control}
             defaultValue={cv}
@@ -251,7 +251,7 @@ export default ({ open, handleClose, selected }) => {
               />
             )}
             rules={{ required: 'CV\' s is required' }}
-          />
+          />*/}
           <input type="file" name="file" onChange={changeHandler} />
         </DialogContent>
         <br />

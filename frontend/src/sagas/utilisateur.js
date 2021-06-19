@@ -83,8 +83,7 @@ function* addEditUsersaga({ user, handleClose }) {
     }
 }
 
-function* loginAdmin(formLogin) {
-    console.log(formLogin)
+function* loginAdmin({formLogin, handleOpen}) {
     try {
         const resp = yield call(fetch, "/utilisateur/login", {
             headers: {
@@ -97,6 +96,14 @@ function* loginAdmin(formLogin) {
             throw new Error();
         }
         const data = yield call(() => resp.json());
+        
+        if(data===false || data.role === "EMPLOYE"){
+            console.log(data)
+            yield handleOpen(false);
+        }else if(data.role === "ADMIN"){
+            window.localStorage.setItem('token', data);
+            yield handleOpen(true);
+        }
         yield put(loginSuccess(data));
     } catch (e) {
         yield put(loginError());

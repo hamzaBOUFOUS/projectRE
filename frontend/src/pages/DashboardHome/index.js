@@ -78,7 +78,6 @@ export default function DashboardHome(props) {
 
     useEffect(() => {
         handleConstructDashboard();
-        console.log(constructDashboardData);
     }, [handleConstructDashboard]);
     return (
         <>

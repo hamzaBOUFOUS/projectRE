@@ -65,7 +65,8 @@ export default function ListDemandeConges(props) {
     const { content: demandeConges, totalPages, number: page } = DemandeCongeIdsData;
     const dispatch = useDispatch();
     const [openAddEdit, setOpenAddEdit] = useState(false);
-    const [id, setId] = useState(1);
+    const user = JSON.parse(window.localStorage.getItem('tokenUser'));
+    const [id, setId] = useState(user?.id);
     const [openDelete, setOpenDelete] = useState(false);
     const [selected, setSelected] = useState();
     const handleGetDemandeConges = useCallback(

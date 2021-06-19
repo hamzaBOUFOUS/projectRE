@@ -65,6 +65,9 @@ export default ({ open, handleClose, selected }) => {
     setDateDebut(selected ? selected.dateDebut : null);
     setCodePostale(selected ? selected.codePostale : null);
     setDateNaissace(selected ? selected.dateNaissace : null);
+    setUsername(selected ? selected.username : null);
+    setPassword(selected ? selected.password : null);
+    setRole(selected ? selected.role : null);
     dispatch(getListPostes(0, {}));
     dispatch(getListContrats(0, {}));
     dispatch(getListDepartments(0, {}));
@@ -140,6 +143,9 @@ export default ({ open, handleClose, selected }) => {
           dateDebut: data.dateDebut,
           department: data.department,
           contrat: data.contrat,
+          username: data.username,
+          password: data.password,
+          role: data.role,
         },
         handleClose
       )
@@ -147,7 +153,6 @@ export default ({ open, handleClose, selected }) => {
   }, [dispatch, selected, handleClose]);
 
   function submitForm(data) {
-    console.log(data)
     addEditEmployeeCallback(data);
   }
   return (

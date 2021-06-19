@@ -2,7 +2,7 @@ import { createActions } from "reduxsauce";
 
 const { Types, Creators } = createActions({
   getListDemandeCongeIds: ["page", "id", "size"],
-  getListDemandeCongeIdsSuccess: ["data", "user"],
+  getListDemandeCongeIdsSuccess: ["data"],
   getListDemandeCongeIdsError: [],
   editDemandeConge: ["demandeConge", "handleClose"],
   editDemandeCongeSuccess: [],

@@ -4,7 +4,7 @@ const { Types, Creators } = createActions({
   getListEmployees: ["page", "filter", "size"],
   getListEmployeesSuccess: ["data"],
   getListEmployeesError: [],
-  deleteEmployee: ["employeeId"],
+  deleteEmployee: ["employeeId", "handleClose"],
   deleteEmployeeSuccess: [],
   deleteEmployeeError: [],
   addEditEmployee: ["employee", "handleClose"],

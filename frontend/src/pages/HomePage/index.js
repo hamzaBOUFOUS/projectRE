@@ -4,12 +4,12 @@ import Footer from "../shared/footer";
 import Header from "../shared/header";
 import Preloader from "../shared/preloader";
 import SideBar from "../shared/sidebar";
-
+//<Preloader />
 
 export default function HomePage(props) {
     return (
         <>
-            <Preloader />
+            
             <div className="wrapper">
                 <Header />
                 <SideBar />

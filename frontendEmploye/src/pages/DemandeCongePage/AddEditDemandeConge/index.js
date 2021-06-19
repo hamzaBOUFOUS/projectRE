@@ -37,7 +37,7 @@ export default ({ open, handleClose, selected }) => {
   const { handleSubmit, control } = useForm();
   const { MotifsData } = useSelector((state) => state.motifs);
   const listmotif = MotifsData;
-  const { user } = useSelector((state) => state.demandeConges);
+  const user = JSON.parse(window.localStorage.getItem('tokenUser'));
   const userSel = user;
   useEffect(() => {
     setDateDebut(selected ? selected.dateDebut : null);

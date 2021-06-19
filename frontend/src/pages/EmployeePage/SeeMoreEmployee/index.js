@@ -38,188 +38,106 @@ export default ({ open, handleClose, selected }) => {
             maxWidth="md"
             fullWidth={true}
             open={open}
+            className="card-primary"
             onClose={handleClose}
-            aria-labelledby="form-dialog-title"
-            aria-describedby="form-dialog-description"
         >
-            <form>
-                <DialogTitle id="form-dialog-title">
-                    Voir detail
-                </DialogTitle>
-                <DialogContent>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                className={classes.textField}
-                                label="CIN"
-                                defaultValue={employee? employee.cin : ""}
-                                disabled
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                className={classes.textField}
-                                label="Nom"
-                                defaultValue={employee? employee.nom : ""}
-                                disabled
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                className={classes.textField}
-                                label="Prenom"
-                                defaultValue={employee? employee.prenom : ""}
-                                disabled
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                className={classes.textField}
-                                label="Date Naissace"
-                                defaultValue={employee? employee.dateNaissace : ""}
-                                disabled
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                className={classes.textField}
-                                label="Email"
-                                defaultValue={employee? employee.email : ""}
-                                disabled
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                className={classes.textField}
-                                label="Telephone"
-                                defaultValue={employee? employee.telephone : ""}
-                                disabled
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                className={classes.textField}
-                                label="Nationalite"
-                                defaultValue={employee? employee.nationalite : ""}
-                                disabled
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                multiline
-                                rows={2}
-                                rowsMax={3}
-                                className={classes.textField}
-                                label="Adresse"
-                                defaultValue={employee? employee.adresse : ""}
-                                disabled
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                className={classes.textField}
-                                label="Code Postale"
-                                defaultValue={employee? employee.codePostale : ""}
-                                disabled
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                className={classes.textField}
-                                label="Salaire"
-                                defaultValue={employee? employee.salaire : ""}
-                                disabled
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                className={classes.textField}
-                                label="Date Debut"
-                                defaultValue={employee? employee.dateDebut : ""}
-                                disabled
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                className={classes.textField}
-                                label="Poste"
-                                defaultValue={employee? employee.poste.poste : ""}
-                                disabled
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                className={classes.textField}
-                                label="Contrat"
-                                defaultValue={employee? employee.contrat.typeContrat : ""}
-                                disabled
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                className={classes.textField}
-                                label="Department"
-                                defaultValue={employee? employee.department.nomDepartment : ""}
-                                disabled
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                className={classes.textField}
-                                label="Code Postale"
-                                defaultValue={employee? employee.codePostale : ""}
-                                disabled
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                className={classes.textField}
-                                label="Horaire"
-                                defaultValue={employee? employee.horaire : ""}
-                                disabled
-                            />
-                        </Grid>
+            <div className="card-header" style={{ backgroundColor: '#007bff', color: '#fff' }}>
+                <h3 className="card-title">Info</h3>
+            </div>
+            <div className="card-body">
+                <Grid container spacing={3}>
+                    <Grid item xs={12} sm={4}>
+                        <strong><i className="far fa-clock mr-1"></i> CIN</strong>
+                        <p className="text-muted">{employee ? employee.cin : ""}</p>
+                        <hr />
                     </Grid>
-                </DialogContent>
-                <br />
-                <DialogActions>
-                    <Button variant="outlined" color="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                </DialogActions>
-            </form>
+                    <Grid item xs={12} sm={4}>
+                        <strong><i className="far fa-clock mr-1"></i> Nom</strong>
+                        <p className="text-muted">{employee ? employee.nom : ""}</p>
+                        <hr />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <strong><i className="far fa-clock mr-1"></i> Prenom</strong>
+                        <p className="text-muted">{employee ? employee.prenom : ""}</p>
+                        <hr />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <strong><i className="far fa-clock mr-1"></i> Date Naissace</strong>
+                        <p className="text-muted">{employee ? employee.dateNaissace : ""}</p>
+                        <hr />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <strong><i className="far fa-clock mr-1"></i> Email</strong>
+                        <p className="text-muted">{employee ? employee.email : ""}</p>
+                        <hr />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <strong><i className="far fa-clock mr-1"></i> Telephone</strong>
+                        <p className="text-muted">{employee ? employee.telephone : ""}</p>
+                        <hr />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <strong><i className="far fa-clock mr-1"></i> Nationalite</strong>
+                        <p className="text-muted">{employee ? employee.nationalite : ""}</p>
+                        <hr />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <strong><i className="far fa-clock mr-1"></i> Adresse</strong>
+                        <p className="text-muted">{employee ? employee.adresse : ""}</p>
+                        <hr />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <strong><i className="far fa-clock mr-1"></i> Code Postale</strong>
+                        <p className="text-muted">{employee ? employee.codePostale : ""}</p>
+                        <hr />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <strong><i className="far fa-clock mr-1"></i> Salaire</strong>
+                        <p className="text-muted">{employee ? employee.salaire : ""}</p>
+                        <hr />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <strong><i className="far fa-clock mr-1"></i> Date Debut</strong>
+                        <p className="text-muted">{employee ? employee.dateDebut : ""}</p>
+                        <hr />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <strong><i className="far fa-clock mr-1"></i> Poste</strong>
+                        <p className="text-muted">{employee ? employee.poste.poste : ""}</p>
+                        <hr />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <strong><i className="far fa-clock mr-1"></i> Contrat</strong>
+                        <p className="text-muted">{employee ? employee.contrat.typeContrat : ""}</p>
+                        <hr />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <strong><i className="far fa-clock mr-1"></i> Department</strong>
+                        <p className="text-muted">{employee ? employee.department.nomDepartment : ""}</p>
+                        <hr />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <strong><i className="far fa-clock mr-1"></i> Horaire</strong>
+                        <p className="text-muted">{employee ? employee.horaire : ""}</p>
+                        <hr />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <strong><i className="far fa-clock mr-1"></i> Username</strong>
+                        <p className="text-muted">{employee ? employee.username : ""}</p>
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <strong><i className="far fa-clock mr-1"></i> Role</strong>
+                        <p className="text-muted">{employee ? employee.role : ""}</p>
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <strong><i className="far fa-clock mr-1"></i> password</strong>
+                        <p className="text-muted">{employee ? employee.password : ""}</p>
+                    </Grid>
+                </Grid>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-default float-right" onClick={handleClose}>Close</button>
+            </div>
         </Dialog >
     );
 };

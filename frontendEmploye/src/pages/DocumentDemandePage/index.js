@@ -60,7 +60,9 @@ export default function ListDocumentDemandes(props) {
     const classes = useStyles();
     const { DocumentDemandeIdsData, status } = useSelector((state) => state.documentDemandes);
     const { content: documentDemandes, totalPages, number: page } = DocumentDemandeIdsData;
-    const id = useSelector((state) => state.demandeConges.user.id);
+    
+    const user = JSON.parse(window.localStorage.getItem('tokenUser'));
+    const id = user.id;
     const dispatch = useDispatch();
     const [openAddEdit, setOpenAddEdit] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);

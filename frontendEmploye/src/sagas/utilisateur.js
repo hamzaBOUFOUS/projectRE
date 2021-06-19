@@ -13,6 +13,9 @@ import {
     ADD_EDIT_USER,
     addEditUserSuccess,
     addEditUserError,
+    UPDATE_UTILISATEUR,
+    updateUtilisateurSuccess,
+    updateUtilisateurError,
 } from "../stores/reducers/utilisateur/actions";
 
 function* getListUsersSaga({ page, filter, size }) {
@@ -83,8 +86,28 @@ function* addEditUsersaga({ user, handleClose }) {
     }
 }
 
-function* loginAdmin(formLogin) {
-    console.log(formLogin)
+function* updateUtilisateur({profilDTO, handleOpen}) {
+    try {
+        const resp = yield call(fetch, "/utilisateur/updateUtilisateur", {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(profilDTO),
+            method: "POST",
+        });
+        if (resp.status !== 200) {
+            throw new Error();
+        }
+        const data = yield call(() => resp.json());
+        window.localStorage.setItem('tokenUser',JSON.stringify(data));
+        yield handleOpen();
+        yield put(updateUtilisateurSuccess());
+    } catch (e) {
+        yield put(updateUtilisateurError());
+    }
+}
+
+function* loginAdmin({formLogin, handleOpen}) {
     try {
         const resp = yield call(fetch, "/utilisateur/login", {
             headers: {
@@ -97,6 +120,14 @@ function* loginAdmin(formLogin) {
             throw new Error();
         }
         const data = yield call(() => resp.json());
+        
+        if(data===false || data.role === "ADMIN"){
+            console.log(data)
+            yield handleOpen(false);
+        }else if(data.role === "EMPLOYE"){
+            window.localStorage.setItem('tokenUser',JSON.stringify(data));
+            yield handleOpen(true);
+        }
         yield put(loginSuccess(data));
     } catch (e) {
         yield put(loginError());
@@ -108,4 +139,5 @@ export default function* saga() {
     yield takeLatest(GET_LIST_USERS, getListUsersSaga);
     yield takeLatest(DELETE_USER, deleteUsersaga);
     yield takeLatest(ADD_EDIT_USER, addEditUsersaga);
+    yield takeLatest(UPDATE_UTILISATEUR, updateUtilisateur);
 }
