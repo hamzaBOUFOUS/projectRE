@@ -11,6 +11,8 @@ import {
     deleteUserSuccess,
     deleteUserError,
     ADD_EDIT_USER,
+    LOGOUT,
+    logout,
     addEditUserSuccess,
     addEditUserError,
 } from "../stores/reducers/utilisateur/actions";
@@ -98,10 +100,9 @@ function* loginAdmin({formLogin, handleOpen}) {
         const data = yield call(() => resp.json());
         
         if(data===false || data.role === "EMPLOYE"){
-            console.log(data)
             yield handleOpen(false);
         }else if(data.role === "ADMIN"){
-            window.localStorage.setItem('token', data);
+            window.localStorage.setItem('token', JSON.stringify(data));
             yield handleOpen(true);
         }
         yield put(loginSuccess(data));
@@ -110,9 +111,14 @@ function* loginAdmin({formLogin, handleOpen}) {
     }
 }
 
+function* logoutAdmin() {
+    yield put(logout());
+}
+
 export default function* saga() {
     yield takeLatest(LOGIN, loginAdmin);
     yield takeLatest(GET_LIST_USERS, getListUsersSaga);
     yield takeLatest(DELETE_USER, deleteUsersaga);
     yield takeLatest(ADD_EDIT_USER, addEditUsersaga);
+    yield takeLatest(LOGOUT, logoutAdmin);
 }

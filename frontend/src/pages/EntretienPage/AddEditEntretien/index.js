@@ -52,7 +52,9 @@ export default ({ open, handleClose, selected }) => {
     setCondidature(selected ? selected.condidature : null);
     setDateEntretien(selected ? selected.dateEntretien : null);
     setHeure(selected ? selected.heure : null);
-    dispatch(getListPostes(0, {}), getListCondidatures(0, {}), getListDepartments(0, {}));
+    dispatch(getListPostes(0, {}));
+    dispatch(getListCondidatures(0, {}));
+    dispatch(getListDepartments(0, {}));
   }, [dispatch, selected]);
   const [department, setDepartment] = useState(null);
   const [poste, setPoste] = useState(null);

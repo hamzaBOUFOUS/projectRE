@@ -1,12 +1,15 @@
 import React, { useCallback } from "react";
 import { Link, useHistory } from 'react-router-dom';
 import history from '../../../histore'
+import { useUserAuthentication } from "../../../hooks/useUserAuthentication";
 
 export default function Header(props) {
-//    const history = useHistory();
+    const { setIsLoggedIn } = useUserAuthentication();
     const logOut = () => {
         window.localStorage.clear();
-        history.push("/login");
+        setIsLoggedIn(false);
+        history.push('/login');
+        window.location.reload();
     }
     return (
         <>
@@ -41,7 +44,7 @@ export default function Header(props) {
                         </div>
                     </li>*/}
                     <li className="nav-item">
-                        <a className="nav-link" onClick={logOut} role="button">
+                        <a className="nav-link" onClick={()=>logOut()} role="button">
                             <i class="fas fa-sign-out-alt"></i>
                         </a>
                     </li>

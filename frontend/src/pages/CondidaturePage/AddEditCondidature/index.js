@@ -252,7 +252,7 @@ export default ({ open, handleClose, selected }) => {
             )}
             rules={{ required: 'CV\' s is required' }}
           />*/}
-          <input type="file" name="file" onChange={changeHandler} />
+          <input type="file" name="file" accept="application/pdf" onChange={changeHandler} />
         </DialogContent>
         <br />
         <DialogActions className="modal-footer">

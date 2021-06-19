@@ -69,6 +69,34 @@ public class CondidatureRessource {
         }
     }
 
+    @PostMapping("/add-editNull")
+    public ResponseEntity<Condidature> addEditCondidature(
+            @RequestParam("idC") String id,
+            @RequestParam("cin") String cin,
+            @RequestParam("nom") String nom,
+            @RequestParam("prenom") String prenom,
+            @RequestParam("email") String email,
+            @RequestParam("telephone") String telephone,
+            @RequestParam("adresse") String adresse,
+            @RequestParam("dateDepot") Date dateDepot
+    ) throws Exception {
+        Condidature condidature = new Condidature();
+        condidature.setId(id.equals("undefined")?null:Long.parseLong(id));
+        condidature.setCin(cin);
+        condidature.setNom(nom);
+        condidature.setPrenom(prenom);
+        condidature.setEmail(email);
+        condidature.setTelephone(telephone);
+        condidature.setAdresse(adresse);
+        condidature.setDateDepot(dateDepot);
+        condidature.setCv(id.equals("undefined")?null:condidatureService.getCondidature(Long.parseLong(id)).getCv());
+        try {
+            return ResponseEntity.ok().body(condidatureService.addEditCondidature(condidature));
+        } catch (Exception e) {
+            throw new Exception("Filiere not added try again");
+        }
+    }
+
     @GetMapping("/downloadFile/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) throws Exception {
         // Load file as Resource

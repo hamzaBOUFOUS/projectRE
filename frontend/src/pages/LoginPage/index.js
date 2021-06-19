@@ -27,6 +27,7 @@ export default function Login(props) {
     const { handleSubmit, control } = useForm();
     const [openErr, setOpenErr] = useState(false);
     const [openSuc, setOpenSuc] = useState(false);
+    //const { fetchUser } = useUserAuthentication();
     const handleOpen = useCallback((test) => {
         if (test === true) {
             setOpenSuc(true);
@@ -35,10 +36,11 @@ export default function Login(props) {
         }
     }, [setOpenSuc, setOpenErr]);
     const handleClose = useCallback((test) => {
-        console.log(test);
         if(test === true){
+            //fetchUser();
             setOpenSuc(false);
-            history.push('/')
+            history.push('/');
+            window.location.reload();
         }else{
             setOpenErr(false);
         }

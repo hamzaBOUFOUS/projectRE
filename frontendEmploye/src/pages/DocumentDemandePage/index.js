@@ -11,9 +11,9 @@ import {
     Add,
     Delete,
     Edit,
+    CheckCircle,
 } from "@material-ui/icons";
 import {
-    Chip,
     makeStyles,
     Table,
     TableHead,
@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     coloredRow: {
         backgroundColor: "#F7F8FC",
     },
+    actionsV: { width: 120, textAlign: "center" },
     actions: { width: 120, textAlign: "right" },
     blur: { filter: "blur(4px)" },
     chip: { marginRight: theme.spacing(1) },
@@ -60,7 +61,7 @@ export default function ListDocumentDemandes(props) {
     const classes = useStyles();
     const { DocumentDemandeIdsData, status } = useSelector((state) => state.documentDemandes);
     const { content: documentDemandes, totalPages, number: page } = DocumentDemandeIdsData;
-    
+
     const user = JSON.parse(window.localStorage.getItem('tokenUser'));
     const id = user.id;
     const dispatch = useDispatch();
@@ -142,12 +143,12 @@ export default function ListDocumentDemandes(props) {
                                                         </TableCell>
                                                         <TableCell>
                                                             <strong>
-                                                            Type Document
+                                                                Type Document
                                                             </strong>
                                                         </TableCell>
                                                         <TableCell>
                                                             <strong>
-                                                            Etat
+                                                                Etat
                                                             </strong>
                                                         </TableCell>
                                                         <TableCell className={classes.actions} />
@@ -165,22 +166,34 @@ export default function ListDocumentDemandes(props) {
                                                             <TableCell>{documentDemande.id}</TableCell>
                                                             <TableCell>{documentDemande.document.typeDocument}</TableCell>
                                                             <TableCell>{documentDemande.etat}</TableCell>
-                                                            <TableCell className={classes.actions}>
-                                                                <IconButton
-                                                                    aria-haspopup="true"
-                                                                    onClick={handleOpenAddEdit(documentDemande)}
-                                                                    color="secondary"
-                                                                >
-                                                                    <Edit fontSize="small" />
-                                                                </IconButton>
-                                                                <IconButton
-                                                                    aria-haspopup="true"
-                                                                    onClick={handleOpenDelete(documentDemande)}
-                                                                    color="inherit"
-                                                                >
-                                                                    <Delete color="inherit" fontSize="small" />
-                                                                </IconButton>
-                                                            </TableCell>
+                                                            {documentDemande.etat == "ENATTENTE" ? (
+                                                                <TableCell className={classes.actions}>
+                                                                    <IconButton
+                                                                        aria-haspopup="true"
+                                                                        onClick={handleOpenAddEdit(documentDemande)}
+                                                                        color="secondary"
+                                                                    >
+                                                                        <Edit fontSize="small" />
+                                                                    </IconButton>
+                                                                    <IconButton
+                                                                        aria-haspopup="true"
+                                                                        onClick={handleOpenDelete(documentDemande)}
+                                                                        color="inherit"
+                                                                    >
+                                                                        <Delete color="inherit" fontSize="small" />
+                                                                    </IconButton>
+                                                                </TableCell>
+                                                            ) : (
+                                                                <TableCell className={classes.actionsV}>
+                                                                    <IconButton
+                                                                        aria-haspopup="true"
+                                                                        style={{ color: 'green' }}
+                                                                    >
+                                                                        <CheckCircle fontSize="large" />
+                                                                    </IconButton>
+                                                                </TableCell>
+                                                            )}
+
                                                         </TableRow>
                                                     ))}
                                                 </TableBody>

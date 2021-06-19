@@ -3,7 +3,7 @@ import Unauthenticated from './Unauthenticated'
 import './App.css';
 import { useUserAuthentication } from './hooks/useUserAuthentication';
 import Preloader from './pages/shared/preloader';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 
 function App() {
 

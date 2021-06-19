@@ -1,6 +1,7 @@
 import { createActions } from "reduxsauce";
 
 const { Types, Creators } = createActions({
+  logout:[],
   login: ["formLogin","handleOpen"],
   loginSuccess: ["data"],
   loginError: [],
@@ -16,6 +17,7 @@ const { Types, Creators } = createActions({
 });
 
 const { 
+  LOGOUT,
   LOGIN, 
   LOGIN_SUCCESS, 
   LOGIN_ERROR,
@@ -30,6 +32,7 @@ const {
   ADD_EDIT_USER_ERROR,
 } = Types;
 const { 
+  logout,
   login, 
   loginSuccess, 
   loginError,
@@ -45,9 +48,11 @@ const {
 } = Creators;
 
 export {
+  LOGOUT,
   LOGIN,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
+  logout,
   login,
   loginSuccess,
   loginError,

@@ -4,6 +4,7 @@ import AdminLTELogo from '../../../../node_modules/admin-lte/dist/img/AdminLTELo
 import { Link } from "react-router-dom";
 
 export default function SideBar(props) {
+    const user = JSON.parse(window.localStorage.getItem('token'));
     return (
         <>
             <aside className="main-sidebar sidebar-dark-primary elevation-4">
@@ -18,7 +19,7 @@ export default function SideBar(props) {
                             <img src={user2} className="img-circle elevation-2" alt="User Image" />
                         </div>
                         <div className="info">
-                            <Link to="/" className="d-block">Med Amine</Link>
+                            <Link to="/" className="d-block">{user?.nom+" "+user?.prenom}</Link>
                         </div>
                     </div>
 

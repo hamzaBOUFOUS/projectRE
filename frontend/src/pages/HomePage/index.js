@@ -9,7 +9,7 @@ import SideBar from "../shared/sidebar";
 export default function HomePage(props) {
     return (
         <>
-            
+            <Preloader />
             <div className="wrapper">
                 <Header />
                 <SideBar />

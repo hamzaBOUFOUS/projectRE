@@ -56,14 +56,15 @@ function* deleteCondidaturesaga({ condidatureId, handleClose }) {
 }
 
 function* addEditCondidaturesaga({ condidature, file, handleClose }) {
-  console.log(file);
-  console.log(condidature);
+  console.log(file)
   try {
     const { number: page, size } = yield select(
       (state) => state.condidatures.CondidaturesData
     );
     const formData = new FormData();
-    formData.append('file', file);
+    if(file!==undefined){
+      formData.append('file', file);
+    }
     formData.append('idC', condidature.id);
     formData.append('cin', condidature.cin);
     formData.append('nom', condidature.nom);
@@ -73,7 +74,7 @@ function* addEditCondidaturesaga({ condidature, file, handleClose }) {
     formData.append('adresse', condidature.adresse);
     formData.append('dateDepot', condidature.dateDepot);
     const filter = yield select((state) => state.condidatures.CondidaturesFilter);
-    const resp = yield call(fetch, "/condidature/add-edit", {
+    const resp = yield call(fetch, file!==undefined?"/condidature/add-edit":"/condidature/add-editNull", {
       body: formData,
       method: "POST",
     });

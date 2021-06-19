@@ -1,5 +1,6 @@
 import { createReducer } from "reduxsauce";
 import {
+  LOGOUT,
   LOGIN,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
@@ -23,6 +24,11 @@ const INITIAL_STATE = {
 const login = (state, action) => ({
   ...state,
   status: "loading",
+});
+
+const logout = (state, action) => ({
+  ...state,
+  isLoggedIn:false,
 });
 
 const loginSuccess = (state, action) => ({
@@ -70,6 +76,7 @@ const deleteUserError = (state, action) => ({
 });
 
 export const usersReducer = createReducer(INITIAL_STATE, {
+  [LOGOUT]:logout,
   [LOGIN]: login,
   [LOGIN_SUCCESS]: loginSuccess,
   [LOGIN_ERROR]: loginError,

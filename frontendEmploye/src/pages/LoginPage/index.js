@@ -36,8 +36,8 @@ export default function Login(props) {
     }, [setOpenSuc, setOpenErr]);
     const handleClose = useCallback((test) => {
         if(test === true){
-            setOpenSuc(false);
-            history.push('/')
+            history.push('/');
+            window.location.reload();
         }else{
             setOpenErr(false);
         }

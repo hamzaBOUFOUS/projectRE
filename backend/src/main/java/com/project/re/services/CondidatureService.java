@@ -25,6 +25,10 @@ public class CondidatureService {
         return condidatureRepositorie.save(condidature);
     }
 
+    public Condidature getCondidature(long id) throws Exception {
+        return condidatureRepositorie.findById(id).get();
+    }
+
     public void deleteCondidature(long id) throws Exception {
         if (!condidatureRepositorie.existsById(id)) {
             throw new Exception("Condidature not available");

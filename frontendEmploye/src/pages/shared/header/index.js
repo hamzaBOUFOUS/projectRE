@@ -1,11 +1,15 @@
 import React from "react";
 import { Link, useHistory } from 'react-router-dom';
+import history from '../../../histore'
+import { useUserAuthentication } from "../../../hooks/useUserAuthentication";
 
 export default function Header(props) {
-    const history = useHistory();
+    const { setIsLoggedIn } = useUserAuthentication();
     const logOut = () => {
         window.localStorage.clear();
-        history.push("/login");
+        setIsLoggedIn(false);
+        history.push('/login');
+        window.location.reload();
     }
     return (
         <>
